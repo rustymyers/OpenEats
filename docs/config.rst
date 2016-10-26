@@ -10,7 +10,7 @@ Database
 =========
 To setup Django for your database refer to the `Django Database`_ document
 
-.. _Django Database: https://docs.djangoproject.com/en/1.2/intro/tutorial01/#database-setup
+.. _Django Database: https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 Email
 ======
