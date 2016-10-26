@@ -176,7 +176,7 @@ perform the following steps;
 .. _MySQL-Python: https://sourceforge.net/projects/mysql-python/
 .. _MySQL: http://www.mysql.com
 .. _SQLite: http://www.sqlite.org/
-.. _django supported: https://docs.djangoproject.com/en/1.2/ref/databases/
+.. _django supported: https://docs.djangoproject.com/en/1.10/ref/databases/
 .. _PostgreSQL: http://www.postgresql.org/
 .. _Postgres: http://initd.org/psycopg/
 
