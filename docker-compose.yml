@@ -1,0 +1,31 @@
+version: '2'
+services:
+  api:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  node:
+    build: frontend/
+    command: npm start
+    volumes:
+      - ./frontend:/code
+      - node_modules:/code/node_modules
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+  db:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: openeats
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./database:/var/lib/mysql
+volumes:
+  node_modules:

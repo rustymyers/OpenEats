@@ -1,0 +1,74 @@
+[
+    {
+        "pk": 1,
+        "model": "recipe.recipe", 
+        "fields": {
+            "info": "This chili is requested every winter by friends and family. I have been  making this chili every since I was a small child and learned from my grandma",
+            "cuisine": 1,
+            "author": 1,
+            "title": "Tasty Chili",
+            "course": 2,
+            "servings": 8,
+            "rating": 3,
+            "update_date": "2011-05-21 07:35:32", 
+            "pub_date": "2011-05-21 07:35:32", 
+            "slug": "tasty-chili", 
+            "prep_time": 60,
+            "cook_time": 60
+        }
+    },
+    {
+        "pk": 2,
+        "model": "recipe.recipe",
+        "fields": {
+            "info": "This chili is requested every winter by friends and family. I have been  making this chili every since I was a small child and learned from my grandma",
+            "cuisine": 1,
+            "author": 1,
+            "title": "Tasty Chili 2",
+            "course": 2,
+            "servings": 8,
+            "rating": 3,
+            "update_date": "2011-05-21 07:35:32",
+            "pub_date": "2011-05-21 07:35:32",
+            "slug": "tasty-chili-2",
+            "prep_time": 60,
+            "cook_time": 60
+        }
+    },
+    {
+        "pk": 3,
+        "model": "recipe.recipe",
+        "fields": {
+            "info": "This chili is requested every winter by friends and family. I have been  making this chili every since I was a small child and learned from my grandma",
+            "cuisine": 1,
+            "author": 1,
+            "title": "Tasty Chili 3",
+            "course": 2,
+            "servings": 8,
+            "rating": 3,
+            "update_date": "2011-05-21 07:35:32",
+            "pub_date": "2011-05-21 07:35:32",
+            "slug": "tasty-chili-3",
+            "prep_time": 60,
+            "cook_time": 60
+        }
+    },
+    {
+        "pk": 4,
+        "model": "recipe.recipe",
+        "fields": {
+            "info": "This chili is requested every winter by friends and family. I have been  making this chili every since I was a small child and learned from my grandma",
+            "cuisine": 1,
+            "author": 1,
+            "title": "Tasty Chili 4",
+            "course": 2,
+            "servings": 8,
+            "rating": 3,
+            "update_date": "2011-05-21 07:35:32",
+            "pub_date": "2011-05-21 07:35:32",
+            "slug": "tasty-chili-4",
+            "prep_time": 60,
+            "cook_time": 60
+        }
+    }
+]
