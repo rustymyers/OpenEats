@@ -14,4 +14,5 @@ router.register(r'direction', views.DirectionViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^import-recipe/$', views.RecipeImportViewSet.as_view())
 ]

@@ -44,7 +44,7 @@ class BaseComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.value === undefined && this.props.value != nextProps.value) {
+    if (this.props.value !== nextProps.value) {
       this.setState({
         value: nextProps.value
       });

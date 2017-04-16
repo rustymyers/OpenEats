@@ -16,6 +16,7 @@ export var serverURLs = {
   direction: apiUrl + '/recipe/direction/',
   news: apiUrl + '/news/entry/',
   recipe: apiUrl + '/recipe/recipes/',
+  import_recipe: apiUrl + '/recipe/import-recipe/',
   list: apiUrl + '/list/lists/',
   list_item: apiUrl + '/list/items/',
   bulk_list_item: apiUrl + '/list/bulk_item/',

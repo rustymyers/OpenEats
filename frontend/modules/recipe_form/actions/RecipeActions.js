@@ -1,8 +1,7 @@
 import { request } from '../../common/CustomSuperagent';
 import AppDispatcher from '../../common/AppDispatcher';
-import AuthStore from '../../account/stores/AuthStore';
 import RecipeConstants from '../constants/RecipeConstants';
-import {serverURLs} from '../../common/config'
+import { serverURLs } from '../../common/config'
 
 class RecipeActions {
   submit(data) {

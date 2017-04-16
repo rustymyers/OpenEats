@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagList tests 1`] = `
+<div
+  className={undefined}
+>
+  <div
+    className="form-group"
+  >
+    <input
+      className="form-control"
+      name={undefined}
+      onChange={[Function]}
+      placeholder={undefined}
+      type={undefined}
+      value="testme, testmetoo"
+    />
+  </div>
+</div>
+`;
+
+exports[`TagList tests 2`] = `
+<div
+  className={undefined}
+>
+  <div
+    className="form-group has-error"
+  >
+    <input
+      className="form-control"
+      name={undefined}
+      onChange={[Function]}
+      placeholder={undefined}
+      type={undefined}
+      value="There was a problem"
+    />
+    <span
+      className="help-inline"
+    >
+      O
+    </span>
+  </div>
+</div>
+`;
