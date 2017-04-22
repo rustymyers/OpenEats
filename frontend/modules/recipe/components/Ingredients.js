@@ -15,9 +15,18 @@ export default React.createClass({
     var ingredients = this.state.data.map(function(ingredient) {
       return (
         <li className="ingredient" key={ ingredient.id }>
-          { ingredient.quantity }&nbsp;
-          { ingredient.measurement }&nbsp;
-          { ingredient.title }
+          { (ingredient.quantity !== 0)
+              ? <span className="quantity">{ ingredient.quantity } </span>
+              : null
+          }
+          { (ingredient.measurement)
+              ? <span className="measurement">{ ingredient.measurement } </span>
+              : null
+          }
+          { (ingredient.title)
+              ? <span className="title">{ ingredient.title }</span>
+              : null
+          }
         </li>
       );
     });
