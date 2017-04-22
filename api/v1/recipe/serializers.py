@@ -35,7 +35,6 @@ class MiniBrowseSerializer(serializers.ModelSerializer):
             'info'
         )
 
-
 class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     """ Used to create new recipes"""
     photo = serializers.ImageField(required=False)
@@ -140,3 +139,11 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
                 recipe.tags.add(obj)
 
         return recipe
+
+class RatingSerializer(serializers.ModelSerializer):
+    """ Standard `rest_framework` ModelSerializer """
+    total = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Recipe
+        fields = ('rating', 'total')

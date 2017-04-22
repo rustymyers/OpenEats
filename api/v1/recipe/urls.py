@@ -11,6 +11,7 @@ router = DefaultRouter(schema_title='Recipes')
 router.register(r'mini-browse', views.MiniBrowseViewSet)
 router.register(r'recipes', views.RecipeViewSet)
 router.register(r'direction', views.DirectionViewSet)
+router.register(r'rating', views.RatingViewSet, base_name='rating')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

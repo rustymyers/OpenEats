@@ -12,7 +12,7 @@ import ListRecipes from './ListRecipes'
 import Pagination from './Pagination'
 import BrowseActions from '../actions/BrowseActions';
 import BrowseStore from '../stores/BrowseStore';
-import { CourseStore, CuisineStore } from '../stores/FilterStores';
+import { CourseStore, CuisineStore, RatingStore } from '../stores/FilterStores';
 
 require("./../css/browse.scss");
 
@@ -34,7 +34,8 @@ export default injectIntl(React.createClass({
         limit: DEFAULTS.limit
       },
       courses: [],
-      cuisines: []
+      cuisines: [],
+      ratings: []
     };
   },
 
@@ -64,10 +65,15 @@ export default injectIntl(React.createClass({
     this.setState({cuisines: CuisineStore.getState()['data']});
   },
 
+  _onChangeRatings: function() {
+    this.setState({ratings: RatingStore.getState()['data']});
+  },
+
   componentDidMount: function() {
     BrowseStore.addChangeListener(this._onChangeRecipes);
     CourseStore.addChangeListener(this._onChangeCourses);
     CuisineStore.addChangeListener(this._onChangeCuisines);
+    RatingStore.addChangeListener(this._onChangeRatings);
 
     if (Object.keys(this.props.location.query).length > 0) {
       for (let key in this.props.location.query) {
@@ -78,12 +84,14 @@ export default injectIntl(React.createClass({
     BrowseActions.loadRecipes(this.state.filter);
     BrowseActions.loadCourses(this.state.filter);
     BrowseActions.loadCuisines(this.state.filter);
+    BrowseActions.loadRatings(this.state.filter);
   },
 
   componentWillUnmount: function() {
     BrowseStore.removeChangeListener(this._onChangeRecipes);
     CourseStore.removeChangeListener(this._onChangeCourses);
     CuisineStore.removeChangeListener(this._onChangeCuisines);
+    RatingStore.removeChangeListener(this._onChangeRatings);
   },
 
   doFilter: function(name, value) {
@@ -101,6 +109,10 @@ export default injectIntl(React.createClass({
 
     if (name !== 'cuisines') {
       BrowseActions.loadCuisines(this.state.filter);
+    }
+
+    if (name !== 'ratings') {
+      BrowseActions.loadRatings(this.state.filter);
     }
   },
 
@@ -126,6 +138,11 @@ export default injectIntl(React.createClass({
               />
               <Filter title="cuisine"
                       data={ this.state.cuisines }
+                      filter={ this.state.filter }
+                      doFilter={ this.doFilter }
+              />
+              <Filter title="rating"
+                      data={ this.state.ratings }
                       filter={ this.state.filter }
                       doFilter={ this.doFilter }
               />

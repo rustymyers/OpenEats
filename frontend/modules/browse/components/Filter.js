@@ -6,6 +6,7 @@ import {
     formatMessage
 } from 'react-intl';
 import BrowseActions from '../actions/BrowseActions';
+import classNames from 'classnames';
 
 require("./../css/filter.scss");
 
@@ -39,13 +40,18 @@ class Filter extends React.Component {
         id: 'filter.clear_filter',
         description: 'Clear filter button',
         defaultMessage: 'Clear filter',
+      },
+      x_stars: {
+        id: 'filter.x_stars',
+        description: 'X Stars',
+        defaultMessage: '{rating, number} stars',
       }
     });
 
     const items = this.props.data.map((item) => {
-      let classNames = ["list-group-item"];
-      if (this.props.filter[this.props.title] === item.slug) {
-        classNames += [" active"];
+      if (this.props.title == "rating") {
+        item.slug = item.rating;
+        item.title = formatMessage(messages.x_stars, {rating: item.rating});
       }
 
       if (item.total == 0) {
@@ -53,11 +59,16 @@ class Filter extends React.Component {
       }
 
       return (
-        <a className={ classNames }
-           href="#"
-           key={ item.id }
-           name={ item.slug }
-           onClick={ this._onClick }>
+        <a
+          className={ classNames(
+            "list-group-item",
+            {active: this.props.filter[this.props.title] === item.slug.toString()}
+          ) }
+          href="#"
+          key={ item.slug }
+          name={ item.slug }
+          onClick={ this._onClick }
+        >
           { item.title }
           <div className="clear"/>
           <span className="badge">{ item.total }</span>

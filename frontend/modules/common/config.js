@@ -11,6 +11,7 @@ export var serverURLs = {
   mini_browse: apiUrl + '/recipe/mini-browse/',
   cuisine: apiUrl + '/recipe_groups/cuisine/',
   course: apiUrl + '/recipe_groups/course/',
+  ratings: apiUrl + '/recipe/rating/',
   tag: apiUrl + '/recipe_groups/tag/',
   ingredient: apiUrl + '/ingredient/ingredient/',
   direction: apiUrl + '/recipe/direction/',

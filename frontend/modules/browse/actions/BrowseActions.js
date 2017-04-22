@@ -39,6 +39,19 @@ const BrowseActions = {
       err: err,
       res: res
     })
+  },
+
+  loadRatings: function(filter) {
+    AppDispatcher.dispatch({actionType: 'REQUEST_LOAD_RATINGS'});
+    Api.getRatings(this.processLoadedRatings, filter);
+  },
+
+  processLoadedRatings: function(err, res) {
+    AppDispatcher.dispatch({
+      actionType: 'PROCESS_LOAD_RATINGS',
+      err: err,
+      res: res
+    })
   }
 };
 

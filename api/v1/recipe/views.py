@@ -6,7 +6,8 @@ import uuid
 import tempfile
 import requests
 from django.core import files
-
+from django.db.models import Count
+from v1.recipe_groups.models import Cuisine, Course
 from rest_framework import permissions, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -26,7 +27,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.RecipeSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
-    filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title')
+    filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title', 'rating')
     search_fields = ('title', 'tags__title')
 
     def create(self, request, *args, **kwargs):
@@ -98,7 +99,6 @@ class DirectionViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('recipe',)
 
-
 class RecipeImportViewSet(APIView):
     """
     Given a URL this Viewset will mine a website for recipe data.
@@ -133,3 +133,24 @@ class RecipeImportViewSet(APIView):
             except:
                 return Response({'error': '2', 'response': 'Bad URL or URL not supported'})
         return Response({'error': '3', 'response': 'No URL given.'})
+
+class RatingViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = serializers.RatingSerializer
+
+    def get_queryset(self):
+        query = Recipe.objects
+
+        filter = {}
+        if 'cuisine' in self.request.query_params:
+            try:
+                filter['cuisine'] = Cuisine.objects.get(slug=self.request.query_params.get('cuisine'))
+            except:
+                return []
+
+        if 'course' in self.request.query_params:
+            try:
+                filter['course'] = Course.objects.get(slug=self.request.query_params.get('course'))
+            except:
+                return []
+
+        return query.filter(**filter).values('rating').annotate(total=Count('rating')).order_by('-rating')
