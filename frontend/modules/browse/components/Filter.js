@@ -79,7 +79,8 @@ class Filter extends React.Component {
     return (
       <div className="list-group filter">
          <p className="list-group-item disabled">
-           <b>{ formatMessage(messages.filter_x, {title: this.props.title }) }</b>
+           <b className="hidden-xs">{ formatMessage(messages.filter_x, {title: this.props.title }) }</b>
+           <b className="visible-xs">{ this.props.title }</b>
          </p>
         { items }
         { this.props.filter[this.props.title] ?

@@ -20,7 +20,7 @@ test('DirectionList component test', () => {
   expect(tree).toMatchSnapshot();
 
   // Then remove it.
-  tree.children[0].children[0].children[0].children[8].children[2].children[0].children[0].props.onClick(
+  tree.children[0].children[0].children[0].children[8].children[3].children[0].children[0].props.onClick(
     { preventDefault() {} }, 8
   );
   tree = component.toJSON();

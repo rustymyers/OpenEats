@@ -1,13 +1,21 @@
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
 
 .search-bar {
   margin-top: 20px;
 }
 
-.sidebar {
-  margin-top: 10px;
-}
-
 .no-results {
   margin-top: 100px;
   text-align: center;
+}
+
+@media (max-width: $screen-xs-max) {
+  .search-bar {
+    .input-group-addon{
+      border-top-left-radius: 0;
+    }
+    .form-control {
+      border-top-right-radius: 0;
+    }
+  }
 }

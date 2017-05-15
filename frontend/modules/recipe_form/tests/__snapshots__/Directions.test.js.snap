@@ -17,13 +17,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 1
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            1
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -40,7 +46,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -56,13 +62,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 2
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            2
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -79,7 +91,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -95,13 +107,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 3
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            3
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -118,7 +136,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -134,13 +152,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 4
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            4
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -157,7 +181,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -173,13 +197,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 5
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            5
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -196,7 +226,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -212,13 +242,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 6
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            6
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -235,7 +271,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -251,13 +287,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 7
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            7
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -274,7 +316,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -290,13 +332,19 @@ exports[`DirectionList component test 1`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 8
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            8
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -313,7 +361,7 @@ exports[`DirectionList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -355,13 +403,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 1
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            1
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -378,7 +432,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -394,13 +448,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 2
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            2
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -417,7 +477,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -433,13 +493,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 3
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            3
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -456,7 +522,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -472,13 +538,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 4
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            4
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -495,7 +567,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -511,13 +583,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 5
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            5
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -534,7 +612,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -550,13 +628,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 6
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            6
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -573,7 +657,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -589,13 +673,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 7
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            7
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -612,7 +702,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -628,13 +718,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 8
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            8
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -651,7 +747,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -667,13 +763,19 @@ exports[`DirectionList component test 2`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 9
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            9
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -690,7 +792,7 @@ exports[`DirectionList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -732,13 +834,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 1
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            1
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -755,7 +863,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -771,13 +879,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 2
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            2
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -794,7 +908,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -810,13 +924,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 3
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            3
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -833,7 +953,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -849,13 +969,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 4
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            4
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -872,7 +998,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -888,13 +1014,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 5
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            5
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -911,7 +1043,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -927,13 +1059,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 6
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            6
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -950,7 +1088,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -966,13 +1104,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 7
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            7
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -989,7 +1133,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"
@@ -1005,13 +1149,19 @@ exports[`DirectionList component test 3`] = `
           className="direction row"
         >
           <label
-            className="col-xs-1"
+            className="col-sm-1 hidden-xs"
           >
             Step 8
             :
           </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            8
+            :
+          </label>
           <div
-            className="col-xs-10"
+            className="col-sm-10 col-xs-9"
           >
             <div
               className="form-group null"
@@ -1028,7 +1178,7 @@ exports[`DirectionList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-xs-1"
+            className="col-sm-1 col-xs-2"
           >
             <div
               className="form-group"

@@ -1,4 +1,6 @@
 import React from 'react'
+import classNames from 'classnames';
+import SmoothCollapse from 'react-smooth-collapse';
 import {
     injectIntl,
     IntlProvider,
@@ -30,6 +32,7 @@ export default injectIntl(React.createClass({
     return {
       recipes: [],
       total_recipes: 0,
+      show_mobile_filters: false,
       filter: {
         limit: DEFAULTS.limit
       },
@@ -116,6 +119,10 @@ export default injectIntl(React.createClass({
     }
   },
 
+  toggleMobileFilters: function() {
+    this.setState({show_mobile_filters: !this.state.show_mobile_filters});
+  },
+
   render: function() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
@@ -126,26 +133,67 @@ export default injectIntl(React.createClass({
       }
     });
 
+    let header = (
+      <span>
+        Show Filters
+        <span className="glyphicon glyphicon-chevron-down pull-right"/>
+      </span>
+    );
+    if (this.state.show_mobile_filters) {
+      header = (
+        <span>
+          Hide Filters
+          <span className="glyphicon glyphicon-chevron-up pull-right"/>
+        </span>
+      );
+    }
+
+    let filters = (
+      <div className={ classNames(
+          "row",
+          "sidebar",
+        ) }>
+        <div className="col-sm-12 col-xs-4">
+          <Filter title="course"
+                  data={ this.state.courses }
+                  filter={ this.state.filter }
+                  doFilter={ this.doFilter }
+          />
+        </div>
+        <div className="col-sm-12 col-xs-4">
+          <Filter title="cuisine"
+                  data={ this.state.cuisines }
+                  filter={ this.state.filter }
+                  doFilter={ this.doFilter }
+          />
+        </div>
+        <div className="col-sm-12 col-xs-4">
+          <Filter title="rating"
+                data={ this.state.ratings }
+                filter={ this.state.filter }
+                doFilter={ this.doFilter }
+          />
+        </div>
+      </div>
+    );
+
     return (
       <div className="container">
         <div className="row">
-          <div className="sidebar col-sm-2 hidden-xs">
-            <div className="sidebar">
-              <Filter title="course"
-                      data={ this.state.courses }
-                      filter={ this.state.filter }
-                      doFilter={ this.doFilter }
-              />
-              <Filter title="cuisine"
-                      data={ this.state.cuisines }
-                      filter={ this.state.filter }
-                      doFilter={ this.doFilter }
-              />
-              <Filter title="rating"
-                      data={ this.state.ratings }
-                      filter={ this.state.filter }
-                      doFilter={ this.doFilter }
-              />
+          <div className="col-sm-2 col-xs-12">
+            <div className="hidden-xs">
+              { filters }
+            </div>
+
+            <div className="visible-xs sidebar-header" onClick={ this.toggleMobileFilters }>
+              { header }
+            </div>
+            <div className="visible-xs">
+              <SmoothCollapse
+                expanded={this.state.show_mobile_filters}
+                heightTransition=".5s ease">
+                { filters }
+              </SmoothCollapse>
             </div>
           </div>
           <div className="col-sm-10 col-xs-12">
