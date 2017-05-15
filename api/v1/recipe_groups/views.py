@@ -25,14 +25,17 @@ class CuisineViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         query = Cuisine.objects
 
+        filter = {}
         if 'course' in self.request.query_params:
             try:
-                course = Course.objects.get(slug=self.request.query_params.get('course'))
-                query = query.filter(recipe__course=course)
+                filter['recipe__course'] = Course.objects.get(slug=self.request.query_params.get('course'))
             except:
                 return []
 
-        return query.annotate(total=Count('recipe', distinct=True))
+        if 'rating' in self.request.query_params:
+            filter['recipe__rating'] = self.request.query_params.get('rating')
+
+        return query.filter(**filter).annotate(total=Count('recipe', distinct=True))
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -50,14 +53,17 @@ class CourseViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         query = Course.objects
 
+        filter = {}
         if 'cuisine' in self.request.query_params:
             try:
-                cuisine = Cuisine.objects.get(slug=self.request.query_params.get('cuisine'))
-                query = query.filter(recipe__cuisine=cuisine)
+                filter['recipe__cuisine'] = Cuisine.objects.get(slug=self.request.query_params.get('cuisine'))
             except:
                 return []
 
-        return query.annotate(total=Count('recipe', distinct=True))
+        if 'rating' in self.request.query_params:
+            filter['recipe__rating'] = self.request.query_params.get('rating')
+
+        return query.filter(**filter).annotate(total=Count('recipe', distinct=True))
 
 
 class TagViewSet(viewsets.ModelViewSet):

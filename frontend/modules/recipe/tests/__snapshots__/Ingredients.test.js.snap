@@ -7,110 +7,254 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
-    1
-     
-    dash
-     
-    black pepper
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      dash
+       
+    </span>
+    <span
+      className="title"
+    >
+      black pepper
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    4
-     
-    tablespoons
-     
-    chili powder
+    <span
+      className="quantity"
+    >
+      4
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      tablespoons
+       
+    </span>
+    <span
+      className="title"
+    >
+      chili powder
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    tablespoon
-     
-    cumin
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      tablespoon
+       
+    </span>
+    <span
+      className="title"
+    >
+      cumin
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    can
-     
-    dark kidney beans
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      can
+       
+    </span>
+    <span
+      className="title"
+    >
+      dark kidney beans
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    2
-     
-    cans
-     
-    diced tomatos
+    <span
+      className="quantity"
+    >
+      2
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      cans
+       
+    </span>
+    <span
+      className="title"
+    >
+      diced tomatos
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    whole
-     
-    green bell pepper
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      whole
+       
+    </span>
+    <span
+      className="title"
+    >
+      green bell pepper
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    pound
-     
-    ground pork
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      pound
+       
+    </span>
+    <span
+      className="title"
+    >
+      ground pork
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    pound
-     
-    ground sirloin
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      pound
+       
+    </span>
+    <span
+      className="title"
+    >
+      ground sirloin
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    dash
-     
-    kosher salt
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      dash
+       
+    </span>
+    <span
+      className="title"
+    >
+      kosher salt
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    can
-     
-    light kidney beans
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      can
+       
+    </span>
+    <span
+      className="title"
+    >
+      light kidney beans
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    whole
-     
-    serrano pepper 
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      whole
+       
+    </span>
+    <span
+      className="title"
+    >
+      serrano pepper 
+    </span>
   </li>
   <li
     className="ingredient"
   >
-    1
-     
-    whole
-     
-    white onion
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      whole
+       
+    </span>
+    <span
+      className="title"
+    >
+      white onion
+    </span>
   </li>
 </ul>
 `;

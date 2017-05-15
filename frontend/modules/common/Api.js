@@ -48,6 +48,20 @@ class ApiClass {
       .query(parsed_filter)
       .end(callback);
   }
+
+  getRatings(callback, filter) {
+    let parsed_filter = {};
+    for (let f in filter) {
+      if (!['limit', 'offset'].includes(f)) {
+        parsed_filter[f] = filter[f];
+      }
+    }
+
+    request
+      .get(serverURLs.ratings)
+      .query(parsed_filter)
+      .end(callback);
+  }
 }
 
 module.exports = new ApiClass();

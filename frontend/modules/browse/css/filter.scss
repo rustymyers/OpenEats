@@ -1,22 +1,69 @@
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
 
-.filter {
-  .list-group-item {
-    padding: 7px;
-    .clear {
-      clear: both;
-    }
-    .badge {
-      display: block;
-      margin-top: -20px;
+
+.sidebar {
+  margin-top: 20px;
+  .filter {
+    .list-group-item {
+      padding: 7px;
+      .clear {
+        clear: both;
+      }
+      .badge {
+        display: block;
+        margin-top: -20px;
+      }
     }
   }
 }
 
-@media (max-width: $screen-md-min) {
+@media (max-width: $screen-sm-max) {
   .filter {
     .list-group-item {
       padding: 7px 2px 7px 3px;
+    }
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .sidebar-header {
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    background-color: #eeeeee;
+    color: #777777;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 10px;
+  }
+  .sidebar {
+    border: 1px solid #ddd;
+    margin-top: 0;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding: 5px 0;
+    [class*="col-"] {
+      padding: 0 3px;
+    }
+    .filter {
+      margin-bottom: 0;
+      .list-group-item {
+        text-transform: capitalize;
+      }
+    }
+  }
+  .search-bar {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 490px) {
+  .sidebar {
+    .filter {
+      .list-group-item {
+        .badge {
+          display: none;
+        }
+      }
     }
   }
 }

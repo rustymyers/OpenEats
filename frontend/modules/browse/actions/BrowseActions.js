@@ -5,6 +5,7 @@ const BrowseActions = {
   loadRecipes: function(filter) {
     AppDispatcher.dispatch({actionType: 'REQUEST_LOAD_RECIPES'});
     Api.getRecipes(this.processLoadedRecipes, filter);
+    window.scrollTo(0, 0);
   },
 
   processLoadedRecipes: function(err, res) {
@@ -12,7 +13,7 @@ const BrowseActions = {
       actionType: 'PROCESS_LOAD_RECIPES',
       err: err,
       res: res
-    })
+    });
   },
 
   loadCourses: function(filter) {
@@ -36,6 +37,19 @@ const BrowseActions = {
   processLoadedCuisines: function(err, res) {
     AppDispatcher.dispatch({
       actionType: 'PROCESS_LOAD_CUISINES',
+      err: err,
+      res: res
+    })
+  },
+
+  loadRatings: function(filter) {
+    AppDispatcher.dispatch({actionType: 'REQUEST_LOAD_RATINGS'});
+    Api.getRatings(this.processLoadedRatings, filter);
+  },
+
+  processLoadedRatings: function(err, res) {
+    AppDispatcher.dispatch({
+      actionType: 'PROCESS_LOAD_RATINGS',
       err: err,
       res: res
     })

@@ -19,6 +19,7 @@ import News from './news/components/News'
 import Browse from './browse/components/Browse'
 import GroceryList from './list/components/GroceryList'
 import { RecipeForm } from './recipe_form/components/RecipeForm'
+import { ImportForm } from './recipe_form/components/ImportForm'
 import Recipe from './recipe/components/Recipe'
 import AuthStore from './account/stores/AuthStore'
 
@@ -48,6 +49,7 @@ const routeConfig = [
       { path: 'recipe',
         childRoutes: [
           { path: 'create', component: RecipeForm, onEnter: requireAuth },
+          { path: 'import', component: ImportForm, onEnter: requireAuth },
           { path: 'edit/:id', component: RecipeForm, onEnter: requireAuth },
           { path: ':recipe', component: Recipe }
         ]

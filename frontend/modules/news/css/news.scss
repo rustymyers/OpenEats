@@ -98,7 +98,7 @@ body {
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
-@media (min-width: $screen-sm-min) {
+@media (min-width: $screen-xs-max) {
   /* Navbar positioning foo */
   .navbar-wrapper {
     margin-top: 20px;

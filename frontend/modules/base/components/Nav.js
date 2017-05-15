@@ -133,11 +133,17 @@ var AccountMenu = injectIntl(React.createClass({
         id: 'nav.accountmenu.logout',
         description: 'Logout title',
         defaultMessage: 'Logout',
+      },
+      import: {
+        id: 'nav.accountmenu.import',
+        description: 'Import A Recipe',
+        defaultMessage: 'Import Recipe',
       }
     });
 
     return (
       <NavDropdown eventKey={1} title={ formatMessage(messages.title) } id="basic-nav-dropdown">
+        <LinkContainer to="/recipe/import"><MenuItem>{ formatMessage(messages.import) }</MenuItem></LinkContainer>
         <LinkContainer to="/recipe/create"><MenuItem>{ formatMessage(messages.create_recipe) }</MenuItem></LinkContainer>
         <LinkContainer to="/list"><MenuItem>{ formatMessage(messages.grocery_list) }</MenuItem></LinkContainer>
         <MenuItem divider />

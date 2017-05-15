@@ -19,6 +19,7 @@ require("./../css/recipe.scss");
 
 export default React.createClass({
   loadRecipeFromServer: function(id) {
+    window.scrollTo(0, 0);
     var url = serverURLs.recipe + id + "/";
     request
       .get(url)

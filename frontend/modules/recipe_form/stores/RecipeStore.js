@@ -12,7 +12,6 @@ var _formData = {};
 var _tags = [];
 var _course = [];
 var _cuisine = [];
-var _recipe = [];
 var _errors = false;
 
 function setData(name, value) {
@@ -117,6 +116,11 @@ RecipeStore.dispatchToken = AppDispatcher.register(action => {
     case RecipeConstants.ERROR:
       _errors = action.error;
       RecipeStore.emitError();
+      break;
+
+    case RecipeConstants.IMPORT:
+      _formData = Object.assign(_formData, action.recipe);
+      RecipeStore.emitChange();
       break;
 
     case RecipeConstants.SUBMIT:

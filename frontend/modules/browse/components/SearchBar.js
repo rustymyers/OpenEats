@@ -28,6 +28,11 @@ export default injectIntl(React.createClass({
         description: 'SearchBar label',
         defaultMessage: 'Search for Recipes',
       },
+      search_mobile: {
+        id: 'searchbar.mobile.label',
+        description: 'SearchBar mobile label',
+        defaultMessage: 'Search',
+      },
       input_placeholder: {
         id: 'searchbar.placeholder',
         description: 'SearchBar input placeholder',
@@ -38,7 +43,10 @@ export default injectIntl(React.createClass({
     return (
       <div className={ this.props.format }>
         <div className="input-group search-bar">
-          <span className="input-group-addon" id="search_bar_label">{ formatMessage(messages.search) }:</span>
+          <span className="input-group-addon" id="search_bar_label">
+            <span className="hidden-xs">{ formatMessage(messages.search) }:</span>
+            <span className="visible-xs">{ formatMessage(messages.search_mobile) }:</span>
+          </span>
           <DebounceInput
             name="SearchBar"
             minLength={2}

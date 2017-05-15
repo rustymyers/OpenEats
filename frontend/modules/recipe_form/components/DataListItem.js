@@ -46,9 +46,20 @@ class Direction extends React.Component {
 
     return (
       <div className="direction row">
-        <label className="col-xs-1">{ formatMessage(messages.step_label, {step: this.state.step}) }:</label>
-        <TextArea name="title" type="text" placeholder={ formatMessage(messages.textarea_placeholder) } size="col-xs-10" change={ this.update } value={ this.state.title }/>
-        <div className="col-xs-1">
+        <label className="col-sm-1 hidden-xs">
+          { formatMessage(messages.step_label, {step: this.state.step}) }:
+        </label>
+        <label className="col-sm-1 visible-xs">
+          { this.state.step }:
+        </label>
+        <TextArea
+          name="title"
+          type="text"
+          placeholder={ formatMessage(messages.textarea_placeholder) }
+          size="col-sm-10 col-xs-9"
+          change={ this.update }
+          value={ this.state.title }/>
+        <div className="col-sm-1 col-xs-2">
           <div className="form-group">
             <button onClick={ this.props.deleteData } className="btn btn-danger glyphicon glyphicon-remove" />
           </div>

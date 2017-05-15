@@ -1,4 +1,6 @@
 import React from 'react'
+import classNames from 'classnames';
+import SmoothCollapse from 'react-smooth-collapse';
 import {
     injectIntl,
     IntlProvider,
@@ -12,7 +14,7 @@ import ListRecipes from './ListRecipes'
 import Pagination from './Pagination'
 import BrowseActions from '../actions/BrowseActions';
 import BrowseStore from '../stores/BrowseStore';
-import { CourseStore, CuisineStore } from '../stores/FilterStores';
+import { CourseStore, CuisineStore, RatingStore } from '../stores/FilterStores';
 
 require("./../css/browse.scss");
 
@@ -30,11 +32,13 @@ export default injectIntl(React.createClass({
     return {
       recipes: [],
       total_recipes: 0,
+      show_mobile_filters: false,
       filter: {
         limit: DEFAULTS.limit
       },
       courses: [],
-      cuisines: []
+      cuisines: [],
+      ratings: []
     };
   },
 
@@ -64,10 +68,15 @@ export default injectIntl(React.createClass({
     this.setState({cuisines: CuisineStore.getState()['data']});
   },
 
+  _onChangeRatings: function() {
+    this.setState({ratings: RatingStore.getState()['data']});
+  },
+
   componentDidMount: function() {
     BrowseStore.addChangeListener(this._onChangeRecipes);
     CourseStore.addChangeListener(this._onChangeCourses);
     CuisineStore.addChangeListener(this._onChangeCuisines);
+    RatingStore.addChangeListener(this._onChangeRatings);
 
     if (Object.keys(this.props.location.query).length > 0) {
       for (let key in this.props.location.query) {
@@ -78,12 +87,14 @@ export default injectIntl(React.createClass({
     BrowseActions.loadRecipes(this.state.filter);
     BrowseActions.loadCourses(this.state.filter);
     BrowseActions.loadCuisines(this.state.filter);
+    BrowseActions.loadRatings(this.state.filter);
   },
 
   componentWillUnmount: function() {
     BrowseStore.removeChangeListener(this._onChangeRecipes);
     CourseStore.removeChangeListener(this._onChangeCourses);
     CuisineStore.removeChangeListener(this._onChangeCuisines);
+    RatingStore.removeChangeListener(this._onChangeRatings);
   },
 
   doFilter: function(name, value) {
@@ -102,6 +113,14 @@ export default injectIntl(React.createClass({
     if (name !== 'cuisines') {
       BrowseActions.loadCuisines(this.state.filter);
     }
+
+    if (name !== 'ratings') {
+      BrowseActions.loadRatings(this.state.filter);
+    }
+  },
+
+  toggleMobileFilters: function() {
+    this.setState({show_mobile_filters: !this.state.show_mobile_filters});
   },
 
   render: function() {
@@ -114,21 +133,67 @@ export default injectIntl(React.createClass({
       }
     });
 
+    let header = (
+      <span>
+        Show Filters
+        <span className="glyphicon glyphicon-chevron-down pull-right"/>
+      </span>
+    );
+    if (this.state.show_mobile_filters) {
+      header = (
+        <span>
+          Hide Filters
+          <span className="glyphicon glyphicon-chevron-up pull-right"/>
+        </span>
+      );
+    }
+
+    let filters = (
+      <div className={ classNames(
+          "row",
+          "sidebar",
+        ) }>
+        <div className="col-sm-12 col-xs-4">
+          <Filter title="course"
+                  data={ this.state.courses }
+                  filter={ this.state.filter }
+                  doFilter={ this.doFilter }
+          />
+        </div>
+        <div className="col-sm-12 col-xs-4">
+          <Filter title="cuisine"
+                  data={ this.state.cuisines }
+                  filter={ this.state.filter }
+                  doFilter={ this.doFilter }
+          />
+        </div>
+        <div className="col-sm-12 col-xs-4">
+          <Filter title="rating"
+                data={ this.state.ratings }
+                filter={ this.state.filter }
+                doFilter={ this.doFilter }
+          />
+        </div>
+      </div>
+    );
+
     return (
       <div className="container">
         <div className="row">
-          <div className="sidebar col-sm-2 hidden-xs">
-            <div className="sidebar">
-              <Filter title="course"
-                      data={ this.state.courses }
-                      filter={ this.state.filter }
-                      doFilter={ this.doFilter }
-              />
-              <Filter title="cuisine"
-                      data={ this.state.cuisines }
-                      filter={ this.state.filter }
-                      doFilter={ this.doFilter }
-              />
+          <div className="col-sm-2 col-xs-12">
+            <div className="hidden-xs">
+              { filters }
+            </div>
+
+            <div className="visible-xs sidebar-header" onClick={ this.toggleMobileFilters }>
+              { header }
+            </div>
+            <div className="visible-xs">
+              <SmoothCollapse
+                expanded={this.state.show_mobile_filters}
+                heightTransition=".5s ease">
+                { filters }
+              </SmoothCollapse>
             </div>
           </div>
           <div className="col-sm-10 col-xs-12">

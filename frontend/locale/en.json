@@ -20,6 +20,7 @@
   "browse.no_results": "Sorry, there are no results for your search.",
   "filter.filter_x": "Filter {title}",
   "filter.clear_filter": "Clear filter",
+  "filter.x_stars": "{rating, number} stars",
   "pagination.newer": "Newer",
   "pagination.older": "Older",
   "searchbar.label": "Search for Recipes",
