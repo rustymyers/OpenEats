@@ -7,6 +7,7 @@ import tempfile
 import requests
 from django.core import files
 from django.db.models import Count
+from django.db.models import Q
 from v1.recipe_groups.models import Cuisine, Course
 from rest_framework import permissions, viewsets, filters
 from rest_framework.response import Response
@@ -99,6 +100,7 @@ class DirectionViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('recipe',)
 
+
 class RecipeImportViewSet(APIView):
     """
     Given a URL this Viewset will mine a website for recipe data.
@@ -134,6 +136,7 @@ class RecipeImportViewSet(APIView):
                 return Response({'error': '2', 'response': 'Bad URL or URL not supported'})
         return Response({'error': '3', 'response': 'No URL given.'})
 
+
 class RatingViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.RatingSerializer
 
@@ -152,5 +155,11 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
                 filter['course'] = Course.objects.get(slug=self.request.query_params.get('course'))
             except:
                 return []
+
+        if 'search' in self.request.query_params:
+            query = query.filter(
+                Q(title__istartswith=self.request.query_params.get('search')) |
+                Q(tags__title__istartswith=self.request.query_params.get('search'))
+            )
 
         return query.filter(**filter).values('rating').annotate(total=Count('rating')).order_by('-rating')

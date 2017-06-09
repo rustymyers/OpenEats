@@ -6,21 +6,26 @@ import {
     formatMessage
 } from 'react-intl';
 
-export default injectIntl(React.createClass ({
+class Pagination extends React.Component {
+    constructor(props) {
+    super(props);
 
-  _onClick: function (event) {
+    this._onClick = this._onClick.bind(this);
+  }
+
+  _onClick(event) {
     event.preventDefault();
-    if(this.props.filter) {
+    if (this.props.filter) {
       this.props.filter('offset', parseInt(event.target.name));
     }
-  },
+  }
 
-  render: function() {
-    var offset = this.props.offset ? parseInt(this.props.offset) : 0;
-    var limit = this.props.limit ? parseInt(this.props.limit) : 0;
-    var count = this.props.count ? parseInt(this.props.count) : 0;
-    var next = offset + limit;
-    var previous = offset - limit;
+  render() {
+    let offset = this.props.offset ? parseInt(this.props.offset) : 0;
+    let limit = this.props.limit ? parseInt(this.props.limit) : 0;
+    let count = this.props.count ? parseInt(this.props.count) : 0;
+    let next = offset + limit;
+    let previous = offset - limit;
 
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
@@ -61,4 +66,6 @@ export default injectIntl(React.createClass ({
       </ul>
     );
   }
-}));
+}
+
+module.exports.Pagination = injectIntl(Pagination);

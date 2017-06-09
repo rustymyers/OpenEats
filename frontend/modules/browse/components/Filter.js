@@ -5,7 +5,6 @@ import {
     defineMessages,
     formatMessage
 } from 'react-intl';
-import BrowseActions from '../actions/BrowseActions';
 import classNames from 'classnames';
 
 require("./../css/filter.scss");
@@ -84,7 +83,7 @@ class Filter extends React.Component {
          </p>
         { items }
         { this.props.filter[this.props.title] ?
-          <a className="list-group-item"
+          <a className="list-group-item clear-filter"
              href="#"
              name={ '' }
              key={ 9999999999999999 }

@@ -2,6 +2,7 @@
 # encoding: utf-8
 from __future__ import unicode_literals
 
+from django.db.models import Q
 from django.db.models import Count
 from v1.recipe_groups.models import Cuisine, Course, Tag
 from v1.recipe_groups import serializers
@@ -35,6 +36,12 @@ class CuisineViewSet(viewsets.ModelViewSet):
         if 'rating' in self.request.query_params:
             filter['recipe__rating'] = self.request.query_params.get('rating')
 
+        if 'search' in self.request.query_params:
+            query = query.filter(
+                Q(recipe__title__istartswith=self.request.query_params.get('search')) |
+                Q(recipe__tags__title__istartswith=self.request.query_params.get('search'))
+            )
+
         return query.filter(**filter).annotate(total=Count('recipe', distinct=True))
 
 
@@ -62,6 +69,12 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         if 'rating' in self.request.query_params:
             filter['recipe__rating'] = self.request.query_params.get('rating')
+
+        if 'search' in self.request.query_params:
+            query = query.filter(
+                Q(recipe__title__istartswith=self.request.query_params.get('search')) |
+                Q(recipe__tags__title__istartswith=self.request.query_params.get('search'))
+            )
 
         return query.filter(**filter).annotate(total=Count('recipe', distinct=True))
 

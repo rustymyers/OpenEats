@@ -1,11 +1,49 @@
 import AppDispatcher from '../../common/AppDispatcher';
 import Api from '../../common/Api';
+import { browserHistory } from 'react-router'
+import DefaultFilters from '../constants/DefaultFilters'
 
 const BrowseActions = {
+  browseInit: function(query) {
+    let filter = DefaultFilters;
+
+    if (Object.keys(query).length > 0) {
+      for (let key in query) {
+        filter[key] = query[key];
+      }
+    }
+
+    this.loadRecipes(filter);
+    this.loadCourses(filter);
+    this.loadCuisines(filter);
+    this.loadRatings(filter);
+  },
+
   loadRecipes: function(filter) {
-    AppDispatcher.dispatch({actionType: 'REQUEST_LOAD_RECIPES'});
+    AppDispatcher.dispatch({
+      actionType: 'REQUEST_LOAD_RECIPES',
+      filter: filter
+    });
     Api.getRecipes(this.processLoadedRecipes, filter);
     window.scrollTo(0, 0);
+  },
+
+  updateURL: function(filter) {
+    let encode_data = [];
+    for (let key in filter) {
+      if (filter[key]) {
+        encode_data.push(
+          encodeURIComponent(key) + '=' + encodeURIComponent(filter[key])
+        );
+      }
+    }
+
+    let path = '/browse/';
+    if (encode_data.length > 0) {
+       path += '?' + encode_data.join('&');
+    }
+
+    browserHistory.push(path);
   },
 
   processLoadedRecipes: function(err, res) {

@@ -9,121 +9,115 @@ import {
 } from 'react-intl';
 
 import { Filter } from './Filter'
-import SearchBar from './SearchBar'
+import { SearchBar } from './SearchBar'
 import ListRecipes from './ListRecipes'
-import Pagination from './Pagination'
+import { Pagination } from './Pagination'
 import BrowseActions from '../actions/BrowseActions';
 import BrowseStore from '../stores/BrowseStore';
+import Spinner from 'react-spinkit';
 import { CourseStore, CuisineStore, RatingStore } from '../stores/FilterStores';
 
 require("./../css/browse.scss");
 
-// Array of default values that should be used when filtering
-const DEFAULTS = {
-  'limit': 12
-};
+class Browse extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default injectIntl(React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object
-  },
-
-  getInitialState: function() {
-    return {
+    this.state = {
       recipes: [],
       total_recipes: 0,
       show_mobile_filters: false,
-      filter: {
-        limit: DEFAULTS.limit
-      },
+      filter: {},
       courses: [],
       cuisines: [],
       ratings: []
     };
-  },
 
-  _onChangeRecipes: function() {
+    this._onChangeRecipes = this._onChangeRecipes.bind(this);
+    this._onChangeCourses = this._onChangeCourses.bind(this);
+    this._onChangeCuisines = this._onChangeCuisines.bind(this);
+    this._onChangeRatings = this._onChangeRatings.bind(this);
+    this.doFilter = this.doFilter.bind(this);
+    this.reloadData = this.reloadData.bind(this);
+    this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
+  }
+
+  _onChangeRecipes() {
     this.setState(BrowseStore.getState());
+  }
 
-    let encode_data = [];
-    for (let key in this.state.filter) {
-      if (this.state.filter[key]) {
-        encode_data.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.state.filter[key]));
-      }
-    }
-
-    let path = '/browse/';
-    if (encode_data.length > 0) {
-       path += '?' + encode_data.join('&');
-    }
-    
-    this.context.router.push(path);
-  },
-
-  _onChangeCourses: function() {
+  _onChangeCourses() {
     this.setState({courses: CourseStore.getState()['data']});
-  },
+  }
 
-  _onChangeCuisines: function() {
+  _onChangeCuisines() {
     this.setState({cuisines: CuisineStore.getState()['data']});
-  },
+  }
 
-  _onChangeRatings: function() {
+  _onChangeRatings() {
     this.setState({ratings: RatingStore.getState()['data']});
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     BrowseStore.addChangeListener(this._onChangeRecipes);
     CourseStore.addChangeListener(this._onChangeCourses);
     CuisineStore.addChangeListener(this._onChangeCuisines);
     RatingStore.addChangeListener(this._onChangeRatings);
 
-    if (Object.keys(this.props.location.query).length > 0) {
-      for (let key in this.props.location.query) {
-        this.state.filter[key] = this.props.location.query[key];
-      }
-    }
+    BrowseActions.browseInit(this.props.location.query);
+  }
 
-    BrowseActions.loadRecipes(this.state.filter);
-    BrowseActions.loadCourses(this.state.filter);
-    BrowseActions.loadCuisines(this.state.filter);
-    BrowseActions.loadRatings(this.state.filter);
-  },
-
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     BrowseStore.removeChangeListener(this._onChangeRecipes);
     CourseStore.removeChangeListener(this._onChangeCourses);
     CuisineStore.removeChangeListener(this._onChangeCuisines);
     RatingStore.removeChangeListener(this._onChangeRatings);
-  },
+  }
 
-  doFilter: function(name, value) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.query.offset !== nextProps.location.query.offset) {
+      BrowseActions.loadRecipes(nextProps.location.query);
+    } else if (this.props.location.query.offset !== nextProps.location.query.offset) {
+      this.reloadData(nextProps.location.query);
+    } else if (this.props.location.query.course !== nextProps.location.query.course) {
+      this.reloadData(nextProps.location.query);
+    } else if (this.props.location.query.cuisine !== nextProps.location.query.cuisine) {
+      this.reloadData(nextProps.location.query);
+    } else if (this.props.location.query.rating !== nextProps.location.query.rating) {
+      this.reloadData(nextProps.location.query);
+    } else if (this.props.location.query.search !== nextProps.location.query.search) {
+      this.reloadData(nextProps.location.query);
+    }
+  }
+
+  reloadData(filters) {
+    BrowseActions.loadRecipes(filters);
+    BrowseActions.loadCourses(filters);
+    BrowseActions.loadCuisines(filters);
+    BrowseActions.loadRatings(filters);
+  }
+
+  doFilter(name, value) {
+    // Get a deep copy of the filter state
+    let filters = JSON.parse(JSON.stringify(this.state.filter));
     if (value !== "") {
-      this.state.filter[name] = value;  
+      filters[name] = value;
     } else {
-      delete this.state.filter[name];
-    }
-    
-    BrowseActions.loadRecipes(this.state.filter);
-
-    if (name !== 'courses') {
-      BrowseActions.loadCourses(this.state.filter);
+      delete filters[name];
     }
 
-    if (name !== 'cuisines') {
-      BrowseActions.loadCuisines(this.state.filter);
+    if (name !== "offset") {
+      filters['offset'] = 0;
     }
 
-    if (name !== 'ratings') {
-      BrowseActions.loadRatings(this.state.filter);
-    }
-  },
+    BrowseActions.updateURL(filters)
+  }
 
-  toggleMobileFilters: function() {
+  toggleMobileFilters() {
     this.setState({show_mobile_filters: !this.state.show_mobile_filters});
-  },
+  }
 
-  render: function() {
+  render() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
       no_results: {
@@ -198,22 +192,27 @@ export default injectIntl(React.createClass({
           </div>
           <div className="col-sm-10 col-xs-12">
             <div className="row">
-              <SearchBar format="col-xs-12" filter={ this.doFilter }/>
+              <SearchBar format="col-xs-12" value={ this.state.filter.search } filter={ this.doFilter }/>
             </div>
             <div id="browse" className="row">
               {
                 this.state.recipes === undefined || this.state.recipes.length == 0 ?
-                  <h3 className="no-results">{ formatMessage(messages.no_results) }</h3>
+                  <div className="spinner">
+                    <h3 className="no-results">{ formatMessage(messages.no_results) }</h3>
+                    <Spinner className="spinner-obj" spinnerName="circle" noFadeIn />
+                  </div>
                 :
-                  <ListRecipes format="col-xs-12 col-sm-6 col-md-4 col-lg-3"
-                           data={this.state.recipes}/>
+                  <ListRecipes
+                    format="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+                    data={this.state.recipes}
+                  />
               }
             </div>
             <div className="row">
               <div className="col-xs-12">
-                <Pagination limit={ this.props.location.query['limit'] ? this.props.location.query['limit'] : DEFAULTS.limit}
+                <Pagination limit={ this.state.filter['limit']}
                             count={ this.state.total_recipes }
-                            offset={ this.props.location.query['offset'] }
+                            offset={ this.state.filter['offset'] }
                             filter={ this.doFilter }
                 />
               </div>
@@ -223,4 +222,6 @@ export default injectIntl(React.createClass({
       </div>
     );
   }
-}));
+}
+
+module.exports = injectIntl(Browse);

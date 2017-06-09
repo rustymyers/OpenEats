@@ -1,13 +1,23 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { request } from '../../common/CustomSuperagent';
-
 import ListRecipes from './ListRecipes'
-import {serverURLs} from '../../common/config'
+import { serverURLs } from '../../common/config'
 
 require("./../css/browse.scss");
 
-export default React.createClass({
-  loadRecipesFromServer: function (url) {
+class MiniBrowse extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: this.props.data || []
+    };
+
+    this.loadRecipesFromServer = this.loadRecipesFromServer.bind(this);
+  }
+
+  loadRecipesFromServer(url) {
     var base_url = serverURLs.mini_browse + url;
     request
       .get(base_url)
@@ -19,16 +29,22 @@ export default React.createClass({
           console.error(base_url, err.toString());
         }
       })
-  },
-  getInitialState: function() {
-    return { data: [] };
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.loadRecipesFromServer(this.props.qs);
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <ListRecipes format={this.props.format} data={this.state.data} />
     );
   }
-});
+}
+
+MiniBrowse.propTypes = {
+  format: PropTypes.string.isRequired,
+  qs: PropTypes.string.isRequired
+};
+
+module.exports = MiniBrowse;
