@@ -9,6 +9,7 @@ class BrowseStore extends EventEmitter {
     this.state = {
       loading: true,
       recipes: [],
+      filter: {},
       total_recipes: 0
     };
 
@@ -16,6 +17,7 @@ class BrowseStore extends EventEmitter {
       switch(payload.actionType) {
         case 'REQUEST_LOAD_RECIPES':
           this.state.loading = true;
+          this.state.filter = payload.filter;
           this.emitChange();
           break;
 

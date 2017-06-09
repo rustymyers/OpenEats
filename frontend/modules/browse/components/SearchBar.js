@@ -7,20 +7,46 @@ import {
     formatMessage
 } from 'react-intl';
 
-export default injectIntl(React.createClass({
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState: function() {
-    return { value: this.props.value || '' };
-  },
+    this.state = {
+      value: this.props.value || ''
+    };
+
+    this._clearInput = this._clearInput.bind(this);
+    this._onChange = this._onChange.bind(this);
+    this._filter = this._filter.bind(this);
+  }
+
+  _clearInput() {
+    this.setState({ value: '' }, this._filter);
+  }
 
   _onChange(event) {
-    this.setState({ value: event.target.value });
-    if(this.props.filter) {
-      this.props.filter('search', event.target.value);
-    }
-  },
+    this.setState({ value: event.target.value }, this._filter);
+  }
 
-  render: function() {
+  _filter() {
+    if (this.props.filter) {
+      this.props.filter('search', this.state.value);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.value) {
+      this.setState({ value: '' });
+    } else if (this.props.value !== nextProps.value) {
+      this.setState({ value: nextProps.value });
+    }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.value !== nextProps.value;
+  }
+
+  render() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
       search: {
@@ -40,6 +66,17 @@ export default injectIntl(React.createClass({
       }
     });
 
+    let clearInput = '';
+    if (this.state.value) {
+      clearInput = (
+        <span className="input-group-btn">
+          <button className="btn btn-default" type="button" onClick={ this._clearInput }>
+            <span className="glyphicon glyphicon-remove" aria-hidden="true"/>
+          </button>
+        </span>
+      )
+    }
+
     return (
       <div className={ this.props.format }>
         <div className="input-group search-bar">
@@ -49,15 +86,18 @@ export default injectIntl(React.createClass({
           </span>
           <DebounceInput
             name="SearchBar"
-            minLength={2}
-            debounceTimeout={250}
+            minLength={ 2 }
+            debounceTimeout={ 250 }
             aria-describedby="search_bar_label"
             className="form-control"
             placeholder={ formatMessage(messages.input_placeholder) }
             value={ this.state.value }
             onChange={ this._onChange }/>
+          { clearInput }
         </div>
       </div>
     )
   }
-}));
+}
+
+module.exports.SearchBar = injectIntl(SearchBar);

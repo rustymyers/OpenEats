@@ -3,15 +3,39 @@
 from __future__ import unicode_literals
 
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from rest_framework.serializers import ImageField
+from rest_framework.settings import api_settings
+
 
 from v1.recipe.models import Recipe, Direction
 from v1.recipe_groups.models import Tag
 from v1.ingredient.serializers import IngredientSerializer
 from v1.recipe_groups.serializers import TagSerializer
 from v1.ingredient.models import Ingredient
-from django.conf import settings
 from v1.recipe.mixins import FieldLimiter
+
+
+class CustomImageField(ImageField):
+    def to_representation(self, value):
+        use_url = getattr(self, 'use_url', api_settings.UPLOADED_FILES_USE_URL)
+        try:
+            if not value:
+                return None
+        except:
+            return None
+
+        if use_url:
+            if not getattr(value, 'url', None):
+                # If the file has not been saved it may not have a URL.
+                return None
+            url = value.url
+            request = self.context.get('request', None)
+            if request is not None:
+                return request.build_absolute_uri(url)
+            return url
+
+        return super(ImageField, self).to_representation(value)
+
 
 class DirectionSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """
@@ -22,7 +46,7 @@ class DirectionSerializer(serializers.ModelSerializer):
 
 class MiniBrowseSerializer(serializers.ModelSerializer):
     """ Used to get random recipes and limit the return data. """
-    photo_thumbnail = serializers.ImageField(required=False)
+    photo_thumbnail = CustomImageField(required=False)
 
     class Meta:
         model = Recipe
@@ -35,10 +59,11 @@ class MiniBrowseSerializer(serializers.ModelSerializer):
             'info'
         )
 
+
 class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     """ Used to create new recipes"""
-    photo = serializers.ImageField(required=False)
-    photo_thumbnail = serializers.ImageField(required=False)
+    photo = CustomImageField(required=False)
+    photo_thumbnail = CustomImageField(required=False)
     ingredients = IngredientSerializer(many=True)
     directions = DirectionSerializer(many=True)
     tags = TagSerializer(many=True, required=False)

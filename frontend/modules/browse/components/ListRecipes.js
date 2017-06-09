@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router'
 
 import Ratings from '../../recipe/components/Ratings';
@@ -56,8 +57,8 @@ class ListRecipes extends React.Component {
 }
 
 ListRecipes.propTypes = {
-  format: React.PropTypes.string.isRequired,
-  data: React.PropTypes.array.isRequired
+  format: PropTypes.string.isRequired,
+  data: PropTypes.array.isRequired
 };
 
 module.exports = ListRecipes;

@@ -55,7 +55,7 @@ class Recipe(models.Model):
     update_date = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['pub_date', 'title']
+        ordering = ['-pub_date', 'title']
 
     def __unicode__(self):
         return self.title
