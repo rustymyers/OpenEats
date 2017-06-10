@@ -30,6 +30,9 @@ class NavBar extends React.Component {
   componentDidMount() {
     AuthStore.addChangeListener(this._onChange);
     ListStore.addChangeListener(CHANGE_EVENT, this._onChange);
+    if (AuthStore.isAuthenticated()) {
+      ListActions.init();
+    }
   }
 
   componentWillUnmount() {
