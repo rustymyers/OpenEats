@@ -11,8 +11,15 @@ site-media/
 openeats.db
 *.css.map
 *.js.map
-templates/angular/
+api/templates/angular/
 frontend/node_modules/
 frontend/.DS_Store
+*.DS_Store
 static-files/
 database/
+frontend/build/
+frontend/jest/
+
+servies/static-files/
+servies/side-media/
+env_prod.list

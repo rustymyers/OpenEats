@@ -4,8 +4,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from .models import GroceryList, GroceryItem, \
-                   GroceryAisle, GroceryShared, \
-                   GroceryRecipe
+                   GroceryShared, GroceryRecipe
 from .serializers import GroceryItemSerializer
 
 
@@ -15,7 +14,6 @@ class GroceryListInline(admin.TabularInline):
 
 
 class GroceryListAdmin(admin.ModelAdmin):
-    #inlines = [GroceryListInline, ]
     list_display = ['title', 'author']
     list_filter = ['author']
     search_fields = ['author__username', 'title']
@@ -23,21 +21,14 @@ class GroceryListAdmin(admin.ModelAdmin):
 
 
 class GroceryItemAdmin(admin.ModelAdmin):
-    list_display = ['list', 'item', 'listAuthor']
+    list_display = ['list', 'title', 'listAuthor']
     list_filter = ['list', 'list__author']
-    ordering = ['list', 'item']
+    ordering = ['list', 'title']
     search_fields = ['list']
 
     def listAuthor(self, obj):
         return obj.list.author
     listAuthor.short_description = 'Author'
-
-
-class GroceryAisleAdmin(admin.ModelAdmin):
-    list_display = ['aisle', 'author']
-    ordering = ['aisle', 'author__username']
-    list_filter = ['author']
-    search_fields = ['author__username', 'aisle']
 
 
 class GrocerySharedAdmin(admin.ModelAdmin):
@@ -57,9 +48,7 @@ class GroceryRecipeAdmin(admin.ModelAdmin):
 
     listAuthor.short_description = 'Author'
 
-# TODO: Admin site is disabled for List since there are no web hooks yet
-# admin.site.register(GroceryList, GroceryListAdmin)
-# admin.site.register(GroceryShared, GrocerySharedAdmin)
-# admin.site.register(GroceryItem, GroceryItemAdmin)
-# admin.site.register(GroceryAisle, GroceryAisleAdmin)
-# admin.site.register(GroceryRecipe, GroceryRecipeAdmin)
+admin.site.register(GroceryList, GroceryListAdmin)
+admin.site.register(GroceryShared, GrocerySharedAdmin)
+admin.site.register(GroceryItem, GroceryItemAdmin)
+admin.site.register(GroceryRecipe, GroceryRecipeAdmin)

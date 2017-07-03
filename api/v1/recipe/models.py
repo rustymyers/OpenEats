@@ -9,7 +9,7 @@ from django_extensions.db.fields import AutoSlugField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from api.v1.recipe_groups.models import Cuisine, Course, Tag
+from v1.recipe_groups.models import Cuisine, Course, Tag
 
 
 class Recipe(models.Model):
@@ -55,7 +55,7 @@ class Recipe(models.Model):
     update_date = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['pub_date', 'title']
+        ordering = ['-pub_date', 'title']
 
     def __unicode__(self):
         return self.title
@@ -74,7 +74,7 @@ class Direction(models.Model):
     recipe = models.ForeignKey(Recipe, verbose_name=_('recipe'), related_name='directions', null=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ['step']
 
     def __unicode__(self):
         return self.title

@@ -1,20 +1,45 @@
 import React from 'react'
+import {
+    injectIntl,
+    IntlProvider,
+    defineMessages,
+    formatMessage
+} from 'react-intl';
 
-export default React.createClass ({
+class Pagination extends React.Component {
+    constructor(props) {
+    super(props);
 
-  _onClick: function (event) {
+    this._onClick = this._onClick.bind(this);
+  }
+
+  _onClick(event) {
     event.preventDefault();
-    if(this.props.filter) {
+    if (this.props.filter) {
       this.props.filter('offset', parseInt(event.target.name));
     }
-  },
+  }
 
-  render: function() {
-    var offset = this.props.offset ? parseInt(this.props.offset) : 0;
-    var limit = this.props.limit ? parseInt(this.props.limit) : 0;
-    var count = this.props.count ? parseInt(this.props.count) : 0;
-    var next = offset + limit;
-    var previous = offset - limit;
+  render() {
+    let offset = this.props.offset ? parseInt(this.props.offset) : 0;
+    let limit = this.props.limit ? parseInt(this.props.limit) : 0;
+    let count = this.props.count ? parseInt(this.props.count) : 0;
+    let next = offset + limit;
+    let previous = offset - limit;
+
+    const {formatMessage} = this.props.intl;
+    const messages = defineMessages({
+      newer: {
+        id: 'pagination.newer',
+        description: 'Newer content link text',
+        defaultMessage: 'Newer',
+      },
+      older: {
+        id: 'pagination.older',
+        description: 'Older content link text',
+        defaultMessage: 'Older',
+      }
+    });
 
     return (
       <ul className="pager">
@@ -23,7 +48,7 @@ export default React.createClass ({
             <a href="#"
                name={ previous }
                onClick={ this._onClick }>
-              &larr; Newer
+              &larr; { formatMessage(messages.newer) }
             </a>
             : ''
           }
@@ -33,7 +58,7 @@ export default React.createClass ({
             <a href="#"
                name={ next }
                onClick={ this._onClick }>
-               Older &rarr;
+               { formatMessage(messages.older) } &rarr;
             </a>
             : ''
           }
@@ -41,4 +66,6 @@ export default React.createClass ({
       </ul>
     );
   }
-})
+}
+
+module.exports.Pagination = injectIntl(Pagination);

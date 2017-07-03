@@ -9,7 +9,9 @@ function getPlugins() {
 
   plugins.push(new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'API_URL': JSON.stringify(process.env.NODE_API_URL),
+      'LOCALE': JSON.stringify(process.env.NODE_LOCALE)
     }
   }));
 
@@ -31,12 +33,20 @@ module.exports = {
     publicPath: '/'
   },
 
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json']
+  },
+
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader?presets[]=es2015&presets[]=react'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
       },
       {
         test: /\.css$/,
@@ -46,6 +56,10 @@ module.exports = {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
       },
+      {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
     ],
   },
 
@@ -53,7 +67,7 @@ module.exports = {
     historyApiFallback: true,
     inline: true,
     host: "0.0.0.0",
-    port: "8080"
+    port: process.env.NODE_PORT
   },
 
   plugins: getPlugins()

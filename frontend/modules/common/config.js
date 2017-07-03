@@ -1,18 +1,26 @@
-var apiHost = "http://localhost:8000";
+var apiHost = '';
+if (process.env.API_URL) {
+  apiHost = process.env.API_URL;
+}
+
 var apiUrl = apiHost + '/api/v1';
 
 export var serverURLs = {
   auth_token: apiUrl + '/accounts/obtain-auth-token/',
-  browse: apiUrl + '/recipe/recipes/?format=json&fields=id,title,pub_date,rating,photo_thumbnail,info',
-  mini_browse: apiUrl + '/recipe/mini-browse/?format=json',
-  //create: apiUrl + '/recipe/recipes/',
-  cuisine: apiUrl + '/recipe_groups/cuisine/?format=json',
-  course: apiUrl + '/recipe_groups/course/?format=json',
-  tag: apiUrl + '/recipe_groups/tag/?format=json',
-  ingredient: apiUrl + '/ingredient/ingredient/?format=json',
-  direction: apiUrl + '/recipe/direction/?format=json',
-  news: apiUrl + '/news/entry/?format=json',
+  browse: apiUrl + '/recipe/recipes/?fields=id,title,pub_date,rating,photo_thumbnail,info',
+  mini_browse: apiUrl + '/recipe/mini-browse/',
+  cuisine: apiUrl + '/recipe_groups/cuisine/',
+  course: apiUrl + '/recipe_groups/course/',
+  ratings: apiUrl + '/recipe/rating/',
+  tag: apiUrl + '/recipe_groups/tag/',
+  ingredient: apiUrl + '/ingredient/ingredient/',
+  direction: apiUrl + '/recipe/direction/',
+  news: apiUrl + '/news/entry/',
   recipe: apiUrl + '/recipe/recipes/',
+  import_recipe: apiUrl + '/recipe/import-recipe/',
+  list: apiUrl + '/list/lists/',
+  list_item: apiUrl + '/list/items/',
+  bulk_list_item: apiUrl + '/list/bulk_item/',
 };
 
 export var measurements = [

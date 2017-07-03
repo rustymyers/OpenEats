@@ -1,0 +1,1204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DirectionList component test 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-xs-12"
+  >
+    <div
+      className="panel panel-default"
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 1
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            1
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Brown the ground pork and ground sirlion in a medium pan. Add a teaspoon of sereano pepper while browning the meat. Season with kosher salt and pepper."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 2
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            2
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Chop the onion, bell pepper and one Serrano pepper and place them in a large pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 3
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            3
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Open up and drain both cans of kidney beans and add them to the large pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 4
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            4
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Open up both cans of stewed chili style tomatoes and add them to the pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 5
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            5
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Drain the grease away from the browned meat and add the meat to the pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 6
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            6
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Pour in the tomato juice over the meat mixture."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 7
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            7
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Add kosher salt, black pepper, two table spoons of chili powder, and two teaspoons of ground cumin. Stir well."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 8
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            8
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Cook slowly over medium low heat for an hour. If it starts to bubble turn down the heat. Taste during the cooking process to check the seasoning add more to taste."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <a
+          className="btn btn-success add-ing"
+          href="#"
+          onClick={[Function]}
+        >
+          Next direction
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DirectionList component test 2`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-xs-12"
+  >
+    <div
+      className="panel panel-default"
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 1
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            1
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Brown the ground pork and ground sirlion in a medium pan. Add a teaspoon of sereano pepper while browning the meat. Season with kosher salt and pepper."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 2
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            2
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Chop the onion, bell pepper and one Serrano pepper and place them in a large pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 3
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            3
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Open up and drain both cans of kidney beans and add them to the large pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 4
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            4
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Open up both cans of stewed chili style tomatoes and add them to the pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 5
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            5
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Drain the grease away from the browned meat and add the meat to the pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 6
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            6
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Pour in the tomato juice over the meat mixture."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 7
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            7
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Add kosher salt, black pepper, two table spoons of chili powder, and two teaspoons of ground cumin. Stir well."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 8
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            8
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Cook slowly over medium low heat for an hour. If it starts to bubble turn down the heat. Taste during the cooking process to check the seasoning add more to taste."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 9
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            9
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <a
+          className="btn btn-success add-ing"
+          href="#"
+          onClick={[Function]}
+        >
+          Next direction
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DirectionList component test 3`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-xs-12"
+  >
+    <div
+      className="panel panel-default"
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 1
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            1
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Brown the ground pork and ground sirlion in a medium pan. Add a teaspoon of sereano pepper while browning the meat. Season with kosher salt and pepper."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 2
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            2
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Chop the onion, bell pepper and one Serrano pepper and place them in a large pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 3
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            3
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Open up and drain both cans of kidney beans and add them to the large pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 4
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            4
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Open up both cans of stewed chili style tomatoes and add them to the pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 5
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            5
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Drain the grease away from the browned meat and add the meat to the pot."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 6
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            6
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Pour in the tomato juice over the meat mixture."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 7
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            7
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Add kosher salt, black pepper, two table spoons of chili powder, and two teaspoons of ground cumin. Stir well."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="direction row"
+        >
+          <label
+            className="col-sm-1 hidden-xs"
+          >
+            Step 8
+            :
+          </label>
+          <label
+            className="col-sm-1 visible-xs"
+          >
+            8
+            :
+          </label>
+          <div
+            className="col-sm-10 col-xs-9"
+          >
+            <div
+              className="form-group null"
+            >
+              <textarea
+                className="form-control"
+                name="title"
+                onChange={[Function]}
+                placeholder="Direction"
+                rows={undefined}
+                type="text"
+                value="Cook slowly over medium low heat for an hour. If it starts to bubble turn down the heat. Taste during the cooking process to check the seasoning add more to taste."
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-1 col-xs-2"
+          >
+            <div
+              className="form-group"
+            >
+              <button
+                className="btn btn-danger glyphicon glyphicon-remove"
+                onClick={[Function]}
+              />
+            </div>
+          </div>
+        </div>
+        <a
+          className="btn btn-success add-ing"
+          href="#"
+          onClick={[Function]}
+        >
+          Next direction
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

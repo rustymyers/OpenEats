@@ -7,14 +7,14 @@ const CHANGE_EVENT = 'change';
 
 var _errors = '';
 
-function setUser(token) {
-  if (!localStorage.getItem('id_token')) {
-    localStorage.setItem('id_token', token);
+function setUser(user) {
+  if (!localStorage.getItem('user')) {
+    localStorage.setItem('user', JSON.stringify(user));
   }
 }
 
 function removeUser() {
-  localStorage.removeItem('id_token');
+  localStorage.removeItem('user');
 }
 
 class AuthStoreClass extends EventEmitter {
@@ -31,14 +31,19 @@ class AuthStoreClass extends EventEmitter {
   }
 
   isAuthenticated() {
-    if (localStorage.getItem('id_token')) {
+    if (localStorage.getItem('user')) {
       return true;
     }
     return false;
   }
 
   getToken() {
-    return localStorage.getItem('id_token');
+    const user = this.getUser();
+    return user.token;
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   getErrors() {
@@ -56,7 +61,7 @@ AuthStore.dispatchToken = AppDispatcher.register(action => {
   switch(action.actionType) {
 
     case AuthConstants.LOGIN_USER:
-      setUser(action.token);
+      setUser(action.user);
       AuthStore.emitChange();
       browserHistory.push('/');
       break;
@@ -69,6 +74,7 @@ AuthStore.dispatchToken = AppDispatcher.register(action => {
     case AuthConstants.LOGOUT_USER:
       removeUser();
       AuthStore.emitChange();
+      browserHistory.push('/');
       break;
 
     default:

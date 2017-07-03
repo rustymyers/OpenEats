@@ -3,21 +3,38 @@
 from __future__ import unicode_literals
 
 from rest_framework import serializers
-from django.contrib.auth.models import User
-
-from .models import Recipe, Tag, Direction
-from api.v1.ingredient.serializers import IngredientSerializer
-from api.v1.recipe_groups.serializers import TagSerializer
-from api.v1.ingredient.models import Ingredient
-from django.conf import settings
-from .mixins import FieldLimiter
+from rest_framework.serializers import ImageField
+from rest_framework.settings import api_settings
 
 
-class MyImageField(serializers.ImageField):
+from v1.recipe.models import Recipe, Direction
+from v1.recipe_groups.models import Tag
+from v1.ingredient.serializers import IngredientSerializer
+from v1.recipe_groups.serializers import TagSerializer
+from v1.ingredient.models import Ingredient
+from v1.recipe.mixins import FieldLimiter
+
+
+class CustomImageField(ImageField):
     def to_representation(self, value):
-        if not bool(value):
-            return settings.MEDIA_URL + 'default_thumbnail.png'
-        return super(MyImageField, self).to_representation(value)
+        use_url = getattr(self, 'use_url', api_settings.UPLOADED_FILES_USE_URL)
+        try:
+            if not value:
+                return None
+        except:
+            return None
+
+        if use_url:
+            if not getattr(value, 'url', None):
+                # If the file has not been saved it may not have a URL.
+                return None
+            url = value.url
+            request = self.context.get('request', None)
+            if request is not None:
+                return request.build_absolute_uri(url)
+            return url
+
+        return super(ImageField, self).to_representation(value)
 
 
 class DirectionSerializer(serializers.ModelSerializer):
@@ -29,7 +46,7 @@ class DirectionSerializer(serializers.ModelSerializer):
 
 class MiniBrowseSerializer(serializers.ModelSerializer):
     """ Used to get random recipes and limit the return data. """
-    photo_thumbnail = MyImageField(required=False)
+    photo_thumbnail = CustomImageField(required=False)
 
     class Meta:
         model = Recipe
@@ -45,11 +62,12 @@ class MiniBrowseSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     """ Used to create new recipes"""
-    photo = MyImageField(required=False)
-    photo_thumbnail = MyImageField(required=False)
+    photo = CustomImageField(required=False)
+    photo_thumbnail = CustomImageField(required=False)
     ingredients = IngredientSerializer(many=True)
     directions = DirectionSerializer(many=True)
-    tags = TagSerializer(many=True)
+    tags = TagSerializer(many=True, required=False)
+    username = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
         model = Recipe
@@ -66,30 +84,43 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         direction_data = validated_data.pop('directions', None)
         tag_data = validated_data.pop('tags', None)
 
+        if 'rating' in validated_data:
+            rating = int(validated_data.get('rating', 0))
+            if rating < 0:
+                rating = 0
+            elif rating > 5:
+                rating = 5
+            validated_data['rating'] = rating
+
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
+
+        # Create the Ingredients
+        if ingredient_data:
+            for ingredient in instance.ingredients.all():
+                ingredient.delete()
+
+            for ingredient in ingredient_data:
+                Ingredient.objects.create(recipe=instance, **ingredient)
+
+        # Create the Directions
+        if direction_data:
+            for direction in instance.directions.all():
+                direction.delete()
+
+            for direction in direction_data:
+                Direction.objects.create(recipe=instance, **direction)
+
+        # Create the Tags
+        if tag_data:
+            for tag in instance.tags.all():
+                instance.tags.remove(tag)
+
+            for tag in tag_data:
+                obj, created = Tag.objects.get_or_create(title=tag['title'].strip())
+                instance.tags.add(obj)
+
         instance.save()
-
-        # # Create the Ingredients
-        # ingredient_instance = Ingredient.objects.get_or_create(recipe=recipe)
-        # for ingredient in ingredient_data:
-        #     for attr, value in ingredient:
-        #         setattr(ingredient_instance, attr, value)
-        #     ingredient_instance.save()
-        #
-        # # Create the Directions
-        # direction_instance = Ingredient.objects.get_or_create(recipe=recipe)
-        # for direction in direction_data:
-        #     for attr, value in direction:
-        #         setattr(direction_instance, attr, value)
-        #     direction_instance.save()
-
-        # # Create the Tags
-        # for tag in tag_data:
-        #     author = User.objects.get(pk=1)
-        #     obj, created = Tag.objects.get_or_create(title=tag['title'].strip(), defaults={'author': author})
-        #     recipe.tags.add(obj)
-
         return instance
 
     def create(self, validated_data):
@@ -103,8 +134,20 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         direction_data = validated_data.pop('directions', None)
         tag_data = validated_data.pop('tags', None)
 
-        # Create the recipe
-        recipe = Recipe.objects.create(**validated_data)
+        if 'rating' in validated_data:
+            rating = int(validated_data.get('rating', 0))
+            if rating < 0:
+                rating = 0
+            elif rating > 5:
+                rating = 5
+            validated_data['rating'] = rating
+
+        # Create the recipe.
+        # Use the log-in user as the author.
+        recipe = Recipe.objects.create(
+            author=self.context['request'].user,
+            **validated_data
+        )
 
         # Create the Ingredients
         for ingredient in ingredient_data:
@@ -115,8 +158,17 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
             Direction.objects.create(recipe=recipe, **direction)
 
         # Create the Tags
-        for tag in tag_data:
-            obj, created = Tag.objects.get_or_create(title=tag['title'].strip())
-            recipe.tags.add(obj)
+        if tag_data:
+            for tag in tag_data:
+                obj, created = Tag.objects.get_or_create(title=tag['title'].strip())
+                recipe.tags.add(obj)
 
         return recipe
+
+class RatingSerializer(serializers.ModelSerializer):
+    """ Standard `rest_framework` ModelSerializer """
+    total = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Recipe
+        fields = ('rating', 'total')

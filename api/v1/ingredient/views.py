@@ -7,7 +7,7 @@ from rest_framework import filters
 
 from .models import Ingredient
 from .serializers import IngredientSerializer
-from api.v1.common.permissions import IsOwnerOrReadOnly
+from v1.common.permissions import IsOwnerOrReadOnly
 
 
 class IngredientViewSet(viewsets.ModelViewSet):

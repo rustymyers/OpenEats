@@ -1,14 +1,32 @@
 import React from 'react'
-import request from 'superagent';
-import {Carousel} from 'react-bootstrap'
+import { Link } from 'react-router'
+import { Carousel } from 'react-bootstrap'
+import {
+    injectIntl,
+    IntlProvider,
+    defineMessages,
+    formatMessage
+} from 'react-intl'
+
+import { request } from '../../common/CustomSuperagent';
 import MiniBrowse from '../../browse/components/MiniBrowse'
-import {serverURLs} from '../../common/config'
+import { serverURLs } from '../../common/config'
 
 require("./../css/news.scss");
 
-export default React.createClass({
-  loadNewsFromServer: function() {
-    var url = serverURLs.news;
+class News extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      news: [],
+    };
+
+    this.loadNewsFromServer = this.loadNewsFromServer.bind(this);
+  }
+
+  loadNewsFromServer() {
+    let url = serverURLs.news;
     request
       .get(url)
       .type('json')
@@ -19,45 +37,54 @@ export default React.createClass({
           console.error(url, err.toString());
         }
       })
-  },
-  getInitialState: function() {
-    return { news: [], };
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.loadNewsFromServer();
-  },
-  render: function() {
+  }
+
+  render() {
+    const {formatMessage} = this.props.intl;
+    const messages = defineMessages({
+      browseRecipeButton: {
+        id: 'news.browse_recipe_button',
+        description: 'Browse All Recipes',
+        defaultMessage: 'Browse All Recipes',
+      },
+    });
+
+    let carouselItems = this.state.news.map((entry) => {
+      return (
+        <Carousel.Item key={ entry.id }>
+          <img src={ entry.image }/>
+          <Carousel.Caption>
+            <h3>{ entry.title }</h3>
+            <p dangerouslySetInnerHTML={{ __html: entry.content }}/>
+          </Carousel.Caption>
+        </Carousel.Item>
+      );
+    });
+
     return (
       <div>
-        <NewsCarousel data={this.state.news}/>
+        <Carousel>
+          { carouselItems }
+        </Carousel>
         <div className="container">
           <div className="row">
-            <MiniBrowse format="col-xs-12 col-sm-6 col-md-3" qs="&limit=4" />
+            <MiniBrowse format="col-xs-12 col-sm-6 col-md-3" qs="?limit=4" />
+          </div>
+          <div className="row home-buttons">
+            <div className="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-12">
+              <Link to="/browse" className="btn btn-primary home-browse-button">
+                { formatMessage(messages.browseRecipeButton) }
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     );
   }
-});
+}
 
-
-var NewsCarousel = React.createClass({
-  render: function() {
-    var entryNodes = this.props.data.map(function(entry) {
-      return (
-        <Carousel.Item key={entry.id}>
-          <img src={entry.image}/>
-          <Carousel.Caption>
-            <h3>{entry.title}</h3>
-            <p dangerouslySetInnerHTML={{__html: entry.content}}/>
-          </Carousel.Caption>
-        </Carousel.Item>
-      );
-    });
-    return (
-      <Carousel>
-        {entryNodes}
-      </Carousel>
-    );
-  }
-});
+module.exports = injectIntl(News);

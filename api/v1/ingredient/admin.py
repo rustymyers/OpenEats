@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from api.v1.ingredient.models import Ingredient
+from v1.ingredient.models import Ingredient
 
 
 class IngredientAdmin(admin.ModelAdmin):

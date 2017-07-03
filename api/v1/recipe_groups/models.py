@@ -26,9 +26,6 @@ class Cuisine(models.Model):
     def __unicode__(self):
         return self.title
 
-    def recipe_count(self):
-        return self.recipe_set.filter(shared=0).count()
-
 
 class Course(models.Model):
     """
@@ -47,9 +44,6 @@ class Course(models.Model):
 
     def __unicode__(self):
         return self.title
-
-    def recipe_count(self):
-        return self.recipe_set.filter(shared=0).count()
 
 
 class Tag(models.Model):

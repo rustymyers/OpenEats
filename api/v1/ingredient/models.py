@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from measurement.measures import Volume
 
-from api.v1.recipe.models import Recipe
+from v1.recipe.models import Recipe
 from .utils import mass_to_volume_lookup
 
 
@@ -25,7 +25,7 @@ class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, verbose_name=_('recipe'), related_name='ingredients', null=True)
  
     class Meta:
-        ordering = ['title']
+        ordering = ['id']
 
     def __unicode__(self):
         return self.title

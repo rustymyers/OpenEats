@@ -1,4 +1,10 @@
 import React from 'react'
+import {
+    injectIntl,
+    IntlProvider,
+    defineMessages,
+    formatMessage
+} from 'react-intl';
 import { browserHistory } from 'react-router'
 import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
@@ -13,7 +19,7 @@ function getAuthErrors() {
   };
 }
 
-export default React.createClass({
+export default injectIntl(React.createClass({
   getInitialState: function() {
     return getAuthErrors();
   },
@@ -40,24 +46,64 @@ export default React.createClass({
     AuthActions.getToken(username, pass);
   },
   render: function() {
+
+    const {formatMessage} = this.props.intl;
+    const messages = defineMessages({
+      please_sign_in: {
+        id: 'login.please_sign_in',
+        description: 'Please sign in header',
+        defaultMessage: 'Please sign in',
+      },
+      username: {
+        id: 'login.username',
+        description: 'Username placeholder',
+        defaultMessage: 'Username',
+      },
+      password: {
+        id: 'login.password',
+        description: 'Password placeholder',
+        defaultMessage: 'Password',
+      },
+      sign_in: {
+        id: 'login.sign_in',
+        description: 'Sign in button',
+        defaultMessage: 'Sign in',
+      }
+    });
+
     return (
       <form className="form-signin" onSubmit={this.handleSubmit}>
         { this.state.errors ? ( <Alert/> ) : ''}
-        <h2 className="form-signin-heading">Please sign in</h2>
-        <input type="text" id="username" className="form-control" placeholder="Username" ref="username" autoFocus="true"/>
-        <input type="password" id="password" className="form-control" placeholder="Password" ref="pass"/>
-        <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <h2 className="form-signin-heading">{ formatMessage(messages.please_sign_in) }</h2>
+        <input type="text" id="username" className="form-control" placeholder={ formatMessage(messages.username) } ref="username" autoFocus="true"/>
+        <input type="password" id="password" className="form-control" placeholder={ formatMessage(messages.password) } ref="pass"/>
+        <button className="btn btn-lg btn-primary btn-block" type="submit">{ formatMessage(messages.sign_in) }</button>
       </form>
     )
   }
-});
+}));
 
-var Alert = React.createClass({
+var Alert = injectIntl(React.createClass({
   render: function() {
+
+    const {formatMessage} = this.props.intl;
+    const messages = defineMessages({
+      title: {
+        id: 'login.alert.unable_to_login',
+        description: 'Fail to login header',
+        defaultMessage: 'Unable to login!',
+      },
+      message: {
+        id: 'login.alert.confirm',
+        description: 'Fail to login message',
+        defaultMessage: 'Please confirm that the username and password are correct.',
+      }
+    });
+
     return (
       <div className="alert alert-danger">
-        <strong>Unable to login!</strong> Please confirm that the username and password are correct.
+        <strong>{ formatMessage(messages.title) }</strong> { formatMessage(messages.message) }
       </div>
     )
   }
-});
+}));

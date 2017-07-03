@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from .models import News
 from .serializers import NewsSerializer
-from api.v1.common.permissions import IsAdminOrReadOnly
+from v1.common.permissions import IsAdminOrReadOnly
 
 
 class NewsViewSet(viewsets.ModelViewSet):

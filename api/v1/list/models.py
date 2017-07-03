@@ -6,10 +6,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import AutoSlugField
-from api.v1.recipe.models import Recipe
+from v1.recipe.models import Recipe
 
 
 class GroceryList(models.Model):
+    """
+    The GroceryList is the core of list app.
+    It offers a home to many GroceryItems.
+    title = The name of the GroceryList.
+    slug = The HTML safe name of the GroceryList.
+    author = The User who created the GroceryList.
+    pub_date = The date that the GroceryList was created on.
+    """
     title = models.CharField(_("grocery list title"), max_length=250)
     slug = AutoSlugField(_('slug'), populate_from='title')
     author = models.ForeignKey(User, verbose_name=_('user'))
@@ -21,64 +29,52 @@ class GroceryList(models.Model):
     def __unicode__(self):
         return self.title
 
-    def get_shared(self):
-        """check if the list is shared"""
-        if GroceryShared.objects.filter(list=self):
-            return True
-
-    def get_shared_to(self):
-        """if the list is shared get who it is shared to"""
-        if self.get_shared:
-            shared = GroceryShared.objects.get(list=self)
-            return shared.shared_to
-
-    def get_absolute_url(self):
-        return "/grocery/%s/%s/" % (self.author, self.slug)
-
-
-class GroceryAisle(models.Model):
-    """simple table to hold aisle names for the grocery list"""
-    aisle = models.CharField(_('aisle'), max_length=100)
-    author = models.ForeignKey(User, verbose_name=_('user'), blank=True, null=True)
-
-    class Meta:
-        ordering = ['aisle']
-
-    def __unicode__(self):
-        return self.aisle
+    def item_count(self):
+        """get the number of items in the list"""
+        return GroceryItem.objects.filter(list=self).count()
 
 
 class GroceryItem(models.Model):
+    """
+    The GroceryItem is an item on a GroceryList.
+    list = The GroceryList that owns the GroceryItem.
+    title = The name of the GroceryItem.
+    completed = Whether or not the GroceryItem has been purchased or
+                added to the users shopping cart in the supermarket.
+    """
     list = models.ForeignKey(GroceryList, verbose_name=_('grocery list'), related_name='items')
-    item = models.CharField(_("item"), max_length=550)
-    aisle = models.ForeignKey(GroceryAisle, blank=True, null=True, default=None, on_delete=models.SET_NULL)
-    
+    title = models.CharField(_("title"), max_length=550)
+    completed = models.BooleanField(_("completed"), default=False)
+
     class Meta:
-        ordering = ['aisle', 'item']
+        ordering = ['pk']
 
     def __unicode__(self):
-        return self.item
+        return self.title
 
 
 class GroceryShared(models.Model):
+    """
+    Determines whether or not a GroceryList is shared to another user.
+    Shared lists allow other uses to add/delete/edit the GroceryList.
+    list = The GroceryList to be shared.
+    shared_by = The User that shared the List.
+    shared_to = The User that is given access to a GroceryList.
+    """
     list = models.ForeignKey(GroceryList, verbose_name=_('grocery list'))
     shared_by = models.ForeignKey(User, verbose_name=_('shared by'), related_name="shared_by")
     shared_to = models.ForeignKey(User, verbose_name=_('shared to'), related_name="shared_to")
-
-    class Meta:
-        verbose_name_plural = "shared lists"
-
-    def save(self, *args, **kwargs):
-        """make sure the shared_by field is always set the to the owner of the list"""
-        if not self.id:
-            self.shared_by = self.list.author
-        super(GroceryShared, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.list.title
 
 
 class GroceryRecipe(models.Model):
+    """
+    This model links a GroceryList to a Recipe.
+    list = The GroceryList has holds the Recipe.
+    recipe = The Recipe that is on a GroceryList.
+    """
     list = models.ForeignKey(GroceryList, verbose_name=_('grocery list'))
     recipe = models.ForeignKey(Recipe, verbose_name=_('recipe'))
 

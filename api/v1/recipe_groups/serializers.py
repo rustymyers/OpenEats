@@ -8,16 +8,18 @@ from .models import Cuisine, Course, Tag
 
 class CuisineSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """
+    total = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Cuisine
-        exclude = ('slug',)
 
 
 class CourseSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """
+    total = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Course
-        exclude = ('slug',)
 
 
 class TagSerializer(serializers.ModelSerializer):

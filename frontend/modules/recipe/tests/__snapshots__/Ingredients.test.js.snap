@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ingredient component test 1`] = `
+<ul
+  className="ingredients"
+>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      dash
+       
+    </span>
+    <span
+      className="title"
+    >
+      black pepper
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      4
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      tablespoons
+       
+    </span>
+    <span
+      className="title"
+    >
+      chili powder
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      tablespoon
+       
+    </span>
+    <span
+      className="title"
+    >
+      cumin
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      can
+       
+    </span>
+    <span
+      className="title"
+    >
+      dark kidney beans
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      2
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      cans
+       
+    </span>
+    <span
+      className="title"
+    >
+      diced tomatos
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      whole
+       
+    </span>
+    <span
+      className="title"
+    >
+      green bell pepper
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      pound
+       
+    </span>
+    <span
+      className="title"
+    >
+      ground pork
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      pound
+       
+    </span>
+    <span
+      className="title"
+    >
+      ground sirloin
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      dash
+       
+    </span>
+    <span
+      className="title"
+    >
+      kosher salt
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      can
+       
+    </span>
+    <span
+      className="title"
+    >
+      light kidney beans
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      whole
+       
+    </span>
+    <span
+      className="title"
+    >
+      serrano pepper 
+    </span>
+  </li>
+  <li
+    className="ingredient"
+  >
+    <span
+      className="quantity"
+    >
+      1
+       
+    </span>
+    <span
+      className="measurement"
+    >
+      whole
+       
+    </span>
+    <span
+      className="title"
+    >
+      white onion
+    </span>
+  </li>
+</ul>
+`;
