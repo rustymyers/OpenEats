@@ -45,7 +45,23 @@
   }
   .recipe-schema {
     padding: 20px;
+    .table {
+      td {
+        text-align: center;
+        vertical-align: middle;
+        .servings-textbox {
+          .form-group {
+            margin-bottom: 0;
+            .form-control {
+              display: inline-block;
+              max-width: 75px;
+            }
+          }
+        }
+      }
+    }
     .panel-default {
+      margin-bottom: 0;
       border-color: transparent;
       box-shadow: 0 0 0 transparent;
       th, td {

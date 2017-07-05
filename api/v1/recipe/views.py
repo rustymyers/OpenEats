@@ -29,7 +29,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title', 'rating')
-    search_fields = ('title', 'tags__title')
+    search_fields = ('title', 'tags__title', 'ingredients__title')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -58,7 +58,7 @@ class AccountMenuMenuItem extends React.Component {
       <NavDropdown eventKey={1}
                    title={ formatMessage(messages.title) }
                    id="basic-nav-dropdown">
-        <LinkContainer to="/admin">
+        <LinkContainer to="/admin/">
           <NavItem>{formatMessage(messages.admin)}</NavItem>
         </LinkContainer>
         <MenuItem divider />
