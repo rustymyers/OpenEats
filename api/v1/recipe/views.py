@@ -29,7 +29,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title', 'rating')
-    search_fields = ('title', 'tags__title')
+    search_fields = ('title', 'tags__title', 'ingredients__title')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -146,20 +146,30 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
         filter = {}
         if 'cuisine' in self.request.query_params:
             try:
-                filter['cuisine'] = Cuisine.objects.get(slug=self.request.query_params.get('cuisine'))
+                filter['cuisine'] = Cuisine.objects.get(
+                    slug=self.request.query_params.get('cuisine')
+                )
             except:
                 return []
 
         if 'course' in self.request.query_params:
             try:
-                filter['course'] = Course.objects.get(slug=self.request.query_params.get('course'))
+                filter['course'] = Course.objects.get(
+                    slug=self.request.query_params.get('course')
+                )
             except:
                 return []
 
         if 'search' in self.request.query_params:
-            query = query.filter(
-                Q(title__istartswith=self.request.query_params.get('search')) |
-                Q(tags__title__istartswith=self.request.query_params.get('search'))
+            search = self.request.query_params.get('search')
+            query = query.filter((
+                    Q(title__icontains=search) |
+                    Q(ingredients__title__icontains=search) |
+                    Q(tags__title__icontains=search)
+                ),
+                **filter
             )
+        else:
+            query = query.filter(**filter)
 
         return query.filter(**filter).values('rating').annotate(total=Count('rating')).order_by('-rating')

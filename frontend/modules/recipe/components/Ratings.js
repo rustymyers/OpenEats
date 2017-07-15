@@ -2,8 +2,8 @@ import React from 'react'
 
 require("./../css/ratings.scss");
 
-export default React.createClass({
-  render: function() {
+class Ratings extends React.Component {
+  render() {
     let stars = this.props.stars ? this.props.stars : 0;
     if (stars > 5) {
       stars = 5;
@@ -25,4 +25,6 @@ export default React.createClass({
       </p>
     );
   }
-});
+}
+
+module.exports = Ratings;
