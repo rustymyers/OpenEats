@@ -120,20 +120,20 @@ class RecipeScheme extends React.Component {
   render() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
-      cooking_time: {
-        id: 'recipe.cooking_time',
-        description: 'Cooking time',
-        defaultMessage: 'Cooking time',
+      servings: {
+        id: 'recipe.servings',
+        description: 'Servings',
+        defaultMessage: 'Servings',
       },
       prep_time: {
         id: 'recipe.prep_time',
         description: 'Preparation time',
         defaultMessage: 'Prep time',
       },
-      servings: {
-        id: 'recipe.servings',
-        description: 'Servings',
-        defaultMessage: 'Servings',
+      cooking_time: {
+        id: 'recipe.cooking_time',
+        description: 'Cooking time',
+        defaultMessage: 'Cooking time',
       },
       ingredients: {
         id: 'recipe.ingredients',
@@ -183,15 +183,13 @@ class RecipeScheme extends React.Component {
                   <table className="table table-bordered">
                     <thead>
                       <tr className="active">
-                        <th>{ formatMessage(messages.cooking_time) }</th>
-                        <th>{ formatMessage(messages.prep_time) }</th>
                         <th>{ formatMessage(messages.servings) }</th>
+                        <th>{ formatMessage(messages.prep_time) }</th>
+                        <th>{ formatMessage(messages.cooking_time) }</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{ this.state.data.cook_time } { formatMessage(messages.minutes) }</td>
-                        <td>{ this.state.data.prep_time } { formatMessage(messages.minutes) }</td>
                         <td>
                           <Input
                             name="servings"
@@ -200,6 +198,8 @@ class RecipeScheme extends React.Component {
                             change={ this.updateServings }
                             value={ this.state.data.servings } />
                         </td>
+                        <td>{ this.state.data.prep_time } { formatMessage(messages.minutes) }</td>
+                        <td>{ this.state.data.cook_time } { formatMessage(messages.minutes) }</td>
                       </tr>
                     </tbody>
                   </table>
