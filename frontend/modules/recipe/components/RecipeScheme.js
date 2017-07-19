@@ -232,9 +232,7 @@ class RecipeScheme extends React.Component {
                   : null
                 }
                 <div>{ formatMessage(messages.created_by) }: { this.state.data.username }</div>
-                <div className="hidden-sm hidden-xs">
-                  { formatMessage(messages.last_updated) }: { this.state.data.update_date }
-                </div>
+                <div>{ formatMessage(messages.last_updated) }: { this.state.data.update_date }</div>
               </div>
               <div className="col-lg-2 col-md-6 col-xs-4 pull-right text-right">
                 { this.showEditLink() }
