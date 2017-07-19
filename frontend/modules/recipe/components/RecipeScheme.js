@@ -22,6 +22,7 @@ class RecipeScheme extends React.Component {
       data: this.props.data
     };
 
+    this.print = this.print.bind(this);
     this.updateServings = this.updateServings.bind(this);
     this.showRecipeImageHeader = this.showRecipeImageHeader.bind(this);
     this.showRecipeImageThumb = this.showRecipeImageThumb.bind(this);
@@ -31,6 +32,10 @@ class RecipeScheme extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ data: nextProps.data });
+  }
+
+  print() {
+    window.print();
   }
 
   updateServings(key, value) {
@@ -59,10 +64,17 @@ class RecipeScheme extends React.Component {
     if (this.state.data.photo) {
       return (
         <div className="panel-heading hero-image" style={{ backgroundImage: "url("+this.state.data.photo+")"}}>
-          <div className="row">
-            <div className="col-lg-12">
+          <div className="row title">
+            <div className="col-xs-12">
               <h3>{this.state.data.title}</h3>
               <Ratings stars={ this.state.data.rating }/>
+            </div>
+          </div>
+          <div className="row options print-hidden">
+            <div className="col-xs-12">
+              <button className="btn btn-primary btn-sm" onClick={ this.print }>
+                <span className="glyphicon glyphicon-print" aria-hidden="true"/>
+              </button>
             </div>
           </div>
         </div>
@@ -71,7 +83,7 @@ class RecipeScheme extends React.Component {
       return (
         <div className="panel-heading">
           <div className="row">
-            <div className="col-lg-12">
+            <div className="col-xs-12">
               <h3>{this.state.data.title}</h3>
               <Ratings stars={ this.state.data.rating }/>
             </div>
@@ -84,11 +96,11 @@ class RecipeScheme extends React.Component {
   showRecipeImageThumb() {
     if (this.state.data.photo_thumbnail) {
       return (
-        <img className="img-responsive" src={ this.state.data.photo_thumbnail } />
+        <img className="img-responsive print-hidden" src={ this.state.data.photo_thumbnail } />
       );
     } else {
       return (
-        <img className="img-responsive" src="/images/default_recipe_image.png" />
+        <img className="img-responsive print-hidden" src="/images/default_recipe_image.png" />
       );
     }
   }
@@ -170,16 +182,18 @@ class RecipeScheme extends React.Component {
     return (
       <div className="recipe-details">
         <div className="panel panel-success">
-
           { this.showRecipeImageHeader() }
-
           <div className="recipe-schema" itemType="http://schema.org/Recipe">
             <div className="row">
               <div className="mobile-image">
-                <img className="img-responsive" src={ this.state.data.photo } />
+                <img className="img-responsive print-hidden" src={ this.state.data.photo } />
               </div>
               <div className="col-sm-7 col-sm-push-5 col-xs-12">
                 <div className="panel panel-default">
+                  <p className="print-only print-image">
+                    <img className="img-responsive" src={ this.state.data.photo_thumbnail } />
+                  </p>
+
                   <table className="table table-bordered">
                     <thead>
                       <tr className="active">
@@ -194,9 +208,10 @@ class RecipeScheme extends React.Component {
                           <Input
                             name="servings"
                             type="number"
-                            size="servings-textbox"
+                            size="servings-textbox print-hidden"
                             change={ this.updateServings }
                             value={ this.state.data.servings } />
+                          <p className="print-only">{ this.state.data.servings }</p>
                         </td>
                         <td>{ this.state.data.prep_time } { formatMessage(messages.minutes) }</td>
                         <td>{ this.state.data.cook_time } { formatMessage(messages.minutes) }</td>
