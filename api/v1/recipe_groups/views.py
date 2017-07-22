@@ -29,7 +29,9 @@ class CuisineViewSet(viewsets.ModelViewSet):
         filter = {}
         if 'course' in self.request.query_params:
             try:
-                filter['recipe__course'] = Course.objects.get(slug=self.request.query_params.get('course'))
+                filter['recipe__course'] = Course.objects.get(
+                    slug=self.request.query_params.get('course')
+                )
             except:
                 return []
 
@@ -37,12 +39,18 @@ class CuisineViewSet(viewsets.ModelViewSet):
             filter['recipe__rating'] = self.request.query_params.get('rating')
 
         if 'search' in self.request.query_params:
-            query = query.filter(
-                Q(recipe__title__istartswith=self.request.query_params.get('search')) |
-                Q(recipe__tags__title__istartswith=self.request.query_params.get('search'))
+            search = self.request.query_params.get('search')
+            query = query.filter((
+                    Q(recipe__title__icontains=search) |
+                    Q(recipe__ingredients__title__icontains=search) |
+                    Q(recipe__tags__title__icontains=search)
+                ),
+                **filter
             )
+        else:
+            query = query.filter(**filter)
 
-        return query.filter(**filter).annotate(total=Count('recipe', distinct=True))
+        return query.annotate(total=Count('recipe', distinct=True))
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -63,7 +71,9 @@ class CourseViewSet(viewsets.ModelViewSet):
         filter = {}
         if 'cuisine' in self.request.query_params:
             try:
-                filter['recipe__cuisine'] = Cuisine.objects.get(slug=self.request.query_params.get('cuisine'))
+                filter['recipe__cuisine'] = Cuisine.objects.get(
+                    slug=self.request.query_params.get('cuisine')
+                )
             except:
                 return []
 
@@ -71,12 +81,18 @@ class CourseViewSet(viewsets.ModelViewSet):
             filter['recipe__rating'] = self.request.query_params.get('rating')
 
         if 'search' in self.request.query_params:
-            query = query.filter(
-                Q(recipe__title__istartswith=self.request.query_params.get('search')) |
-                Q(recipe__tags__title__istartswith=self.request.query_params.get('search'))
+            search = self.request.query_params.get('search')
+            query = query.filter((
+                    Q(recipe__title__icontains=search) |
+                    Q(recipe__ingredients__title__icontains=search) |
+                    Q(recipe__tags__title__icontains=search)
+                ),
+                **filter
             )
+        else:
+            query = query.filter(**filter)
 
-        return query.filter(**filter).annotate(total=Count('recipe', distinct=True))
+        return query.annotate(total=Count('recipe', distinct=True))
 
 
 class TagViewSet(viewsets.ModelViewSet):
