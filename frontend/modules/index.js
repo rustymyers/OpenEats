@@ -22,6 +22,7 @@ import { RecipeForm } from './recipe_form/components/RecipeForm'
 import { ImportForm } from './recipe_form/components/ImportForm'
 import Recipe from './recipe/components/Recipe'
 import AuthStore from './account/stores/AuthStore'
+import { browserSupportsAllFeatures, loadPolyFills } from './common/polyfill'
 
 // Load in the base CSS
 require("../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss");
@@ -58,20 +59,30 @@ const routeConfig = [
       { path: '*', component: NotFound }
     ]
   }
-]
+];
 
-render((
-    <IntlProvider locale={ process.env.LOCALE } messages={ messages }>
-      <div>
-        <div id="content">
-          <Router
-            history={ browserHistory }
-            routes={ routeConfig }
-          />
-        </div>
-        <Footer />
+const main = (
+  <IntlProvider locale={ process.env.LOCALE } messages={ messages }>
+    <div>
+      <div id="content">
+        <Router
+          history={ browserHistory }
+          routes={ routeConfig }
+        />
       </div>
-    </IntlProvider>
-  ),
-  document.getElementById('app')
+      <Footer />
+    </div>
+  </IntlProvider>
 );
+
+const entryPoint = () => {
+  render(main, document.getElementById('app'))
+};
+
+if (browserSupportsAllFeatures()) {
+  // Browsers that support all features run `entryPoint()` immediately.
+  entryPoint();
+} else {
+  // All other browsers loads polyfills and then run `entryPoint()`.
+  loadPolyFills(entryPoint);
+}
