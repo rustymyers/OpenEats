@@ -10,7 +10,7 @@ require("../css/footer.css");
 class Footer extends React.Component{
   render() {
     return (
-      <footer className="footer">
+      <footer className="footer print-hidden">
         <div className="container">
           <p className="text-muted">
             <FormattedMessage
