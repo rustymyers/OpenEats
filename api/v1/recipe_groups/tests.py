@@ -16,10 +16,10 @@ class RecipeGroupsTests(TestCase):
         request = self.factory.get('/api/v1/recipe_groups/cuisine/')
         response = view(request)
 
-        self.assertEqual(response.data.get('count'), 4)
+        self.assertEqual(response.data.get('count'), 3)
 
         results = response.data.get('results')
-        totals = {"cuisine-1": 3, "cuisine-2": 2, "cuisine-3": 1, "cuisine-4": 0}
+        totals = {"cuisine-1": 3, "cuisine-2": 2, "cuisine-3": 1}
 
         for item in results:
             self.assertEquals(totals[item.get('slug')], item.get('total'))
@@ -29,10 +29,10 @@ class RecipeGroupsTests(TestCase):
         request = self.factory.get('/api/v1/recipe_groups/course/')
         response = view(request)
 
-        self.assertEqual(response.data.get('count'), 4)
+        self.assertEqual(response.data.get('count'), 3)
 
         results = response.data.get('results')
-        totals = {"course-1": 3, "course-2": 2, "course-3": 1, "course-4": 0}
+        totals = {"course-1": 3, "course-2": 2, "course-3": 1}
 
         for item in results:
             self.assertEquals(totals[item.get('slug')], item.get('total'))
