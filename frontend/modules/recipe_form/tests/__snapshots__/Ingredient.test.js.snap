@@ -24,6 +24,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -33,7 +49,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -57,7 +73,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -96,6 +112,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -105,7 +137,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -129,7 +161,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -168,6 +200,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -177,7 +225,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -201,7 +249,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -240,6 +288,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -249,7 +313,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -273,7 +337,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -312,6 +376,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -321,7 +401,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -345,7 +425,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -384,6 +464,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -393,7 +489,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -417,7 +513,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -456,6 +552,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -465,7 +577,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -489,7 +601,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -528,6 +640,22 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -537,7 +665,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -561,7 +689,7 @@ exports[`IngredientList component test 1`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -626,6 +754,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -635,7 +779,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -659,7 +803,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -698,6 +842,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -707,7 +867,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -731,7 +891,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -770,6 +930,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -779,7 +955,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -803,7 +979,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -842,6 +1018,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -851,7 +1043,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -875,7 +1067,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -914,6 +1106,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -923,7 +1131,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -947,7 +1155,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -986,6 +1194,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -995,7 +1219,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1019,7 +1243,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1058,6 +1282,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1067,7 +1307,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1091,7 +1331,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1130,6 +1370,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1139,7 +1395,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1163,7 +1419,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1202,6 +1458,22 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1211,7 +1483,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1235,7 +1507,7 @@ exports[`IngredientList component test 2`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1300,6 +1572,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1309,7 +1597,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1333,7 +1621,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1372,6 +1660,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1381,7 +1685,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1405,7 +1709,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1444,6 +1748,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1453,7 +1773,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1477,7 +1797,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1516,6 +1836,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1525,7 +1861,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1549,7 +1885,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1588,6 +1924,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1597,7 +1949,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1621,7 +1973,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1660,6 +2012,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1669,7 +2037,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1693,7 +2061,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1732,6 +2100,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1741,7 +2125,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1765,7 +2149,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"
@@ -1804,6 +2188,22 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 className="form-control"
+                name="group"
+                onChange={[Function]}
+                placeholder="Group (leave blank for default)"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm-2 col-xs-12"
+          >
+            <div
+              className="form-group null"
+            >
+              <input
+                className="form-control"
                 name="quantity"
                 onChange={[Function]}
                 placeholder="Quantity"
@@ -1813,7 +2213,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group autocomplete"
@@ -1837,7 +2237,7 @@ exports[`IngredientList component test 3`] = `
             </div>
           </div>
           <div
-            className="col-sm-4 col-xs-12"
+            className="col-sm-3 col-xs-12"
           >
             <div
               className="form-group null"

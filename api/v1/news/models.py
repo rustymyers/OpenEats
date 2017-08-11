@@ -16,7 +16,7 @@ class News(models.Model):
     :image: = Large background image for the homepage
     :pub_date: = Date created
     """
-    title = models.CharField(_('title'), max_length=255, unique=True)
+    title = models.CharField(_('title'), max_length=191, unique=True)
     slug = AutoSlugField(_('slug'), populate_from='title', unique=True)
     content = models.TextField(_('content'), blank=True)
     frontpage = models.BooleanField(_('frontpage'), default=False,

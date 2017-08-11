@@ -9,6 +9,7 @@ export const CHANGE_EVENT = 'change';
 export const ERROR_EVENT = 'error';
 
 var _formData = {};
+var _recipeList = [];
 var _tags = [];
 var _course = [];
 var _cuisine = [];
@@ -59,6 +60,10 @@ class RecipeStoreClass extends EventEmitter {
     return _formData;
   }
 
+  getRecipeList() {
+    return _recipeList;
+  }
+
   getFormData(name) {
     return _formData[name];
   }
@@ -72,6 +77,11 @@ const RecipeStore = new RecipeStoreClass();
 RecipeStore.dispatchToken = AppDispatcher.register(action => {
 
   switch(action.actionType) {
+
+    case RecipeConstants.UPDATE_RECIPE_LIST:
+      _recipeList = action.recipeList;
+      RecipeStore.emitChange();
+      break;
 
     case RecipeConstants.UPDATE:
       setData(action.name, action.value);
@@ -93,14 +103,6 @@ RecipeStore.dispatchToken = AppDispatcher.register(action => {
 
       if (action.recipe) {
         _formData = action.recipe;
-
-        _formData.ingredients = _formData.ingredients.map((ingredient, key) => {
-          return {
-            title: ingredient.title,
-            quantity: ingredient.quantity,
-            measurement: ingredient.measurement
-          };
-        });
 
         _formData.directions = _formData.directions.map((direction, key) => {
           return {

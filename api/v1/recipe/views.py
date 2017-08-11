@@ -29,7 +29,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title', 'rating')
-    search_fields = ('title', 'tags__title', 'ingredients__title')
+    search_fields = ('title', 'tags__title', 'ingredient_groups__ingredients__title')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -91,7 +91,7 @@ class MiniBrowseViewSet(viewsets.mixins.ListModelMixin,
 class DirectionViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions for Ingredients.
+    `update` and `destroy` actions for Directions.
     """
     queryset = Direction.objects.all()
     serializer_class = serializers.DirectionSerializer
@@ -178,7 +178,7 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
 
         if 'search' in self.request.query_params:
             query = get_search_results(
-                ['title', 'ingredients__title', 'tags__title'],
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
                 query,
                 self.request.query_params.get('search')
             ).distinct()

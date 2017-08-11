@@ -13,6 +13,40 @@ class RecipeActions {
     delete data['photo'];
     delete data['photo_thumbnail'];
 
+    if (data['ingredient_groups']) {
+      let ingredientGroups = [];
+      let ingGroups = JSON.parse(JSON.stringify(data['ingredient_groups']));
+      ingGroups.map((ingredient) => {
+        let group = ingredient.group;
+        let added = false;
+        ingredientGroups.map((ingredient_group) => {
+          if (ingredient_group.title === group) {
+            ingredient_group.ingredients.push({
+              title: ingredient.title,
+              quantity: ingredient.quantity,
+              measurement: ingredient.measurement,
+            });
+            added = true;
+          }
+        });
+
+        if (!added) {
+          let ingredients = [{
+            title: ingredient.title,
+            quantity: ingredient.quantity,
+            measurement: ingredient.measurement,
+          }];
+
+          ingredientGroups.push({
+            title: group,
+            ingredients: ingredients,
+          })
+        }
+      });
+
+      data['ingredient_groups'] = ingredientGroups;
+    }
+
     let r = 'id' in data ?
       request.put(serverURLs.recipe + data.id + '/') :
       request.post(serverURLs.recipe) ;
@@ -73,7 +107,7 @@ class RecipeActions {
   }
 
   fetchTags() {
-    request.get(serverURLs.tag).type('json')
+    request.get(serverURLs.tag)
     .end((err, res) => {
       if (!err && res) {
         const tags = res.body.results;
@@ -88,7 +122,7 @@ class RecipeActions {
   }
 
   fetchCuisine() {
-    request.get(serverURLs.cuisine).type('json')
+    request.get(serverURLs.cuisine)
     .end((err, res) => {
       if (!err && res) {
         const cuisine = res.body.results;
@@ -102,8 +136,26 @@ class RecipeActions {
     });
   }
 
+  fetchRecipeList(searchTerm) {
+    request.get(serverURLs.recipe + '?fields=id,title&limit=5&search=' + searchTerm)
+    .end((err, res) => {
+      if (!err && res) {
+        let recipeList = [];
+        res.body.results.map((recipe) => {
+          recipeList.push(recipe.title);
+        });
+        AppDispatcher.dispatch({
+          actionType: RecipeConstants.UPDATE_RECIPE_LIST,
+          recipeList: recipeList,
+        });
+      } else {
+        console.error(serverURLs.course, err.toString());
+      }
+    });
+  }
+
   fetchCourses() {
-    request.get(serverURLs.course).type('json')
+    request.get(serverURLs.course)
     .end((err, res) => {
       if (!err && res) {
         const course = res.body.results;
@@ -121,12 +173,27 @@ class RecipeActions {
     var url = serverURLs.recipe + recipe_id;
     request
       .get(url)
-      .type('json')
       .end((err, res) => {
         if (!err && res) {
+          let data = res.body;
+          let ings = [];
+          if (data.ingredient_groups) {
+            let ingGroups = JSON.parse(JSON.stringify(data.ingredient_groups));
+            ingGroups.map((ingredient_group) => {
+              ingredient_group.ingredients.map((ingredient) => {
+                ings.push({
+                  title: ingredient.title,
+                  quantity: ingredient.quantity,
+                  measurement: ingredient.measurement,
+                  group: ingredient_group.title
+                })
+              });
+            });
+            data.ingredient_groups = ings;
+          }
           AppDispatcher.dispatch({
             actionType: RecipeConstants.INIT,
-            recipe: res.body,
+            recipe: data,
           });
         } else {
           console.error(url, err.toString());

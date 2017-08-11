@@ -5,5 +5,6 @@ export default keyMirror({
   UPDATE: null,
   ERROR: null,
   IMPORT: null,
+  UPDATE_RECIPE_LIST: null,
   SUBMIT: null
 });

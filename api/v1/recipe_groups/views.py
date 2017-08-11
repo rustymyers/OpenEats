@@ -42,7 +42,7 @@ class CuisineViewSet(viewsets.ModelViewSet):
 
         if 'search' in self.request.query_params:
             query = get_search_results(
-                ['title', 'ingredients__title', 'tags__title'],
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
                 query,
                 self.request.query_params.get('search')
             ).distinct()
@@ -81,7 +81,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         if 'search' in self.request.query_params:
             query = get_search_results(
-                ['title', 'ingredients__title', 'tags__title'],
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
                 query,
                 self.request.query_params.get('search')
             ).distinct()

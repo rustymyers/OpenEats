@@ -5,6 +5,8 @@ import createComponentWithIntl from '../../../jest_mocks/createComponentWithIntl
 
 import data from './data';
 
+jest.mock('../actions/RecipeActions', () => 'RecipeActions');
+
 test('IngredientList component test', () => {
   const component = createComponentWithIntl(
     <IngredientList data={ data.directions }/>
@@ -20,7 +22,7 @@ test('IngredientList component test', () => {
   expect(tree).toMatchSnapshot();
 
   // Then remove it.
-  tree.children[0].children[0].children[0].children[8].children[3].children[0].children[0].props.onClick(
+  tree.children[0].children[0].children[0].children[8].children[4].children[0].children[0].props.onClick(
     { preventDefault() {} }, 8
   );
   tree = component.toJSON();

@@ -10,7 +10,7 @@ import AuthStore from '../../account/stores/AuthStore'
 import { RecipeStore, INIT_EVENT, ERROR_EVENT, CHANGE_EVENT } from '../stores/RecipeStore';
 import RecipeActions from '../actions/RecipeActions';
 
-import { DirectionList, IngredientList } from './DataList'
+import { DirectionList, IngredientList, SubRecipeList } from './DataList'
 import TagList from './TagList'
 import { Input, File, Alert, Select, TextArea } from '../../common/form/FormComponents'
 
@@ -33,6 +33,7 @@ class RecipeForm extends React.Component {
       course: RecipeStore.getCourse(),
       cuisine: RecipeStore.getCuisine(),
       tags: RecipeStore.getTags(),
+      recipeList: [],
       errors: false
     };
   }
@@ -47,6 +48,7 @@ class RecipeForm extends React.Component {
 
   componentDidMount() {
     RecipeActions.init(this.props.params.id);
+    RecipeActions.fetchRecipeList('');
     RecipeStore.addChangeListener(INIT_EVENT, this._onInit);
     RecipeStore.addChangeListener(CHANGE_EVENT, this._onChange);
     RecipeStore.addChangeListener(ERROR_EVENT, this.setErrors);
@@ -71,7 +73,10 @@ class RecipeForm extends React.Component {
   }
 
   _onChange() {
-    this.setState({ data: RecipeStore.getForm() });
+    this.setState({
+      recipeList: RecipeStore.getRecipeList(),
+      data: RecipeStore.getForm()
+    });
   }
 
   setErrors() {
@@ -161,6 +166,11 @@ class RecipeForm extends React.Component {
         id: 'recipe.create.rating_placeholder',
         description: 'Rating placeholder',
         defaultMessage: 'Rate this recipe from 0 to 5',
+      },
+      subrecipes_label: {
+        id: 'recipe.create.subrecipes_label',
+        description: 'Recipe links label',
+        defaultMessage: 'Recipe links',
       },
       ingredients_label: {
         id: 'recipe.create.ingredients_label',
@@ -288,11 +298,18 @@ class RecipeForm extends React.Component {
                   errors={ this.getErrors('rating') } />
               </div>
 
+              <SubRecipeList
+                name="subrecipes"
+                label={ formatMessage(messages.subrecipes_label) }
+                change={ this.update }
+                data={ this.state.data.subrecipes }
+                recipeList={ this.state.recipeList }
+                errors={ this.getErrors('subrecipes') } />
               <IngredientList
                 name="ingredients"
                 label={ formatMessage(messages.ingredients_label) }
                 change={ this.update }
-                data={ this.state.data.ingredients }
+                data={ this.state.data.ingredient_groups }
                 errors={ this.getErrors('ingredients') } />
               <DirectionList
                 name="directions"
