@@ -11,8 +11,15 @@ export var Auto = injectIntl(React.createClass({
   getInitialState: function() {
     return {
       val: this.props.value || '',
-      data: this.props.data || '',
+      data: this.props.data || [],
+      allowFilter: this.props.allowFilter !== false,
     };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.state.data) {
+      this.setState({data: nextProps.data});
+    }
   },
 
   handleChange(event) {
@@ -30,9 +37,13 @@ export var Auto = injectIntl(React.createClass({
   },
 
   matchStateToTerm (state, value) {
-    return (
-      state.toLowerCase().indexOf(value.toLowerCase()) !== -1
-    )
+    if (this.state.allowFilter) {
+      return (
+          state.toLowerCase().indexOf(value.toLowerCase()) !== -1
+      );
+    } else {
+      return true;
+    }
   },
 
   sortStates (a, b, value) {

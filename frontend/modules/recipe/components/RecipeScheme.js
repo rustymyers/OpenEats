@@ -7,7 +7,8 @@ import {
     formatMessage
 } from 'react-intl'
 
-import Ingredients from './Ingredients'
+import IngredientGroups from './IngredientGroups'
+import SubRecipes from './SubRecipes'
 import Directions from './Directions'
 import Ratings from './Ratings'
 import { Input } from '../../common/form/FormComponents'
@@ -46,11 +47,19 @@ class RecipeScheme extends React.Component {
         let multiplier = value / this.state.data.servings;
         data.servings = value;
 
-        data.ingredients.map((ingredient) => {
+        data.ingredient_groups.map((ingredient_group) => {
+          ingredient_group.ingredients.map((ingredient) => {
+            if (ingredient) {
+              ingredient.quantity = ingredient.quantity * multiplier;
+            }
+            return ingredient
+          });
+        });
+
+        data.subrecipes.map((ingredient) => {
           if (ingredient) {
             ingredient.quantity = ingredient.quantity * multiplier;
           }
-          return ingredient
         });
 
         this.setState({
@@ -227,7 +236,8 @@ class RecipeScheme extends React.Component {
 
               <div className="col-sm-5 col-sm-pull-7 col-xs-12">
                 <h4>{ formatMessage(messages.ingredients) }</h4>
-                <Ingredients data={ this.state.data.ingredients }/>
+                <SubRecipes data={ this.state.data.subrecipes }/>
+                <IngredientGroups data={ this.state.data.ingredient_groups }/>
               </div>
             </div>
 

@@ -10,6 +10,7 @@ from . import views
 # Create a router and register our viewsets with it.
 router = DefaultRouter(schema_title='Ingredients')
 router.register(r'ingredient', views.IngredientViewSet)
+router.register(r'ingredient-group', views.IngredientGroupViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

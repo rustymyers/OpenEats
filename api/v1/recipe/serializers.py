@@ -5,13 +5,14 @@ from __future__ import unicode_literals
 from rest_framework import serializers
 from rest_framework.serializers import ImageField
 from rest_framework.settings import api_settings
+from rest_framework.fields import SerializerMethodField
 
 
-from v1.recipe.models import Recipe, Direction
+from v1.recipe.models import Recipe, Direction, SubRecipe
 from v1.recipe_groups.models import Tag
-from v1.ingredient.serializers import IngredientSerializer
+from v1.ingredient.serializers import IngredientGroupSerializer
 from v1.recipe_groups.serializers import TagSerializer
-from v1.ingredient.models import Ingredient
+from v1.ingredient.models import IngredientGroup, Ingredient
 from v1.recipe.mixins import FieldLimiter
 
 
@@ -44,6 +45,20 @@ class DirectionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SubRecipeSerializer(serializers.ModelSerializer):
+    """ Standard `rest_framework` ModelSerializer """
+    title = serializers.ReadOnlyField(source='child_recipe.title')
+
+    class Meta:
+        model = SubRecipe
+        fields = (
+            'child_recipe_id',
+            'quantity',
+            'measurement',
+            'title',
+        )
+
+
 class MiniBrowseSerializer(serializers.ModelSerializer):
     """ Used to get random recipes and limit the return data. """
     photo_thumbnail = CustomImageField(required=False)
@@ -64,10 +79,18 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     """ Used to create new recipes"""
     photo = CustomImageField(required=False)
     photo_thumbnail = CustomImageField(required=False)
-    ingredients = IngredientSerializer(many=True)
+    ingredient_groups = IngredientGroupSerializer(many=True)
     directions = DirectionSerializer(many=True)
     tags = TagSerializer(many=True, required=False)
+    subrecipes = SerializerMethodField()
     username = serializers.ReadOnlyField(source='author.username')
+
+    def get_subrecipes(self, obj):
+        try:
+            subrecipes = SubRecipe.objects.filter(parent_recipe_id=obj.id)
+            return [SubRecipeSerializer(subrecipe).data for subrecipe in subrecipes]
+        except:
+            return {}
 
     class Meta:
         model = Recipe
@@ -80,9 +103,13 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         or tag objects required.
         """
         # Pop tags, directions, and ingredients
-        ingredient_data = validated_data.pop('ingredients', None)
+        ingredient_data = validated_data.pop('ingredient_groups', None)
         direction_data = validated_data.pop('directions', None)
         tag_data = validated_data.pop('tags', None)
+        # ManytoMany fields in django rest don't work very well, so we are getting the data directly fron teh context
+        subrecipe_data = None
+        if 'request' in self.context:
+            subrecipe_data = self.context['request'].data.get('subrecipes')
 
         if 'rating' in validated_data:
             rating = int(validated_data.get('rating', 0))
@@ -96,14 +123,24 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
             setattr(instance, attr, value)
 
         # Create the Ingredients
+        # TODO: don't delete everything when we edit the recipe. Use an ID.
         if ingredient_data:
-            for ingredient in instance.ingredients.all():
-                ingredient.delete()
+            for ingredient_group in instance.ingredient_groups.all():
+                for ingredient in ingredient_group.ingredients.all():
+                    ingredient.delete()
+                ingredient_group.delete()
 
-            for ingredient in ingredient_data:
-                Ingredient.objects.create(recipe=instance, **ingredient)
+            for ingredient_group in ingredient_data:
+                group = IngredientGroup.objects.create(
+                    recipe=instance, title=ingredient_group.get('title')
+                )
+                for ingredient in ingredient_group.get('ingredients'):
+                    Ingredient.objects.create(
+                        ingredient_group=group, **ingredient
+                    )
 
         # Create the Directions
+        # TODO: don't delete everything when we edit the recipe. Use an ID.
         if direction_data:
             for direction in instance.directions.all():
                 direction.delete()
@@ -112,6 +149,7 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
                 Direction.objects.create(recipe=instance, **direction)
 
         # Create the Tags
+        # TODO: don't delete everything when we edit the recipe. Use an ID.
         if tag_data:
             for tag in instance.tags.all():
                 instance.tags.remove(tag)
@@ -119,6 +157,24 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
             for tag in tag_data:
                 obj, created = Tag.objects.get_or_create(title=tag['title'].strip())
                 instance.tags.add(obj)
+
+        # Create the sub-recipes
+        # TODO: don't delete everything when we edit the recipe. Use an ID.
+        if subrecipe_data:
+            for subrecipe in SubRecipe.objects.filter(parent_recipe=instance):
+                subrecipe.delete()
+
+            for subrecipe in subrecipe_data:
+                if subrecipe.get('title'):
+                    recipe = Recipe.objects.filter(title=subrecipe.get('title', '')).first()
+                    if recipe:
+                        obj = SubRecipe.objects.create(
+                            quantity=subrecipe.get('quantity', ''),
+                            measurement=subrecipe.get('measurement', ''),
+                            child_recipe=recipe,
+                            parent_recipe=instance
+                        )
+                        obj.save()
 
         instance.save()
         return instance
@@ -130,9 +186,13 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         Create all Tags that are new.
         """
         # Pop tags, directions, and ingredients
-        ingredient_data = validated_data.pop('ingredients', None)
+        ingredient_data = validated_data.pop('ingredient_groups', None)
         direction_data = validated_data.pop('directions', None)
         tag_data = validated_data.pop('tags', None)
+        # ManytoMany fields in django rest don't work very well, so we are getting the data directly fron teh context
+        subrecipe_data = None
+        if 'request' in self.context:
+            subrecipe_data = self.context['request'].data.get('subrecipes')
 
         if 'rating' in validated_data:
             rating = int(validated_data.get('rating', 0))
@@ -150,8 +210,12 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         )
 
         # Create the Ingredients
-        for ingredient in ingredient_data:
-            Ingredient.objects.create(recipe=recipe, **ingredient)
+        for ingredient_group in ingredient_data:
+            group = IngredientGroup.objects.create(
+                recipe=recipe, title=ingredient_group.get('title')
+            )
+            for ingredient in ingredient_group.get('ingredients'):
+                Ingredient.objects.create(ingredient_group=group, **ingredient)
 
         # Create the Directions
         for direction in direction_data:
@@ -163,7 +227,19 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
                 obj, created = Tag.objects.get_or_create(title=tag['title'].strip())
                 recipe.tags.add(obj)
 
+        # Create the sub-recipes
+        if subrecipe_data:
+            for subrecipe in subrecipe_data:
+                obj = SubRecipe.objects.create(
+                    quantity=subrecipe.get('quantity', ''),
+                    measurement=subrecipe.get('measurement', ''),
+                    child_recipe_id=subrecipe.get('child_recipe_id', ''),
+                    parent_recipe=recipe
+                )
+                obj.save()
+
         return recipe
+
 
 class RatingSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """

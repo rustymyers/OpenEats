@@ -19,7 +19,9 @@ class Recipe(models.Model):
     Courses have a one to Many relation with Recipes.
     Cuisines have a one to Many relation with Recipes.
     Tags have a Many to Many relation with Recipes.
-    Ingredients have a Many to one relation with Recipes.
+    Ingredient Groups have a Many to one relation with Recipes.
+    Subrecipes have a Many to Many relation with Recipes. 
+        They allow another recipe to be show in the Ingredient section.
 
     :title: = Title of the Recipe
     :author: = Creator of the Recipe
@@ -45,6 +47,7 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine, verbose_name=_('cuisine'))
     course = models.ForeignKey(Course, verbose_name=_('course'))
     tags = models.ManyToManyField(Tag, verbose_name=_('tag'), blank=True)
+    subrecipes = models.ManyToManyField('self', verbose_name=_('subrecipes'), through='SubRecipe', symmetrical=False)
     info = models.TextField(_('info'), help_text="enter information about the recipe")
     source = models.CharField(_('course'), max_length=200, blank=True)
     prep_time = models.IntegerField(_('prep time'), help_text="enter time in minutes")
@@ -59,6 +62,16 @@ class Recipe(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class SubRecipe(models.Model):
+    quantity = models.IntegerField(_('quantity'), blank=True, null=True)
+    measurement = models.TextField(_('measurement'), blank=True, null=True)
+    child_recipe = models.ForeignKey("Recipe", verbose_name=_('subrecipe'), related_name='child_recipe', null=True)
+    parent_recipe = models.ForeignKey("Recipe", verbose_name=_('parent_recipe'), related_name='parent_recipe', null=True)
+
+    def __unicode__(self):
+        return self.child_recipe.title
 
 
 class Direction(models.Model):

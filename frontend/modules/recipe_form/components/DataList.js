@@ -6,7 +6,7 @@ import {
     formatMessage
 } from 'react-intl'
 
-import { Direction, Ingredient } from './DataListItem'
+import { Direction, Ingredient, SubRecipe } from './DataListItem'
 
 class DataList extends React.Component {
   constructor(props) {
@@ -188,5 +188,36 @@ class IngredientList extends DataList {
   }
 }
 
+class SubRecipeList extends DataList {
+  constructor(props) {
+    super(props);
+  }
+
+  getDataList() {
+    return this.state.data.map((data, key) => {
+      return (
+        <SubRecipe
+          key={ key.toString() + '-' + this.state.data.length.toString() }
+          id={ key }
+          data={ data }
+          recipeList={ this.props.recipeList }
+          change={(name, value) => { this.updateData(key, name, value); } }
+          deleteData={(e) => { this.deleteData(e, key) }}/>
+      )
+    }, this);
+  }
+
+  getMessages() {
+    return defineMessages({
+      next_data: {
+        id: 'subrecipe.add_link',
+        description: 'Add Link button',
+        defaultMessage: 'Add Link',
+      }
+    });
+  }
+}
+
 module.exports.DirectionList = injectIntl(DirectionList);
 module.exports.IngredientList = injectIntl(IngredientList);
+module.exports.SubRecipeList = injectIntl(SubRecipeList);

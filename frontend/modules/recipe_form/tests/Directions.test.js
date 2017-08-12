@@ -5,6 +5,8 @@ import createComponentWithIntl from '../../../jest_mocks/createComponentWithIntl
 
 import data from './data';
 
+jest.mock('../actions/RecipeActions', () => 'RecipeActions');
+
 test('DirectionList component test', () => {
   const component = createComponentWithIntl(
     <DirectionList data={ data.directions }/>

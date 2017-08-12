@@ -87,7 +87,7 @@
   "recipe.directions": "Directions",
   "recipe.source": "Source",
   "recipe.created_by": "Created by",
-  "recipe.last_updated": "Last Updated",
+  "recipe.last_updated": "Last edit",
   "recipe.minutes": "minutes",
   "recipe.edit_recipe": "Edit recipe"
 }

@@ -5,10 +5,12 @@ from __future__ import unicode_literals
 from django.db.models import Q
 from django.db.models import Count
 from v1.recipe_groups.models import Cuisine, Course, Tag
+from v1.recipe.models import Recipe
 from v1.recipe_groups import serializers
 from rest_framework import permissions
 from rest_framework import viewsets
 from v1.common.permissions import IsOwnerOrReadOnly
+from v1.common.recipe_search import get_search_results
 
 
 class CuisineViewSet(viewsets.ModelViewSet):
@@ -24,33 +26,30 @@ class CuisineViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
 
     def get_queryset(self):
-        query = Cuisine.objects
+        query = Recipe.objects
 
-        filter = {}
+        filter_set = {}
         if 'course' in self.request.query_params:
             try:
-                filter['recipe__course'] = Course.objects.get(
+                filter_set['course'] = Course.objects.get(
                     slug=self.request.query_params.get('course')
                 )
             except:
                 return []
 
         if 'rating' in self.request.query_params:
-            filter['recipe__rating'] = self.request.query_params.get('rating')
+            filter_set['rating'] = self.request.query_params.get('rating')
 
         if 'search' in self.request.query_params:
-            search = self.request.query_params.get('search')
-            query = query.filter((
-                    Q(recipe__title__icontains=search) |
-                    Q(recipe__ingredients__title__icontains=search) |
-                    Q(recipe__tags__title__icontains=search)
-                ),
-                **filter
-            )
-        else:
-            query = query.filter(**filter)
+            query = get_search_results(
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
+                query,
+                self.request.query_params.get('search')
+            ).distinct()
 
-        return query.annotate(total=Count('recipe', distinct=True))
+        query = query.filter(**filter_set)
+
+        return Cuisine.objects.filter(recipe__in=query).annotate(total=Count('recipe', distinct=True))
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -66,33 +65,30 @@ class CourseViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
 
     def get_queryset(self):
-        query = Course.objects
+        query = Recipe.objects
 
-        filter = {}
+        filter_set = {}
         if 'cuisine' in self.request.query_params:
             try:
-                filter['recipe__cuisine'] = Cuisine.objects.get(
+                filter_set['cuisine'] = Cuisine.objects.get(
                     slug=self.request.query_params.get('cuisine')
                 )
             except:
                 return []
 
         if 'rating' in self.request.query_params:
-            filter['recipe__rating'] = self.request.query_params.get('rating')
+            filter_set['rating'] = self.request.query_params.get('rating')
 
         if 'search' in self.request.query_params:
-            search = self.request.query_params.get('search')
-            query = query.filter((
-                    Q(recipe__title__icontains=search) |
-                    Q(recipe__ingredients__title__icontains=search) |
-                    Q(recipe__tags__title__icontains=search)
-                ),
-                **filter
-            )
-        else:
-            query = query.filter(**filter)
+            query = get_search_results(
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
+                query,
+                self.request.query_params.get('search')
+            ).distinct()
 
-        return query.annotate(total=Count('recipe', distinct=True))
+        query = query.filter(**filter_set)
+
+        return Course.objects.filter(recipe__in=query).annotate(total=Count('recipe', distinct=True))
 
 
 class TagViewSet(viewsets.ModelViewSet):

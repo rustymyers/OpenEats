@@ -7,7 +7,6 @@ import tempfile
 import requests
 from django.core import files
 from django.db.models import Count
-from django.db.models import Q
 from v1.recipe_groups.models import Cuisine, Course
 from rest_framework import permissions, viewsets, filters
 from rest_framework.response import Response
@@ -17,6 +16,7 @@ from recipe_scrapers import scrap_me, SCRAPERS
 from . import serializers
 from .models import Recipe, Direction
 from v1.common.permissions import IsOwnerOrReadOnly
+from v1.common.recipe_search import get_search_results
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -29,7 +29,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title', 'rating')
-    search_fields = ('title', 'tags__title', 'ingredients__title')
+    search_fields = ('title', 'tags__title', 'ingredient_groups__ingredients__title')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -91,7 +91,7 @@ class MiniBrowseViewSet(viewsets.mixins.ListModelMixin,
 class DirectionViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions for Ingredients.
+    `update` and `destroy` actions for Directions.
     """
     queryset = Direction.objects.all()
     serializer_class = serializers.DirectionSerializer
@@ -159,10 +159,10 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         query = Recipe.objects
 
-        filter = {}
+        filter_set = {}
         if 'cuisine' in self.request.query_params:
             try:
-                filter['cuisine'] = Cuisine.objects.get(
+                filter_set['cuisine'] = Cuisine.objects.get(
                     slug=self.request.query_params.get('cuisine')
                 )
             except:
@@ -170,22 +170,19 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
 
         if 'course' in self.request.query_params:
             try:
-                filter['course'] = Course.objects.get(
+                filter_set['course'] = Course.objects.get(
                     slug=self.request.query_params.get('course')
                 )
             except:
                 return []
 
         if 'search' in self.request.query_params:
-            search = self.request.query_params.get('search')
-            query = query.filter((
-                    Q(title__icontains=search) |
-                    Q(ingredients__title__icontains=search) |
-                    Q(tags__title__icontains=search)
-                ),
-                **filter
-            )
-        else:
-            query = query.filter(**filter)
+            query = get_search_results(
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
+                query,
+                self.request.query_params.get('search')
+            ).distinct()
 
-        return query.filter(**filter).values('rating').annotate(total=Count('rating')).order_by('-rating')
+        query = query.filter(**filter_set)
+
+        return query.values('rating').annotate(total=Count('id', distinct=True)).order_by('-rating')
