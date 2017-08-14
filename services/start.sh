@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # NGINX doesn't let you use ENV vars within the conf file.
 # We use sed to set the env vars we need.

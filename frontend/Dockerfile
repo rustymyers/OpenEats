@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:8.3.0-alpine
 
 # Create app directory
 RUN mkdir /code
@@ -7,7 +7,5 @@ WORKDIR /code
 # Install app dependencies
 ADD . /code/
 
-# Install Yarn
-# See: https://yarnpkg.com/en/docs/install#alternatives-tab
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-RUN $HOME/.yarn/bin/yarn install --pure-lockfile
+# Run Yarn to install all dependencies
+RUN yarn install --pure-lockfile
