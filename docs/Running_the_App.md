@@ -42,7 +42,7 @@ docker-compose up -d
 
 Regardless of if your running the app in production or development, you need to seed the database.
 
-Run `docker-compose run --rm api bash` to open a bash shell to the API.
+Run `docker-compose run --rm api sh` to open a bash shell to the API.
 ```bash
 ./manage.py migrate
 ./manage.py collectstatic
