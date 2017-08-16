@@ -83,6 +83,8 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     directions = DirectionSerializer(many=True)
     tags = TagSerializer(many=True, required=False)
     subrecipes = SerializerMethodField()
+    pub_date = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
+    update_date = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
     username = serializers.ReadOnlyField(source='author.username')
 
     def get_subrecipes(self, obj):
