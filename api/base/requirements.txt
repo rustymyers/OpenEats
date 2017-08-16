@@ -1,7 +1,7 @@
 #Third party package requirements for OpenEats 2
 
 
-coreapi-cli
+coreapi-cli==1.0.6
 Django==1.10
 django-imagekit==3.3
 djangorestframework==3.4.6
