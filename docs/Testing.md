@@ -25,7 +25,7 @@ docker wait tests_api_1
 To avoid the docker startup overhead or for more fine-grained control of which tests to run:
 
 ```bash
-docker-compose -f docker-compose-test.yml -p test run --rm api bash
+docker-compose -f docker-compose-test.yml -p test run --rm api sh
 ./tests.sh # Optional DB reset
 ./manage.py test -k
 ```
@@ -35,6 +35,6 @@ docker-compose -f docker-compose-test.yml -p test run --rm api bash
 We are using jest to run the tests as of right now. To avoid the docker startup overhead or for more fine-grained control of which tests to run:
 
 ```bash
-docker-compose -f docker-compose-test.yml -p test run --rm node bash
+docker-compose -f docker-compose-test.yml -p test run --rm node sh
 npm test
 ```
