@@ -20,6 +20,20 @@ class CuisineViewSet(viewsets.ModelViewSet):
 
     Uses `title` as the PK for any lookups.
     """
+    queryset = Cuisine.objects.all()
+    serializer_class = serializers.CuisineSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
+    lookup_field = 'slug'
+
+
+class CuisineCountViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+
+    Uses `title` as the PK for any lookups.
+    """
     serializer_class = serializers.CuisineSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly)
@@ -53,6 +67,20 @@ class CuisineViewSet(viewsets.ModelViewSet):
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+
+    Uses `title` as the PK for any lookups.
+    """
+    queryset = Course.objects.all()
+    serializer_class = serializers.CourseSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
+    lookup_field = 'slug'
+
+
+class CourseCountViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
