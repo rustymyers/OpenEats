@@ -71,7 +71,7 @@ class SubRecipe(models.Model):
     parent_recipe = models.ForeignKey("Recipe", verbose_name=_('parent_recipe'), related_name='parent_recipe', null=True)
 
     def __unicode__(self):
-        return self.child_recipe.title
+        return self.parent_recipe.title
 
 
 class Direction(models.Model):

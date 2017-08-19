@@ -13,6 +13,11 @@ class RecipeActions {
     delete data['photo'];
     delete data['photo_thumbnail'];
 
+    if (!('id' in data)) {
+      data['ingredient_groups'] = data['ingredients'];
+      // delete data['ingredients'];
+    }
+
     if (data['ingredient_groups']) {
       let ingredientGroups = [];
       let ingGroups = JSON.parse(JSON.stringify(data['ingredient_groups']));

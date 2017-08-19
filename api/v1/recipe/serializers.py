@@ -232,13 +232,16 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         # Create the sub-recipes
         if subrecipe_data:
             for subrecipe in subrecipe_data:
-                obj = SubRecipe.objects.create(
-                    quantity=subrecipe.get('quantity', ''),
-                    measurement=subrecipe.get('measurement', ''),
-                    child_recipe_id=subrecipe.get('child_recipe_id', ''),
-                    parent_recipe=recipe
-                )
-                obj.save()
+                if subrecipe.get('title'):
+                    child_recipe = Recipe.objects.filter(title=subrecipe.get('title', '')).first()
+                    if child_recipe:
+                        obj = SubRecipe.objects.create(
+                            quantity=subrecipe.get('quantity', ''),
+                            measurement=subrecipe.get('measurement', ''),
+                            child_recipe=child_recipe,
+                            parent_recipe=recipe
+                        )
+                        obj.save()
 
         return recipe
 
