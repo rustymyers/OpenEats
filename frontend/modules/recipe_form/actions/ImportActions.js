@@ -10,7 +10,7 @@ class RecipeActions {
     AppDispatcher.dispatch({
       actionType: ImportConstants.RECIPE_IMPORT_LOADING,
     });
-    request
+    request()
       .post(serverURLs.import_recipe)
       .send({ 'url': url })
       .end((err, res) => {
@@ -44,7 +44,7 @@ class RecipeActions {
   }
 
   init() {
-    request
+    request()
       .get(serverURLs.import_recipe)
       .end((err, res) => {
         if (!err && res) {

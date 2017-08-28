@@ -32,9 +32,8 @@ class Recipe extends React.Component {
   loadRecipeFromServer(id) {
     window.scrollTo(0, 0);
     let url = serverURLs.recipe + id + "/";
-    request
+    request()
       .get(url)
-      .type('json')
       .end((err, res) => {
         if (!err && res) {
           this.setState({ data: res.body });
