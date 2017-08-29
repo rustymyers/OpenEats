@@ -1,15 +1,13 @@
-import request from 'superagent';
+import { request } from '../../common/CustomSuperagent';
 import { serverURLs } from '../../common/config'
 import AppDispatcher from '../../common/AppDispatcher';
-import AuthStore from '../../account/stores/AuthStore';
 import ListConstants from '../constants/ListConstants';
 
 class ListActions {
   add(title) {
-    request
+    request()
       .post(serverURLs.list)
       .send({ title: title })
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -26,10 +24,9 @@ class ListActions {
   }
 
   save(id, title) {
-    request
+    request()
       .patch(serverURLs.list + id + "/")
       .send({ title: title })
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -45,9 +42,8 @@ class ListActions {
   }
 
   destroy(id) {
-    request
+    request()
       .delete(serverURLs.list + id + "/")
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -63,9 +59,8 @@ class ListActions {
   }
 
   load(id) {
-    request
+    request()
       .get(serverURLs.list + id + '/')
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -83,9 +78,8 @@ class ListActions {
   }
 
   init(active_list_id) {
-    request
+    request()
       .get(serverURLs.list)
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({

@@ -6,7 +6,7 @@ import {serverURLs} from '../../common/config'
 export default {
   getToken: function(username, pass) {
     var url = serverURLs.auth_token;
-    request
+    request()
       .post(url)
       .send({'username': username, 'password': pass})
       .end((err, res) => {

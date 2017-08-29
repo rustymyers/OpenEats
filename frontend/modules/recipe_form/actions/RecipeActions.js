@@ -53,8 +53,8 @@ class RecipeActions {
     }
 
     let r = 'id' in data ?
-      request.put(serverURLs.recipe + data.id + '/') :
-      request.post(serverURLs.recipe) ;
+      request().put(serverURLs.recipe + data.id + '/') :
+      request().post(serverURLs.recipe) ;
 
     r.send(data)
       .end((err, res) => {
@@ -75,7 +75,7 @@ class RecipeActions {
   }
 
   submitPhoto(res, photo) {
-    request
+    request()
       .patch(serverURLs.recipe + res.body.id + "/")
       .attach('photo', photo)
       .end((err, res) => {
@@ -112,7 +112,7 @@ class RecipeActions {
   }
 
   fetchTags() {
-    request.get(serverURLs.tag)
+    request().get(serverURLs.tag)
     .end((err, res) => {
       if (!err && res) {
         const tags = res.body.results;
@@ -127,7 +127,7 @@ class RecipeActions {
   }
 
   fetchCuisine() {
-    request.get(serverURLs.cuisine)
+    request().get(serverURLs.cuisine)
     .end((err, res) => {
       if (!err && res) {
         const cuisine = res.body.results;
@@ -142,7 +142,7 @@ class RecipeActions {
   }
 
   fetchRecipeList(searchTerm) {
-    request.get(serverURLs.recipe + '?fields=id,title&limit=5&search=' + searchTerm)
+    request().get(serverURLs.recipe + '?fields=id,title&limit=5&search=' + searchTerm)
     .end((err, res) => {
       if (!err && res) {
         let recipeList = [];
@@ -160,7 +160,7 @@ class RecipeActions {
   }
 
   fetchCourses() {
-    request.get(serverURLs.course)
+    request().get(serverURLs.course)
     .end((err, res) => {
       if (!err && res) {
         const course = res.body.results;
@@ -176,7 +176,7 @@ class RecipeActions {
 
   fetchRecipe(recipe_id) {
     var url = serverURLs.recipe + recipe_id;
-    request
+    request()
       .get(url)
       .end((err, res) => {
         if (!err && res) {

@@ -19,9 +19,8 @@ class MiniBrowse extends React.Component {
 
   loadRecipesFromServer(url) {
     var base_url = serverURLs.mini_browse + url;
-    request
+    request()
       .get(base_url)
-      .type('json')
       .end((err, res) => {
         if (!err && res) {
           this.setState({data: res.body.results});

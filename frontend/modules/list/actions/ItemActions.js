@@ -1,6 +1,5 @@
-import request from 'superagent';
+import { request } from '../../common/CustomSuperagent';
 import AppDispatcher from '../../common/AppDispatcher';
-import AuthStore from '../../account/stores/AuthStore';
 import { ItemStore } from '../stores/ItemStore';
 import ItemConstants from '../constants/ItemConstants';
 import ListConstants from '../constants/ListConstants';
@@ -8,9 +7,8 @@ import { serverURLs } from '../../common/config'
 
 class ItemActions {
   load_list(id) {
-    request
+    request()
       .get(serverURLs.list_item + '?list=' + id)
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           this.init(id, res.body);
@@ -24,11 +22,10 @@ class ItemActions {
 
   save_list(data) {
     let r = 'id' in data ?
-      request.put(serverURLs.list + data.id + '/') :
-      request.post(serverURLs.list) ;
+      request().put(serverURLs.list + data.id + '/') :
+      request().post(serverURLs.list) ;
 
     r.send(data)
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           var id = res.body.id;
@@ -43,11 +40,10 @@ class ItemActions {
 
   save_item(data) {
     let r = 'id' in data ?
-      request.put(serverURLs.list_item + data.id + '/') :
-      request.post(serverURLs.list_item) ;
+      request().put(serverURLs.list_item + data.id + '/') :
+      request().post(serverURLs.list_item) ;
 
     r.send(data)
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           var id = res.body.id;
@@ -61,13 +57,12 @@ class ItemActions {
   }
 
   addItem(title) {
-    request
+    request()
       .post(serverURLs.list_item)
       .send({
         title: title,
         list: ItemStore.getKey()
       })
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -87,10 +82,9 @@ class ItemActions {
   }
 
   save(item, text) {
-    request
+    request()
       .patch(serverURLs.list_item + item.id + "/")
       .send({ title: text })
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -107,10 +101,9 @@ class ItemActions {
   }
 
   toggle(item) {
-    request
+    request()
       .patch(serverURLs.list_item + item.id + "/")
       .send({ completed: !item.completed })
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -126,10 +119,9 @@ class ItemActions {
   }
 
   toggleAll(checked) {
-    request
+    request()
       .patch(serverURLs.bulk_list_item)
       .send(ItemStore.getToogleItems(checked))
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -145,9 +137,8 @@ class ItemActions {
   }
 
   destroy(item) {
-    request
+    request()
       .delete(serverURLs.list_item + item.id + "/")
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({
@@ -168,10 +159,9 @@ class ItemActions {
 
   clearCompleted() {
     var ids = ItemStore.getCheckedItems();
-    request
+    request()
       .delete(serverURLs.bulk_list_item)
       .send(ids)
-      .set('Authorization', 'Token ' + AuthStore.getToken())
       .end((err, res) => {
         if (!err && res) {
           AppDispatcher.dispatch({

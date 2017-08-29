@@ -15,7 +15,7 @@ class ApiClass {
       }
     }
 
-    request
+    request()
       .get(serverURLs.browse)
       .query(parsed_filter)
       .end(callback);
@@ -29,7 +29,7 @@ class ApiClass {
       }
     }
 
-    request
+    request()
       .get(serverURLs.course_count)
       .query(parsed_filter)
       .end(callback);
@@ -43,7 +43,7 @@ class ApiClass {
       }
     }
 
-    request
+    request()
       .get(serverURLs.cuisine_count)
       .query(parsed_filter)
       .end(callback);
@@ -57,7 +57,7 @@ class ApiClass {
       }
     }
 
-    request
+    request()
       .get(serverURLs.ratings)
       .query(parsed_filter)
       .end(callback);

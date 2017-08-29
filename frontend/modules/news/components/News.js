@@ -27,9 +27,8 @@ class News extends React.Component {
 
   loadNewsFromServer() {
     let url = serverURLs.news;
-    request
+    request()
       .get(url)
-      .type('json')
       .end((err, res) => {
         if (!err && res) {
           this.setState({ news: res.body.results });
