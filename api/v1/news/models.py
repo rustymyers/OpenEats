@@ -28,4 +28,4 @@ class News(models.Model):
         ordering = ('pub_date',)
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
