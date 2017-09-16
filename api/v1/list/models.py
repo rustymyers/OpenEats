@@ -42,7 +42,7 @@ class GroceryItem(models.Model):
     completed = Whether or not the GroceryItem has been purchased or
                 added to the users shopping cart in the supermarket.
     """
-    list = models.ForeignKey(GroceryList, verbose_name=_('grocery list'), related_name='items')
+    list = models.ForeignKey(GroceryList, verbose_name=_('grocery_list'), related_name='items')
     title = models.CharField(_("title"), max_length=550)
     completed = models.BooleanField(_("completed"), default=False)
 
