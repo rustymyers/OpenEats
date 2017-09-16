@@ -61,7 +61,7 @@ class Recipe(models.Model):
         ordering = ['-pub_date', 'title']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
 
 class SubRecipe(models.Model):
@@ -71,7 +71,7 @@ class SubRecipe(models.Model):
     parent_recipe = models.ForeignKey("Recipe", verbose_name=_('parent_recipe'), related_name='parent_recipe', null=True)
 
     def __unicode__(self):
-        return self.parent_recipe.title
+        return '%s' % self.parent_recipe.title
 
 
 class Direction(models.Model):
@@ -90,4 +90,4 @@ class Direction(models.Model):
         ordering = ['step']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title

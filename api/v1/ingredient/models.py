@@ -25,7 +25,7 @@ class IngredientGroup(models.Model):
         unique_together = ('title', 'recipe')
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
 
 class Ingredient(models.Model):
@@ -46,7 +46,7 @@ class Ingredient(models.Model):
         ordering = ['id']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
     def mass_to_volume(self, mass):
         # TODO: Be able to convert from Metric to Imperial (America's Crazy system)
