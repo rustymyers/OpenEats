@@ -1,11 +1,9 @@
-var webpack = require('webpack');
-var isProd = (process.env.NODE_ENV === 'production');
+const webpack = require('webpack');
+const isProd = (process.env.NODE_ENV === 'production');
 
 // http://jonnyreeves.co.uk/2016/simple-webpack-prod-and-dev-config/
 function getPlugins() {
-  var plugins;
-
-  plugins = [];
+  let plugins = [];
 
   plugins.push(new webpack.DefinePlugin({
     'process.env': {
@@ -16,7 +14,6 @@ function getPlugins() {
   }));
 
   if (isProd) {
-    plugins.push(new webpack.optimize.DedupePlugin());
     plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     plugins.push(new webpack.optimize.UglifyJsPlugin());
   }
@@ -28,38 +25,53 @@ module.exports = {
   entry: './modules/index.js',
 
   output: {
-    path: 'public',
+    path: '/code/public',
     filename: 'bundle.js',
     publicPath: '/'
   },
 
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.json']
-  },
-
   module: {
-    loaders: [
+      rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader?presets[]=es2015&presets[]=react'
+        use: [ "babel-loader"]
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        use: ["json-loader"]
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader"
+        use: [
+          "style-loader",
+          "css-loader"
+        ]
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
       },
-      {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        use: ['file-loader']
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: ['url-loader?limit=10000'],
+      },
+      {
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        use: ['url-loader?limit=10000'],
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        use: ['url-loader?limit=10000'],
+      },
     ],
   },
 
@@ -67,6 +79,7 @@ module.exports = {
     historyApiFallback: true,
     inline: true,
     host: "0.0.0.0",
+    hot: true,
     port: process.env.NODE_PORT
   },
 

@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { browserHistory } from 'react-router'
+import history from '../../common/history'
 
 import AppDispatcher from '../../common/AppDispatcher';
 import RecipeConstants from '../constants/RecipeConstants';
@@ -126,7 +126,7 @@ RecipeStore.dispatchToken = AppDispatcher.register(action => {
       break;
 
     case RecipeConstants.SUBMIT:
-      browserHistory.push('/recipe/' + action.new_recipe_id);
+      history.push('/recipe/' + action.new_recipe_id);
       _formData = {};
       _errors = false;
       RecipeStore.emitChange();

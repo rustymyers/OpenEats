@@ -1,80 +1,98 @@
+"use strict";
+
 import React from 'react'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
+import { injectIntl, defineMessages } from 'react-intl'
 
 import {
   ENTER_KEY,
   ESCAPE_KEY
 } from '../constants/ListStatus'
 
-export default React.createClass({
-  getInitialState: function() {
-    return {
-      title: this.props.title || '',
+class ListHeader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: this.props.list.title || '',
       editing: false,
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      title: nextProps.title,
+      title: nextProps.list.title,
       editing: false,
     });
-  },
+  }
 
-  delete_list: function () {
-    if (confirm("Are you sure you want to delete this list?")) {
-      this.props.removeList()
+  handleDelete = (message) => {
+    if (confirm(message)) {
+      this.props.removeList(this.props.list.id)
     }
-  },
+  };
 
-  handleEdit: function () {
+  handleEdit = () => {
     this.setState({editing: true});
-  },
+  };
 
-  handleChange: function (event) {
+  handleChange = (event) => {
     if (this.state.editing) {
       this.setState({title: event.target.value});
     }
-  },
+  };
 
-  handleKeyDown: function (event) {
+  handleKeyDown = (event) => {
     if (event.which === ESCAPE_KEY) {
       this.setState({
-        title: this.props.title,
+        title: this.props.list.title,
         editing: false,
       });
     } else if (event.which === ENTER_KEY) {
       this.handleSubmit(event);
     }
-  },
+  };
 
-  handleSubmit: function (event) {
-    var val = this.state.title.trim();
+  handleSubmit = () => {
+    let val = this.state.title.trim();
     if (val) {
-      this.props.updateList(val);
+      this.props.updateList(this.props.list.id, val);
       this.setState({
-        editText: val,
+        title: val,
         editing: false,
       });
     } else {
       this.setState({
-        editText: this.props.title,
+        title: this.props.list.title,
         editing: false,
       });
     }
-  },
+  };
 
-  render: function() {
+  render() {
+    const { formatMessage } = this.props.intl;
+    const messages = defineMessages({
+      confirmDelete: {
+        id: 'list_header.confirm_delete',
+        description: 'Are you sure you want to delete this list?',
+        defaultMessage: 'Are you sure you want to delete this list?',
+      },
+    });
+
     return (
       <div className={classNames({
           editing: this.state.editing,
           "list-header": true
         })}>
         <div className="view">
-          <label onDoubleClick={this.handleEdit}>
+          <label onDoubleClick={ this.handleEdit }>
             { this.state.title }
           </label>
-          <button className="destroy" onClick={this.delete_list} />
+          <button
+            className="destroy"
+            onClick={() => this.handleDelete(formatMessage(messages.confirmDelete)) }
+          />
         </div>
         <input
           ref="editField"
@@ -87,4 +105,17 @@ export default React.createClass({
       </div>
     )
   }
-});
+}
+
+ListHeader.propTypes = {
+  list: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    item_count: PropTypes.number.isRequired
+  }).isRequired,
+  removeList: PropTypes.func.isRequired,
+  updateList: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+};
+
+export default injectIntl(ListHeader)

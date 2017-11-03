@@ -33,7 +33,7 @@ class GroceryListMenuItem extends React.Component {
                    id="basic-nav-dropdown">
         { lists }
         {( this.props.data.length > 0 ? <MenuItem divider /> : null )}
-        <LinkContainer to="/list">
+        <LinkContainer exact={ true } to="/list">
           <MenuItem>{ formatMessage(messages.grocery_list) }</MenuItem>
         </LinkContainer>
       </NavDropdown>

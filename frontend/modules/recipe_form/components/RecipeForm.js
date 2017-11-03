@@ -1,5 +1,4 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
 import {
     injectIntl,
     IntlProvider,
@@ -7,6 +6,7 @@ import {
     formatMessage
 } from 'react-intl';
 import AuthStore from '../../account/stores/AuthStore'
+import authCheckRedirect from '../../common/authCheckRedirect'
 import { RecipeStore, INIT_EVENT, ERROR_EVENT, CHANGE_EVENT } from '../stores/RecipeStore';
 import RecipeActions from '../actions/RecipeActions';
 
@@ -47,7 +47,8 @@ class RecipeForm extends React.Component {
   }
 
   componentDidMount() {
-    RecipeActions.init(this.props.params.id);
+    authCheckRedirect();
+    RecipeActions.init(this.props.match.params.id);
     RecipeActions.fetchRecipeList('');
     RecipeStore.addChangeListener(INIT_EVENT, this._onInit);
     RecipeStore.addChangeListener(CHANGE_EVENT, this._onChange);
@@ -67,7 +68,7 @@ class RecipeForm extends React.Component {
     if (Object.keys(state.data).length > 0) {
       const user = this.getAuthUser();
       if (state.data.author !== user.id && state.data.id) {
-        browserHistory.replace('/recipe/' + state.data.id);
+        this.props.history.replace('/recipe/' + state.data.id);
       }
     }
   }

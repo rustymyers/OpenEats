@@ -7,6 +7,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={1}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -28,6 +42,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={2}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -49,6 +77,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={3}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -70,6 +112,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={4}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -91,6 +147,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={5}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -112,6 +182,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={6}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -133,6 +217,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={7}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -154,6 +252,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={8}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -175,6 +287,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={9}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -196,6 +322,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={10}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -217,6 +357,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={11}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >
@@ -238,6 +392,20 @@ exports[`Ingredient component test 1`] = `
   <li
     className="ingredient"
   >
+    <div
+      className={undefined}
+    >
+      <div
+        className="checkbox"
+      >
+        <input
+          checked={false}
+          name={12}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </div>
+    </div>
     <span
       className="quantity"
     >

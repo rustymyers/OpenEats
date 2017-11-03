@@ -48,8 +48,4 @@ class BrowseStore extends EventEmitter {
   }
 };
 
-BrowseStore.propTypes = {
-  AppDispatcher: React.PropTypes.objectOf(AppDispatcher).isRequired
-};
-
 module.exports = new BrowseStore(AppDispatcher);

@@ -1,32 +1,34 @@
 import React from 'react'
 
-export default React.createClass({
-  getInitialState: function() {
-    return {
+class TagList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       tags: this.props.tags || [],
       input: this.unarrayify(this.props.tags || []),
       errors: this.props.errors || false,
     };
-  },
+  }
 
-  unarrayify(value) {
+  unarrayify = value => {
     return value.map((tag, key) => {
       return tag.title
     }).join(', ');
-  },
+  };
 
-  arrayify(value) {
-    var dict = [];
+  arrayify = value => {
+    let dict = [];
     if (value) {
-      var tags = value.split(',');
+      let tags = value.split(',');
       for (let title in tags) {
         dict.push({'title': tags[title].trim()})
       }
     }
     return dict
-  },
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       tags: this.arrayify(event.target.value),
       input: event.target.value
@@ -35,9 +37,9 @@ export default React.createClass({
     if(this.props.change) {
       this.props.change(event.target.name, this.arrayify(event.target.value));
     }
-  },
+  };
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.tags === undefined && this.props.tags != nextProps.tags) {
       this.setState({
         tags: nextProps.tags,
@@ -50,9 +52,9 @@ export default React.createClass({
         errors: nextProps.errors
       });
     }
-  },
+  }
 
-  render: function () {
+  render() {
     let className = "form-group";
     let errorMessage = false;
     if (this.state.errors !== false) {
@@ -78,4 +80,6 @@ export default React.createClass({
       </div>
     )
   }
-});
+}
+
+export default TagList

@@ -1,7 +1,7 @@
 import AppDispatcher from '../../common/AppDispatcher';
 import AuthConstants from '../constants/AuthConstants';
 import { EventEmitter } from 'events';
-import { browserHistory } from 'react-router'
+import history from '../../common/history'
 
 const CHANGE_EVENT = 'change';
 
@@ -63,7 +63,7 @@ AuthStore.dispatchToken = AppDispatcher.register(action => {
     case AuthConstants.LOGIN_USER:
       setUser(action.user);
       AuthStore.emitChange();
-      browserHistory.push('/');
+      history.push('/');
       break;
 
     case AuthConstants.LOGIN_ERROR:
@@ -74,7 +74,7 @@ AuthStore.dispatchToken = AppDispatcher.register(action => {
     case AuthConstants.LOGOUT_USER:
       removeUser();
       AuthStore.emitChange();
-      browserHistory.push('/');
+      history.push('/');
       break;
 
     default:
