@@ -6,7 +6,9 @@ export const bulkAdd = (items, list) => {
   return (dispatch) => {
     const format = (i) => {
       let quantity = i.customQuantity ? i.customQuantity : i.quantity;
-      return quantity + " " + i.measurement + " " + i.title;
+      quantity = i.quantity ? i.quantity + " " : '';
+      let measurement = i.measurement ? i.measurement + " " : '';
+      return quantity + measurement + i.title;
     };
 
     let checkedIngredients = items.ingredient_groups.map(item => {
