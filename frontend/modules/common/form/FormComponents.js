@@ -178,6 +178,7 @@ class Checkbox extends BaseComponent {
       <div className={ this.props.size } key={ this.props.id }>
         <div className="checkbox">
           <input type="checkbox"
+                 className="checkbox-style"
                  name={ this.props.name }
                  checked={ this.state.checked }
                  onChange={ this.handleChange }/>

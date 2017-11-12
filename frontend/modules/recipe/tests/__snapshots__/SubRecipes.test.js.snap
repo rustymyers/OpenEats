@@ -15,6 +15,7 @@ exports[`Test Sub Recipes 1`] = `
       >
         <input
           checked={false}
+          className="checkbox-style"
           name={1}
           onChange={[Function]}
           type="checkbox"
@@ -52,6 +53,7 @@ exports[`Test Sub Recipes 1`] = `
       >
         <input
           checked={false}
+          className="checkbox-style"
           name={2}
           onChange={[Function]}
           type="checkbox"

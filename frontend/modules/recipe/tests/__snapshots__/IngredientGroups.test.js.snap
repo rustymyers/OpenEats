@@ -24,6 +24,7 @@ exports[`Ingredient Group component test 1`] = `
           >
             <input
               checked={false}
+              className="checkbox-style"
               name={1}
               onChange={[Function]}
               type="checkbox"
@@ -70,6 +71,7 @@ exports[`Ingredient Group component test 1`] = `
           >
             <input
               checked={false}
+              className="checkbox-style"
               name={1}
               onChange={[Function]}
               type="checkbox"
@@ -113,6 +115,7 @@ exports[`Ingredient Group component test 1`] = `
           >
             <input
               checked={false}
+              className="checkbox-style"
               name={1}
               onChange={[Function]}
               type="checkbox"
