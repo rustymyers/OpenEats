@@ -1,45 +1,49 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-class SubRecipes extends React.Component {
-  constructor(props) {
-    super(props);
+import { Checkbox } from '../../common/form/FormComponents'
 
-    this.state = {
-      data: this.props.data || []
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({data: nextProps.data});
-  }
-
-  render() {
-    let recipeLinks = this.state.data.map(function(recipeLink) {
-      return (
-        <li className="ingredient" key={ recipeLink.child_recipe_id }>
-          { (recipeLink.quantity !== 0)
-              ? <span className="quantity">{ recipeLink.quantity } </span>
-              : null
-          }
-          { (recipeLink.measurement)
-              ? <span className="measurement">{ recipeLink.measurement } </span>
-              : null
-          }
-          { (recipeLink.title)
-              ? <Link to={ "/recipe/" + recipeLink.child_recipe_id } className="title">{ recipeLink.title }</Link>
-              : null
-          }
-        </li>
-      );
-    }, this);
-
+const SubRecipes = ({ data, check }) => {
+  let recipeLinks = data.map(function(recipeLink) {
+    let quantity = recipeLink.customQuantity ? recipeLink.customQuantity : recipeLink.quantity;
     return (
-      <ul className="ingredients" >
-        { recipeLinks }
-      </ul>
+      <li className="ingredient" key={ recipeLink.child_recipe_id }>
+        <Checkbox
+          name={ recipeLink.child_recipe_id }
+          checked={ recipeLink.checked ? recipeLink.checked : false }
+          change={ check }
+        />
+        { (recipeLink.quantity !== 0)
+            ? <span className="quantity">{ quantity } </span>
+            : null
+        }
+        { (recipeLink.measurement)
+            ? <span className="measurement">{ recipeLink.measurement } </span>
+            : null
+        }
+        { (recipeLink.title)
+            ? <Link to={ "/recipe/" + recipeLink.child_recipe_id } className="title">{ recipeLink.title }</Link>
+            : null
+        }
+      </li>
     );
-  }
-}
+  });
 
-module.exports = SubRecipes;
+  return (
+    <ul className="ingredients" >
+      { recipeLinks }
+    </ul>
+  );
+};
+
+SubRecipes.PropTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    child_recipe_id: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+    measurement: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired).isRequired
+};
+
+export default SubRecipes;

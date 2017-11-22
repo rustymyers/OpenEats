@@ -5,9 +5,10 @@ import {
     defineMessages,
     formatMessage
 } from 'react-intl';
-import { browserHistory } from 'react-router'
+
 import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
+import Alert from './Alert'
 
 // Load in the base CSS
 require("./../css/login.scss");
@@ -19,34 +20,36 @@ function getAuthErrors() {
   };
 }
 
-export default injectIntl(React.createClass({
-  getInitialState: function() {
-    return getAuthErrors();
-  },
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
 
-  componentDidMount: function() {
+    this.state = getAuthErrors();
+  }
+
+  componentDidMount() {
     if (AuthStore.isAuthenticated()) {
-      browserHistory.push('/');
+      this.props.history.push('/');
     }
     AuthStore.addChangeListener(this._onChange);
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     AuthStore.removeChangeListener(this._onChange);
-  },
+  }
 
-  _onChange: function() {
+  _onChange = () => {
     this.setState(getAuthErrors());
-  },
+  };
 
-  handleSubmit: function(e) {
+  handleSubmit = e => {
     e.preventDefault();
-    var username = this.refs.username.value;
-    var pass = this.refs.pass.value;
+    let username = this.refs.username.value;
+    let pass = this.refs.pass.value;
     AuthActions.getToken(username, pass);
-  },
-  render: function() {
+  };
 
+  render() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
       please_sign_in: {
@@ -81,29 +84,6 @@ export default injectIntl(React.createClass({
       </form>
     )
   }
-}));
+}
 
-var Alert = injectIntl(React.createClass({
-  render: function() {
-
-    const {formatMessage} = this.props.intl;
-    const messages = defineMessages({
-      title: {
-        id: 'login.alert.unable_to_login',
-        description: 'Fail to login header',
-        defaultMessage: 'Unable to login!',
-      },
-      message: {
-        id: 'login.alert.confirm',
-        description: 'Fail to login message',
-        defaultMessage: 'Please confirm that the username and password are correct.',
-      }
-    });
-
-    return (
-      <div className="alert alert-danger">
-        <strong>{ formatMessage(messages.title) }</strong> { formatMessage(messages.message) }
-      </div>
-    )
-  }
-}));
+export default injectIntl(Login)

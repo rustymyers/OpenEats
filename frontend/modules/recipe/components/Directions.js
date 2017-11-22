@@ -1,33 +1,27 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-class Directions extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: this.props.data || []
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({data: nextProps.data});
-  }
-
-  render() {
-    let directions = this.state.data.map(function(direction) {
-      return (
-        <li className="direction" key={ direction.step }>
-          { direction.title }
-        </li>
-      );
-    });
-
+const Directions = ({ data }) => {
+  let directions = data.map(function(direction) {
     return (
-      <ol className="directions" >
-        { directions }
-      </ol>
+      <li className="direction" key={ direction.step }>
+        { direction.title }
+      </li>
     );
-  }
-}
+  });
 
-module.exports = Directions;
+  return (
+    <ol className="directions" >
+      { directions }
+    </ol>
+  );
+};
+
+Directions.PropTypes = {
+  data: PropTypes.shape({
+    step: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired
+};
+
+export default Directions;

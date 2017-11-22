@@ -1,33 +1,38 @@
+"use strict";
+
 import React from 'react'
+import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 
 import { ENTER_KEY } from '../constants/ListStatus'
 
-export default injectIntl(React.createClass({
-  getInitialState: function() {
-    return {
-      value: this.props.value || '',
+class NewList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: this.props.title || '',
     };
-  },
+  }
 
-  handleChange: function (event) {
-    this.setState({value: event.target.value});
-  },
+  handleChange = (event) => {
+    this.setState({title: event.target.value});
+  };
 
-  handleKeyDown: function (event) {
+  handleKeyDown = (event) => {
     if (event.which === ENTER_KEY) {
       this.handleSubmit(event);
     }
-  },
+  };
 
-  handleSubmit: function (event) {
-    var val = this.state.value.trim();
+  handleSubmit = () => {
+    let val = this.state.title.trim();
     if (val) {
       this.props.addList(val);
     }
-  },
+  };
 
-  render: function() {
+  render() {
     const { formatMessage } = this.props.intl;
     const messages = defineMessages({
       header: {
@@ -57,7 +62,7 @@ export default injectIntl(React.createClass({
           autoFocus="true"
           className="form-control"
           placeholder={ formatMessage(messages.placeholder) }
-          value={ this.state.value }
+          value={ this.state.title }
           onChange={ this.handleChange }
           onKeyDown={ this.handleKeyDown }
         />
@@ -68,5 +73,13 @@ export default injectIntl(React.createClass({
         >{ formatMessage(messages.button) }</button>
       </div>
     )
-  }
-}));
+  };
+}
+
+NewList.propTypes = {
+  title: PropTypes.string,
+  intl: PropTypes.object.isRequired,
+  addList: PropTypes.func.isRequired,
+};
+
+export default injectIntl(NewList)
