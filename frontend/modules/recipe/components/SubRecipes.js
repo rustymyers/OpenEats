@@ -5,25 +5,25 @@ import PropTypes from 'prop-types'
 import { Checkbox } from '../../common/components/FormComponents'
 
 const SubRecipes = ({ data, check }) => {
-  let recipeLinks = data.map((recipeLink, i) => {
-    let quantity = recipeLink.customQuantity ? recipeLink.customQuantity : recipeLink.quantity;
+  let subRecipes = data.map((subRecipe, i) => {
+    let quantity = subRecipe.customQuantity ? subRecipe.customQuantity : subRecipe.quantity;
     return (
       <li className="ingredient" key={ i }>
         <Checkbox
-          name={ recipeLink.child_recipe_id }
-          checked={ recipeLink.checked ? recipeLink.checked : false }
+          name={ subRecipe.child_recipe_id }
+          checked={ subRecipe.checked ? subRecipe.checked : false }
           change={ check }
         />
-        { (recipeLink.quantity !== 0)
+        { (subRecipe.quantity !== 0)
             ? <span className="quantity">{ quantity } </span>
             : null
         }
-        { (recipeLink.measurement)
-            ? <span className="measurement">{ recipeLink.measurement } </span>
+        { (subRecipe.measurement)
+            ? <span className="measurement">{ subRecipe.measurement } </span>
             : null
         }
-        { (recipeLink.title)
-            ? <Link to={ "/recipe/" + recipeLink.child_recipe_id } className="title">{ recipeLink.title }</Link>
+        { (subRecipe.title)
+            ? <Link to={ "/recipe/" + subRecipe.child_recipe_id } className="title">{ subRecipe.title }</Link>
             : null
         }
       </li>
@@ -32,7 +32,7 @@ const SubRecipes = ({ data, check }) => {
 
   return (
     <ul className="ingredients" >
-      { recipeLinks }
+      { subRecipes }
     </ul>
   );
 };

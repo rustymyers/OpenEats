@@ -13,7 +13,7 @@ import {
 
 import IngredientBox from './IngredientBox'
 import DirectionBox from './DirectionBox'
-import RecipeLinkBox from './RecipeLinkBox'
+import SubRecipeBox from './SubRecipeBox'
 import TagList from './TagList'
 import Status from './Status'
 
@@ -316,7 +316,7 @@ class RecipeForm extends React.Component {
                 errors={ this.props.form.errors.directions }
                 change={ this.props.recipeFormActions.update }
               />
-              <RecipeLinkBox
+              <SubRecipeBox
                 name="subrecipes"
                 id={ this.props.form.id }
                 label={ formatMessage(messages.subrecipes_label) + " (" + formatMessage(messages.optional) + ")"  }

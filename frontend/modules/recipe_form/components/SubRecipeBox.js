@@ -10,7 +10,7 @@ import TabbedView from './TabbedView'
 
 require('../css/smart-text-box.scss');
 
-class RecipeLinkBox extends React.Component {
+class SubRecipeBox extends React.Component {
   constructor(props) {
     super(props);
 
@@ -43,27 +43,27 @@ class RecipeLinkBox extends React.Component {
 
   arrayify = value => {
     let ings = [];
-    let tags = value.split('\n').filter(t => t.trim().length > 1);
-    for (let index in tags) {
-      let line = tags[index];
+    let subRecipes = value.split('\n').filter(t => t.trim().length > 1);
+    for (let index in subRecipes) {
+      let line = subRecipes[index];
       if (line.length > 0) {
-        let tags = line.split(' ');
-        if (tags.length === 1) {
+        let subRecipes = line.split(' ');
+        if (subRecipes.length === 1) {
           ings.push({ title: line });
-        } else if (tags.length === 2) {
-          if (!(isNaN(tags[0]))) {
-            ings.push({ quantity: tags[0], title: tags[1] })
+        } else if (subRecipes.length === 2) {
+          if (!(isNaN(subRecipes[0]))) {
+            ings.push({ quantity: subRecipes[0], title: subRecipes[1] })
           } else {
             ings.push({ title: line });
           }
         } else {
-          if (!(isNaN(tags[0]))) {
-            let quantity = tags.splice(0, 1)[0];
-            let measurement = tags.splice(0, 1)[0];
+          if (!(isNaN(subRecipes[0]))) {
+            let quantity = subRecipes.splice(0, 1)[0];
+            let measurement = subRecipes.splice(0, 1)[0];
             ings.push({
               quantity: quantity,
               measurement: measurement,
-              title: tags.join(' ')
+              title: subRecipes.join(' ')
             });
           } else {
             ings.push({ title: line });
@@ -140,4 +140,4 @@ class RecipeLinkBox extends React.Component {
   }
 }
 
-export default injectIntl(RecipeLinkBox)
+export default injectIntl(SubRecipeBox)

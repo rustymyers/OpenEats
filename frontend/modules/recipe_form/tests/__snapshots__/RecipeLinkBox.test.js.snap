@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RecipeLinkBox component test 1`] = `
+exports[`SubRecipeBox component test 1`] = `
 <div
   className="live-editor"
 >
