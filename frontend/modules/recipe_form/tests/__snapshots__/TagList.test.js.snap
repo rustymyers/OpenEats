@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TagList tests 1`] = `
+exports[`TagList component test 1`] = `
 <div
   className={undefined}
 >
   <div
-    className="form-group"
+    className="form-group null"
   >
     <input
       className="form-control"
@@ -13,32 +13,8 @@ exports[`TagList tests 1`] = `
       onChange={[Function]}
       placeholder={undefined}
       type={undefined}
-      value="testme, testmetoo"
+      value=""
     />
-  </div>
-</div>
-`;
-
-exports[`TagList tests 2`] = `
-<div
-  className={undefined}
->
-  <div
-    className="form-group has-error"
-  >
-    <input
-      className="form-control"
-      name={undefined}
-      onChange={[Function]}
-      placeholder={undefined}
-      type={undefined}
-      value="There was a problem"
-    />
-    <span
-      className="help-inline"
-    >
-      O
-    </span>
   </div>
 </div>
 `;

@@ -11,7 +11,7 @@ class IngredientSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        fields = ['quantity', 'measurement', 'title']
 
 
 class IngredientGroupSerializer(serializers.ModelSerializer):

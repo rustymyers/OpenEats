@@ -5,7 +5,7 @@ import {
     defineMessages,
     formatMessage
 } from 'react-intl';
-import { NavDropdown, MenuItem, NavItem } from 'react-bootstrap'
+import { MenuItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 class CreateRecipeMenuItem extends React.Component {
@@ -17,25 +17,12 @@ class CreateRecipeMenuItem extends React.Component {
         description: 'Create recipe title',
         defaultMessage: 'Create recipe',
       },
-      import: {
-        id: 'nav.import',
-        description: 'Import A Recipe',
-        defaultMessage: 'Import Recipe',
-      },
     });
 
     return (
-      <NavDropdown eventKey="recipe"
-                   title={ formatMessage(messages.create_recipe) }
-                   id="basic-nav-dropdown">
-        <LinkContainer to="/recipe/create">
-          <MenuItem>{ formatMessage(messages.create_recipe) }</MenuItem>
-        </LinkContainer>
-        <MenuItem divider />
-        <LinkContainer to="/recipe/import">
-          <MenuItem>{ formatMessage(messages.import) }</MenuItem>
-        </LinkContainer>
-      </NavDropdown>
+      <LinkContainer to="/recipe/create">
+        <MenuItem>{ formatMessage(messages.create_recipe) }</MenuItem>
+      </LinkContainer>
     )
   }
 }

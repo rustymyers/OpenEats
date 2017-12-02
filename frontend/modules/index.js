@@ -23,8 +23,7 @@ import Login from './account/components/Login'
 import News from './news/components/News'
 import List from './list/containers/List'
 import Browse from './browse/components/Browse'
-import { RecipeForm } from './recipe_form/components/RecipeForm'
-import { ImportForm } from './recipe_form/components/ImportForm'
+import Form from './recipe_form/containers/Form'
 import RecipeView from './recipe/components/RecipeView'
 
 // Load required polyfills
@@ -60,9 +59,8 @@ const main = (
                 <Route path='/login' component={ Login } />
                 <Route path='/browse' component={ Browse } />
 
-                <Route path='/recipe/create' component={ RecipeForm } />
-                <Route path='/recipe/import' component={ ImportForm } />
-                <Route path='/recipe/edit/:id' component={ RecipeForm } />
+                <Route path='/recipe/create' component={ Form } />
+                <Route path='/recipe/edit/:id' component={ Form } />
                 <Route path='/recipe/:recipe' component={ RecipeView } />
 
                 <Route path='/list/:listId' component={ List } />

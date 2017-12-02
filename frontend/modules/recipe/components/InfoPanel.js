@@ -5,7 +5,7 @@ import {
     defineMessages,
 } from 'react-intl'
 
-import { Input } from '../../common/form/FormComponents'
+import { Input } from '../../common/components/FormComponents'
 
 const RecipeHeader = ({ cookTime, prepTime, servings, customServings, info, updateServings, clearServings, intl }) => {
   const messages = defineMessages({

@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@webscopeio/react-textarea-autocomplete": "^1.2.2",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.1.5",
     "compression": "^1.6.2",
@@ -29,7 +30,6 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "16.0.0",
-    "react-autocomplete": "1.7.1",
     "react-bootstrap": "0.31.3",
     "react-debounce-input": "3.1.0",
     "react-dom": "16.0.0",

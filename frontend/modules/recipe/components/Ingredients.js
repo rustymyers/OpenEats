@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Checkbox } from '../../common/form/FormComponents'
+import { Checkbox } from '../../common/components/FormComponents'
 
 const Ingredients = ({ data, check }) => {
-  let ingredients = data.map(function(ingredient) {
+  let ingredients = data.map((ingredient, i) => {
     let quantity = ingredient.customQuantity ? ingredient.customQuantity : ingredient.quantity;
     return (
-      <li className="ingredient" key={ ingredient.id }>
+      <li className="ingredient" key={ i }>
         <Checkbox
           name={ ingredient.id }
           checked={ ingredient.checked ? ingredient.checked : false }

@@ -30,13 +30,13 @@ class BaseComponent extends React.Component {
   }
 
   hasErrors() {
-    return this.state.errors !== false;
+    return !!this.state.errors;
   }
 
   getErrorMessage() {
     if (this.hasErrors()) {
       return (
-          <span className="help-inline">{ this.state.errors[0] }</span>
+          <span className="help-inline">{ this.state.errors }</span>
       );
     }
 
@@ -228,37 +228,8 @@ class Select extends BaseComponent {
   }
 }
 
-class Alert extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {formatMessage} = this.props.intl;
-    const messages = defineMessages({
-      title: {
-        id: 'widget_error.title',
-        description: 'Form error title',
-        defaultMessage: 'Form error!',
-      },
-      message: {
-        id: 'widget_error.message',
-        description: 'Form error message',
-        defaultMessage: 'Please confirm that all the data is there.',
-      }
-    });
-
-    return (
-      <div className="alert alert-danger">
-        <strong>{ formatMessage(messages.title) }</strong> { formatMessage(messages.message) }
-      </div>
-    )
-  }
-}
-
 module.exports.Input = Input;
 module.exports.TextArea = TextArea;
 module.exports.File = injectIntl(File);
 module.exports.Checkbox = Checkbox;
 module.exports.Select = injectIntl(Select);
-module.exports.Alert = injectIntl(Alert);

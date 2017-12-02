@@ -8,7 +8,7 @@ from rest_framework.settings import api_settings
 from rest_framework.fields import SerializerMethodField
 
 
-from v1.recipe.models import Recipe, Direction, SubRecipe
+from v1.recipe.models import Recipe, SubRecipe
 from v1.recipe_groups.models import Tag
 from v1.ingredient.serializers import IngredientGroupSerializer
 from v1.recipe_groups.serializers import TagSerializer
@@ -38,13 +38,6 @@ class CustomImageField(ImageField):
         return super(ImageField, self).to_representation(value)
 
 
-class DirectionSerializer(serializers.ModelSerializer):
-    """ Standard `rest_framework` ModelSerializer """
-    class Meta:
-        model = Direction
-        fields = '__all__'
-
-
 class SubRecipeSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """
     title = serializers.ReadOnlyField(source='child_recipe.title')
@@ -52,10 +45,10 @@ class SubRecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubRecipe
         fields = (
-            'child_recipe_id',
             'quantity',
             'measurement',
             'title',
+            'child_recipe_id',
         )
 
 
@@ -81,7 +74,6 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     photo = CustomImageField(required=False)
     photo_thumbnail = CustomImageField(required=False)
     ingredient_groups = IngredientGroupSerializer(many=True)
-    directions = DirectionSerializer(many=True)
     tags = TagSerializer(many=True, required=False)
     subrecipes = SerializerMethodField()
     pub_date = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
@@ -102,12 +94,11 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
     def update(self, instance, validated_data):
         """
         Update and return a new `Recipe` instance, given the validated data.
-        This will also update or create all the ingredient, direction,
+        This will also update or create all the ingredient,
         or tag objects required.
         """
-        # Pop tags, directions, and ingredients
+        # Pop tags, and ingredients
         ingredient_data = validated_data.pop('ingredient_groups', None)
-        direction_data = validated_data.pop('directions', None)
         tag_data = validated_data.pop('tags', None)
         # ManytoMany fields in django rest don't work very well, so we are getting the data directly fron teh context
         subrecipe_data = None
@@ -141,15 +132,6 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
                     Ingredient.objects.create(
                         ingredient_group=group, **ingredient
                     )
-
-        # Create the Directions
-        # TODO: don't delete everything when we edit the recipe. Use an ID.
-        if direction_data:
-            for direction in instance.directions.all():
-                direction.delete()
-
-            for direction in direction_data:
-                Direction.objects.create(recipe=instance, **direction)
 
         # Create the Tags
         # TODO: don't delete everything when we edit the recipe. Use an ID.
@@ -188,9 +170,8 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
         This will also create all the ingredient objects required and
         Create all Tags that are new.
         """
-        # Pop tags, directions, and ingredients
+        # Pop tags, and ingredients
         ingredient_data = validated_data.pop('ingredient_groups', None)
-        direction_data = validated_data.pop('directions', None)
         tag_data = validated_data.pop('tags', None)
         # ManytoMany fields in django rest don't work very well, so we are getting the data directly fron teh context
         subrecipe_data = None
@@ -219,10 +200,6 @@ class RecipeSerializer(FieldLimiter, serializers.ModelSerializer):
             )
             for ingredient in ingredient_group.get('ingredients'):
                 Ingredient.objects.create(ingredient_group=group, **ingredient)
-
-        # Create the Directions
-        for direction in direction_data:
-            Direction.objects.create(recipe=recipe, **direction)
 
         # Create the Tags
         if tag_data:

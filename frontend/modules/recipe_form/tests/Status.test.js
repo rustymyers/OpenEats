@@ -1,10 +1,10 @@
 import React from 'react';
-import TagList from '../components/TagList';
+import Status from '../components/Status';
 import renderer from 'react-test-renderer';
 
-test('TagList component test', () => {
+test('Status component test', () => {
   const component = renderer.create(
-    <TagList/>
+    <Status status={{message: []}}/>
   );
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();

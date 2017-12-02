@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { Checkbox } from '../../common/form/FormComponents'
+import { Checkbox } from '../../common/components/FormComponents'
 
 const SubRecipes = ({ data, check }) => {
-  let recipeLinks = data.map(function(recipeLink) {
+  let recipeLinks = data.map((recipeLink, i) => {
     let quantity = recipeLink.customQuantity ? recipeLink.customQuantity : recipeLink.quantity;
     return (
-      <li className="ingredient" key={ recipeLink.child_recipe_id }>
+      <li className="ingredient" key={ i }>
         <Checkbox
           name={ recipeLink.child_recipe_id }
           checked={ recipeLink.checked ? recipeLink.checked : false }
