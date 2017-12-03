@@ -73,6 +73,11 @@ class NavBar extends React.Component {
         description: 'Navbar Recipes',
         defaultMessage: 'Browse Recipes',
       },
+      randomRecipe: {
+        id: 'nav.randomRecipe',
+        description: 'Random Recipe',
+        defaultMessage: 'Random Recipe',
+      },
     });
 
     return (
@@ -93,6 +98,9 @@ class NavBar extends React.Component {
             <LinkContainer to="/browse">
               <NavItem>{formatMessage(messages.recipes)}</NavItem>
             </LinkContainer>
+            <NavItem onClick={ this.props.randomRecipeActions.randomRecipe }>
+              {formatMessage(messages.randomRecipe)}
+            </NavItem>
             {( this.state.authenticated ?
                 <CreateRecipeMenuItem/> : null
             )}

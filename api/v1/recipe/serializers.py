@@ -52,7 +52,7 @@ class SubRecipeSerializer(serializers.ModelSerializer):
         )
 
 
-class MiniBrowseSerializer(serializers.ModelSerializer):
+class MiniBrowseSerializer(FieldLimiter, serializers.ModelSerializer):
     """ Used to get random recipes and limit the return data. """
     photo_thumbnail = CustomImageField(required=False)
     pub_date = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
