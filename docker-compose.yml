@@ -2,7 +2,6 @@ version: '2'
 services:
   api:
     build: api/
-    restart: on-failure
     volumes:
       - static-files:/code/static-files
       - site-media:/code/site-media

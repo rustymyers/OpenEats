@@ -19,17 +19,19 @@ exports[`Ingredient Group component test 1`] = `
         <div
           className={undefined}
         >
-          <div
-            className="checkbox"
+          <label
+            className="check-container"
           >
             <input
               checked={false}
-              className="checkbox-style"
               name={1}
               onChange={[Function]}
               type="checkbox"
             />
-          </div>
+            <span
+              className="checkmark"
+            />
+          </label>
         </div>
         <span
           className="quantity"
@@ -66,17 +68,19 @@ exports[`Ingredient Group component test 1`] = `
         <div
           className={undefined}
         >
-          <div
-            className="checkbox"
+          <label
+            className="check-container"
           >
             <input
               checked={false}
-              className="checkbox-style"
               name={1}
               onChange={[Function]}
               type="checkbox"
             />
-          </div>
+            <span
+              className="checkmark"
+            />
+          </label>
         </div>
         <span
           className="quantity"
@@ -110,17 +114,19 @@ exports[`Ingredient Group component test 1`] = `
         <div
           className={undefined}
         >
-          <div
-            className="checkbox"
+          <label
+            className="check-container"
           >
             <input
               checked={false}
-              className="checkbox-style"
               name={1}
               onChange={[Function]}
               type="checkbox"
             />
-          </div>
+            <span
+              className="checkmark"
+            />
+          </label>
         </div>
         <span
           className="quantity"

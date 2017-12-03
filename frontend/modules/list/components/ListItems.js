@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 
+import { Checkbox } from '../../common/components/FormComponents'
 import ListFooter from './ListFooter'
 import ListItem from './ListItem'
 import AddItem from './AddItem'
@@ -26,6 +27,14 @@ class ListItems extends React.Component {
 
   toggleEdit = (id) =>  {
     this.setState({editing: id});
+  };
+
+  toggleAll = (name, checked) =>  {
+    this.props.itemActions.toggleAll(
+        this.props.items,
+        checked,
+        this.props.activeListID
+    )
   };
 
   filterStatus = (status) =>  {
@@ -82,11 +91,10 @@ class ListItems extends React.Component {
     if (items.length) {
       main = (
         <section className="main">
-          <input
-            className="toggle-all"
-            type="checkbox"
-            onChange={ this.props.itemActions.toggleAll.bind(this, items) }
+          <Checkbox
+            size="toggle-all"
             checked={ activeListCount === 0 }
+            change={ this.toggleAll }
           />
           <ul className="item-list">
             { listItems }

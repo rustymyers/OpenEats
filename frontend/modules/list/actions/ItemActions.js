@@ -84,12 +84,12 @@ export const toggle = (id, completed, list) => {
   }
 };
 
-export const toggleAll = (items, event, list) => {
+export const toggleAll = (items, checked, list) => {
   let ids = items.reduce(function (list, item) {
-    if (item.completed !== event.target.checked) {
+    if (item.completed !== checked) {
       list.push({
         id: item.id,
-        completed: event.target.checked
+        completed: checked
       });
     }
     return list;

@@ -48,7 +48,6 @@
     font-family: inherit;
     font-weight: inherit;
     line-height: 1.4em;
-    border: 0;
     outline: none;
     color: inherit;
     padding: 6px;
@@ -70,23 +69,27 @@
     border-top: 1px solid #e6e6e6;
     .toggle-all {
       position: absolute;
-      top: -45px;
-      left: -12px;
+      top: -35px;
+      left: 50px;
       width: 60px;
       height: 34px;
-      text-align: center;
-      border: none; /* Mobile Safari */
-      &:before {
-        content: '❯';
-        font-size: 22px;
-        color: #e6e6e6;
-        padding: 10px 27px 10px 27px;
-      }
-      &:checked:before {
-        color: #737373;
+      .checkmark {
+        border-color: #999;
+        background-color: #ccc;
+        &:after {
+          display: block;
+          left: 4px;
+          top: 1px;
+          width: 10px;
+          height: 10px;
+          border-width: 0 2px 2px 0;
+        }
+        &:hover {
+          border-color: #999;
+          background-color: #aaa;
+        }
       }
     }
-
     .item-list {
       margin: 0;
       padding: 0;
@@ -95,7 +98,6 @@
         position: relative;
         font-size: 16px;
         border-bottom: 1px solid #ededed;
-
         &:last-child {
           border-bottom: none;
         }
@@ -113,7 +115,7 @@
             margin-bottom: -1px;
           }
         }
-        &.completed{
+        &.completed {
           label {
             color: #b9b9b9;
             text-decoration: line-through;
@@ -122,39 +124,21 @@
         &:hover .destroy {
           display: block;
         }
-        .toggle {
-          text-align: center;
-          width: 40px;
-          /* auto, since non-WebKit browsers doesn't support input styling */
-          height: auto;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          margin: auto 0;
-          border: none; /* Mobile Safari */
-          -webkit-appearance: none;
-          appearance: none;
-          &:after {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+        .view {
+          margin-left: 50px;
+          line-height: 30px;
+          .toggle {
+            display: inline;
+            .checkmark {
+              margin-top: 3px;
+            }
           }
-          &:checked:after {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+          .item {
+            white-space: pre-line;
+            word-break: break-all;
+            transition: color 0.4s;
+            font-weight: normal;
           }
-          &:focus{
-            outline:0;
-          }
-        }
-        label {
-          white-space: pre-line;
-          word-break: break-all;
-          padding: 15px 60px 15px 15px;
-          margin-left: 45px;
-          margin-top: 3px;
-          margin-bottom: 0px;
-          display: block;
-          line-height: 0.8;
-          transition: color 0.4s;
-          font-weight: normal;
         }
         .destroy {
           display: none;
@@ -163,7 +147,7 @@
           right: 10px;
           bottom: 0;
           width: 40px;
-          height: 35px;
+          height: 25px;
           margin: auto 0;
           font-size: 30px;
           color: #cc9a9a;
@@ -180,28 +164,6 @@
           display: none;
         }
       }
-    }
-  }
-
-  /*
-    Hack to remove background from Mobile Safari.
-    Can't use it globally since it destroys checkboxes in Firefox
-  */
-  @media screen and (-webkit-min-device-pixel-ratio:0) {
-    .toggle-all,
-    .item-list li .toggle {
-      background: none;
-    }
-
-    .item-list li .toggle {
-      height: 40px;
-    }
-
-    .toggle-all {
-      -webkit-transform: rotate(90deg);
-      transform: rotate(90deg);
-      -webkit-appearance: none;
-      appearance: none;
     }
   }
 }

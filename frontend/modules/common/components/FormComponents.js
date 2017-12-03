@@ -6,6 +6,7 @@ import {
     formatMessage
 } from 'react-intl';
 
+import '../css/checkbox.scss'
 
 class BaseComponent extends React.Component {
   constructor(props) {
@@ -176,14 +177,15 @@ class Checkbox extends BaseComponent {
   render() {
     return (
       <div className={ this.props.size } key={ this.props.id }>
-        <div className="checkbox">
-          <input type="checkbox"
-                 className="checkbox-style"
-                 name={ this.props.name }
-                 checked={ this.state.checked }
-                 onChange={ this.handleChange }/>
-          { this.props.placeholder }
-        </div>
+        <label className="check-container">
+          <input
+              type="checkbox"
+              name={ this.props.name }
+              checked={ this.state.checked }
+              onChange={ this.handleChange }
+          />
+          <span className="checkmark"/>
+        </label>
       </div>
     )
   }

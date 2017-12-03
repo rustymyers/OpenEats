@@ -10,17 +10,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={1}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -46,17 +48,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={2}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -82,17 +86,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={3}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -118,17 +124,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={4}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -154,17 +162,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={5}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -190,17 +200,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={6}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -226,17 +238,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={7}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -262,17 +276,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={8}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -298,17 +314,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={9}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -334,17 +352,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={10}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -370,17 +390,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={11}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"
@@ -406,17 +428,19 @@ exports[`Ingredient component test 1`] = `
     <div
       className={undefined}
     >
-      <div
-        className="checkbox"
+      <label
+        className="check-container"
       >
         <input
           checked={false}
-          className="checkbox-style"
           name={12}
           onChange={[Function]}
           type="checkbox"
         />
-      </div>
+        <span
+          className="checkmark"
+        />
+      </label>
     </div>
     <span
       className="quantity"

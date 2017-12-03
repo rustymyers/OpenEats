@@ -9,6 +9,7 @@ import {
   ENTER_KEY,
   ESCAPE_KEY
 } from '../constants/ListStatus'
+import { Checkbox } from '../../common/components/FormComponents'
 
 class ListItem extends React.Component {
   constructor(props) {
@@ -68,13 +69,13 @@ class ListItem extends React.Component {
         editing: this.props.editing
       })}>
         <div className="view">
-          <input
-            className="toggle"
-            type="checkbox"
+          <Checkbox
+            size="toggle"
+            ref="editField"
             checked={ this.props.item.completed }
-            onChange={ this.handleToggle }
+            change={ this.handleToggle }
           />
-          <label onDoubleClick={ this.handleEdit }>
+          <label className="item" onDoubleClick={ this.handleEdit }>
             { this.props.item.title }
           </label>
           <button className="destroy" onClick={ this.handleDestroy } />
