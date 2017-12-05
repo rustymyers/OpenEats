@@ -89,12 +89,11 @@ From.propTypes = {
   tags: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
   cuisines: PropTypes.array.isRequired,
-  status: PropTypes.array.isRequired,
+  status: PropTypes.object.isRequired,
   form: PropTypes.array.isRequired,
   statusActions: PropTypes.object.isRequired,
   recipeGroupActions: PropTypes.object.isRequired,
   recipeFormActions: PropTypes.object.isRequired,
-  recipeListActions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

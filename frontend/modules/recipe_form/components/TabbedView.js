@@ -83,7 +83,7 @@ class TabbedView extends React.Component {
           </li>
         </ul>
         <div className={ contentClassName }>{ children[display] }</div>
-        <div className="errors">{ errors }</div>
+        <div className="help-inline">{ errors }</div>
       </div>
     )
   }

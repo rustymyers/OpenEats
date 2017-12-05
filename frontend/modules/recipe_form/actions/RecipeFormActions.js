@@ -137,7 +137,14 @@ export const save = (data, event) => {
           // Also display an alert with errors
           let errors = err.response.body;
           for (let name in errors) {
-            let error = errors[name].join(' ');
+            let error = JSON.stringify(errors[name])
+              .replace(/"/g,'')
+              .replace(/'/g,'')
+              .replace(/\[/g,'')
+              .replace(/]/g,'')
+              .replace(/}/g,'')
+              .replace(/{/g,'')
+              .replace(/:/g,' - ');
             dispatch({
               type: RecipeFormConstants.RECIPE_FORM_ERROR,
               recipe: data.id,

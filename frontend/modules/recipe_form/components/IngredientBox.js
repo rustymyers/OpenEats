@@ -55,7 +55,7 @@ class IngredientBox extends React.Component {
     if (value) {
       let tags = value.split('\n').filter(t => t.trim().length > 1);
       for (let index in tags) {
-        let line = tags[index];
+        let line = tags[index].trim();
         if (line.length > 0) {
           // Check if the line is an IG title
           // If line is IG title, update igTitle and continue

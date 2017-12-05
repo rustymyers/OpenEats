@@ -60,7 +60,7 @@ exports[`SubRecipeBox component test 1`] = `
     </div>
   </div>
   <div
-    className="errors"
+    className="help-inline"
   />
 </div>
 `;

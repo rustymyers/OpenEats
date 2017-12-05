@@ -45,7 +45,7 @@ exports[`TabbedView component test 1`] = `
     h
   </div>
   <div
-    className="errors"
+    className="help-inline"
   />
 </div>
 `;
