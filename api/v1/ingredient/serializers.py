@@ -11,7 +11,7 @@ class IngredientSerializer(serializers.ModelSerializer):
     """ Standard `rest_framework` ModelSerializer """
     class Meta:
         model = Ingredient
-        fields = ['quantity', 'measurement', 'title']
+        fields = ['id', 'quantity', 'measurement', 'title']
 
 
 class IngredientGroupSerializer(serializers.ModelSerializer):
@@ -20,4 +20,4 @@ class IngredientGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientGroup
-        fields = ['title', 'ingredients']
+        fields = ['id', 'title', 'ingredients']
