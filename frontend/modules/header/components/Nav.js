@@ -9,8 +9,6 @@ import {
 import { Image, Navbar, Nav, NavDropdown, MenuItem, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-import AuthStore from '../../account/stores/AuthStore';
-
 import { CreateRecipeMenuItem } from './CreateRecipeMenuItem'
 import { GroceryListMenuItem } from './GroceryListMenuItem'
 import { AccountMenuMenuItem, AccountLoginMenuItem } from './MyAccountMenuItem'
@@ -19,41 +17,27 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this._getState();
-
-    this._getState = this._getState.bind(this);
-    this._onChange = this._onChange.bind(this);
+    this.state = {
+      authenticated: false,
+    }
   }
 
   componentDidMount() {
-    AuthStore.addChangeListener(this._onChange);
-    if (AuthStore.isAuthenticated()) {
+    if (this.props.user.id) {
       this.props.listActions.load();
     }
   }
 
-  componentWillUnmount() {
-    AuthStore.removeChangeListener(this._onChange);
-  }
-
-  _getState() {
-    let authenticated = AuthStore.isAuthenticated();
+  componentWillReceiveProps(nextProps) {
     // We need to check if the state is being changed from `false` to `true`.
     // If it is we need to init the list store so the menu has teh users lists.
     if (this.hasOwnProperty('state')) {
-      if (!this.state.authenticated && authenticated) {
-        this.props.listActions.load()
+      if (!this.state.authenticated && !!nextProps.user.id) {
+        this.props.listActions.load();
+        this.setState({ authenticated: true})
       }
     }
-
-    return {
-      authenticated: authenticated,
-    };
-  }
-
-  _onChange() {
-    this.setState(this._getState());
-  }
+  };
 
   render() {
     const {formatMessage} = this.props.intl;
@@ -101,16 +85,17 @@ class NavBar extends React.Component {
             <NavItem onClick={ this.props.randomRecipeActions.randomRecipe }>
               {formatMessage(messages.randomRecipe)}
             </NavItem>
-            {( this.state.authenticated ?
+            {( this.props.user.id  ?
                 <CreateRecipeMenuItem/> : null
             )}
-            {( this.state.authenticated ?
+            {( this.props.user.id ?
                 <GroceryListMenuItem data={ this.props.lists }/> : null
             )}
           </Nav>
           <Nav pullRight>
-            {( this.state.authenticated ?
-                <AccountMenuMenuItem/> : <AccountLoginMenuItem/>
+            {( this.props.user.id  ?
+                <AccountMenuMenuItem authActions={ this.props.authActions }/> :
+                <AccountLoginMenuItem/>
             )}
           </Nav>
         </Navbar.Collapse>

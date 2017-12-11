@@ -1,12 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './common/reducer'
-import thunkMiddleware from 'redux-thunk'
 import { IntlProvider, addLocaleData } from 'react-intl'
 import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import history from './common/history'
+import store from './common/store'
 
 // Load default locale data;
 import en from 'react-intl/locale-data/en';
@@ -19,7 +17,7 @@ const messages = require('../locale/'+process.env.LOCALE+'.json');
 import NavBar from './header/containers/NavBar'
 import Footer from './base/components/Footer'
 import NotFound from './base/components/NotFound'
-import Login from './account/components/Login'
+import Login from './account/containers/Login'
 import News from './news/components/News'
 import List from './list/containers/List'
 import Browse from './browse/components/Browse'
@@ -36,14 +34,6 @@ import {
 require("../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss");
 require("./base/css/core.css");
 require("./base/css/print.css");
-
-// Create Redux Store
-let store = createStore(
-  reducer,
-  applyMiddleware(
-    thunkMiddleware, // lets us dispatch() functions
-  )
-);
 
 const main = (
   <IntlProvider locale={ process.env.LOCALE } messages={ messages }>

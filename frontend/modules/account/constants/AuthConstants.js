@@ -1,7 +1,5 @@
-import keyMirror from 'keymirror';
-
-export default keyMirror({
-  LOGIN_USER: null,
-  LOGIN_ERROR: null,
-  LOGOUT_USER: null,
-});
+export default {
+  LOGIN_USER: 'LOGIN_USER',
+  LOGIN_ERROR: 'LOGIN_ERROR',
+  LOGOUT_USER: 'LOGOUT_USER',
+};

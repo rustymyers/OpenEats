@@ -7,13 +7,16 @@ import { connect } from 'react-redux'
 
 import Nav from '../components/Nav'
 import * as ListActions from '../../list/actions/ListActions'
+import * as AuthActions from '../../account/actions/AuthActions'
 import * as RandomRecipeActions from '../actions/RandomRecipeActions'
 
-let NavBar = ({ lists, listActions, randomRecipeActions }) => {
+let NavBar = ({ user, lists, listActions, authActions, randomRecipeActions }) => {
   return (
     <Nav
+      user={ user }
       lists={ lists }
       listActions={ listActions }
+      authActions={ authActions }
       randomRecipeActions={ randomRecipeActions }
     />
 )};
@@ -25,11 +28,13 @@ NavBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  user: state.user,
   lists: state.list.lists,
 });
 
 const mapDispatchToProps = dispatch => ({
   listActions: bindActionCreators(ListActions, dispatch),
+  authActions: bindActionCreators(AuthActions, dispatch),
   randomRecipeActions: bindActionCreators(RandomRecipeActions, dispatch),
 });
 

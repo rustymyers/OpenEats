@@ -86,4 +86,4 @@ class News extends React.Component {
   }
 }
 
-module.exports = injectIntl(News);
+export default injectIntl(News);

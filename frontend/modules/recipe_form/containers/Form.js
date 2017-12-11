@@ -3,27 +3,20 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import AuthStore from '../../account/stores/AuthStore'
 import * as RecipeFormActions from '../actions/RecipeFormActions'
 import * as RecipeGroupActions from '../actions/RecipeGroupActions'
 import * as RecipeListActions from '../actions/RecipeListActions'
 import * as StatusActions from '../actions/StatusActions'
 import bindIndexToActionCreators from '../../common/bindIndexToActionCreators'
+import history from '../../common/history'
+import authCheckRedirect from '../../common/authCheckRedirect'
 
 import Loading from '../../base/components/Loading'
 import RecipeForm from '../components/RecipeForm'
 
 class From extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      user: AuthStore.getUser()
-    };
-  }
-
   componentDidMount() {
-    AuthStore.addChangeListener(this._onChange);
+    authCheckRedirect();
     window.scrollTo(0, 0);
     this.props.recipeGroupActions.fetchCuisines();
     this.props.recipeGroupActions.fetchCourses();
@@ -36,7 +29,6 @@ class From extends React.Component {
   }
 
   componentWillUnmount() {
-    AuthStore.removeChangeListener(this._onChange);
     this.props.statusActions.close();
   }
 
@@ -52,12 +44,8 @@ class From extends React.Component {
     }
   }
 
-  _onChange = () => {
-    this.setState({user: AuthStore.getUser()});
-  };
-
   render() {
-    let { tags, courses, cuisines, form, status } = this.props;
+    let { user, tags, courses, cuisines, form, status } = this.props;
     let {
       recipeGroupActions,
       recipeFormActions,
@@ -66,7 +54,8 @@ class From extends React.Component {
     let id = this.props.match.params.id || 0;
     let selectForm = form.find(t => t.id == id);
     if (selectForm) {
-      return (
+      if (user !== null && (id === 0 || user.id === selectForm.author)) {
+        return (
           <RecipeForm
             tags={ tags }
             courses={ courses }
@@ -78,7 +67,10 @@ class From extends React.Component {
             recipeFormActions={ recipeFormActions }
             recipeListActions={ RecipeListActions }
           />
-      );
+        );
+      }
+      history.push('/recipe/' + selectForm.id);
+      return (<div/>)
     } else {
       return ( <Loading message="Loading"/> )
     }
@@ -89,6 +81,7 @@ From.propTypes = {
   tags: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
   cuisines: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
   status: PropTypes.object.isRequired,
   form: PropTypes.array.isRequired,
   statusActions: PropTypes.object.isRequired,
@@ -97,6 +90,7 @@ From.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  user: state.user,
   form: state.recipeForm.form,
   status: state.recipeForm.status,
   tags: state.recipeForm.recipeGroups.tags,

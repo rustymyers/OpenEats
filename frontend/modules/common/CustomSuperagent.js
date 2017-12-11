@@ -1,5 +1,5 @@
-import AuthStore from '../account/stores/AuthStore'
 import defaults from 'superagent-defaults'
+import store from './store'
 
 // Create a defaults context
 
@@ -9,8 +9,9 @@ let request = function() {
   // Setup some defaults
   customRequest.set('Accept', 'application/json');
   // Add the user token if the user is logged in
-  if (AuthStore.isAuthenticated()) {
-    customRequest.set('Authorization', 'Token ' + AuthStore.getToken());
+  const user = store.getState().user;
+  if (user.id) {
+    customRequest.set('Authorization', 'Token ' + user.token);
   }
 
   return customRequest;
