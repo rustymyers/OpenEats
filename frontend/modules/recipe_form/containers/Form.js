@@ -10,6 +10,7 @@ import * as StatusActions from '../actions/StatusActions'
 import bindIndexToActionCreators from '../../common/bindIndexToActionCreators'
 import history from '../../common/history'
 import authCheckRedirect from '../../common/authCheckRedirect'
+import documentTitle from '../../common/documentTitle'
 
 import Loading from '../../base/components/Loading'
 import RecipeForm from '../components/RecipeForm'
@@ -29,6 +30,7 @@ class From extends React.Component {
   }
 
   componentWillUnmount() {
+    documentTitle();
     this.props.statusActions.close();
   }
 
@@ -55,6 +57,7 @@ class From extends React.Component {
     let selectForm = form.find(t => t.id == id);
     if (selectForm) {
       if (user !== null && (id === 0 || user.id === selectForm.author)) {
+        documentTitle(selectForm.title);
         return (
           <RecipeForm
             tags={ tags }

@@ -8,15 +8,17 @@ import { connect } from 'react-redux'
 import authCheckRedirect from '../../common/authCheckRedirect'
 import GroceryList from '../components/GroceryList'
 import * as ListActions from '../actions/ListActions'
+import documentTitle from '../../common/documentTitle'
+import { injectIntl } from 'react-intl'
 
 class List extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     authCheckRedirect();
     this.props.listActions.load();
+  }
+
+  componentWillUnmount() {
+    documentTitle();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,7 +30,9 @@ class List extends React.Component {
   }
 
   render() {
-    let { match, lists, listActions } = this.props;
+    let { match, lists, listActions, intl } = this.props;
+    let list = lists.find(t => t.id == match.params.listId);
+    list ? documentTitle(list.title) : documentTitle(intl.messages['new_list.header']);
     return (
       <GroceryList
         lists={ lists }
@@ -41,6 +45,7 @@ class List extends React.Component {
 
 List.propTypes = {
   lists: PropTypes.array.isRequired,
+  intl: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   listActions: PropTypes.object.isRequired,
 };
@@ -54,7 +59,7 @@ const mapDispatchToProps = dispatch => ({
   listActions: bindActionCreators(ListActions, dispatch),
 });
 
-export default connect(
+export default injectIntl(connect(
   mapStateToProps,
   mapDispatchToProps
-)(List);
+)(List));

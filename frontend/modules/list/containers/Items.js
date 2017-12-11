@@ -10,10 +10,6 @@ import ListItems from '../components/ListItems'
 import * as ItemActions from '../actions/ItemActions'
 
 class Items extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     if (this.props.activeListID) {
       this.props.itemActions.load(this.props.activeListID);

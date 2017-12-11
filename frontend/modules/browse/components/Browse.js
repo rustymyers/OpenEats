@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames';
 import SmoothCollapse from 'react-smooth-collapse';
 import queryString from 'query-string';
-
+import Spinner from 'react-spinkit';
 import {
     injectIntl,
     IntlProvider,
@@ -16,7 +16,7 @@ import ListRecipes from './ListRecipes'
 import { Pagination } from './Pagination'
 import BrowseActions from '../actions/BrowseActions';
 import BrowseStore from '../stores/BrowseStore';
-import Spinner from 'react-spinkit';
+import documentTitle from '../../common/documentTitle'
 import { CourseStore, CuisineStore, RatingStore } from '../stores/FilterStores';
 
 require("./../css/browse.scss");
@@ -70,6 +70,7 @@ class Browse extends React.Component {
   }
 
   componentWillUnmount() {
+    documentTitle();
     BrowseStore.removeChangeListener(this._onChangeRecipes);
     CourseStore.removeChangeListener(this._onChangeCourses);
     CuisineStore.removeChangeListener(this._onChangeCuisines);
@@ -130,6 +131,7 @@ class Browse extends React.Component {
         defaultMessage: 'Sorry, there are no results for your search.',
       }
     });
+    documentTitle(this.props.intl.messages['nav.recipes']);
 
     let header = (
       <span>

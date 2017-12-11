@@ -8,12 +8,17 @@ import RecipeScheme from '../components/RecipeScheme'
 import * as RecipeActions from '../actions/RecipeActions'
 import * as RecipeItemActions from '../actions/RecipeItemActions'
 import bindIndexToActionCreators from '../../common/bindIndexToActionCreators'
+import documentTitle from '../../common/documentTitle'
 
 require("./../css/recipe.scss");
 
 class Recipe extends React.Component {
   componentDidMount() {
     this.props.recipeActions.load(this.props.match.params.recipe);
+  }
+
+  componentWillUnmount() {
+    documentTitle();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,6 +35,7 @@ class Recipe extends React.Component {
     let data = recipes.find(t => t.id == match.params.recipe);
     if (data) {
       let showEditLink = (user !== null && user.id === data.author);
+      documentTitle(data.title);
       return (
           <RecipeScheme
             { ...data }
