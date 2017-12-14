@@ -2,7 +2,7 @@ version: '2'
 services:
   api:
     image: openeats/api
-    command: ./base/gunicorn_start.sh
+    command: /startup/prod-entrypoint.sh
     restart: on-failure
     volumes:
       - static-files:/code/static-files
@@ -14,8 +14,6 @@ services:
   node:
     image: openeats/node
     command: npm start
-    volumes:
-      - node_modules:/code/node_modules
     depends_on:
       - api
     env_file:
@@ -39,6 +37,5 @@ services:
       env_prod.list
 volumes:
   database:
-  node_modules:
   static-files:
   site-media:

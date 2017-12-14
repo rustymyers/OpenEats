@@ -2,7 +2,7 @@ version: '2'
 services:
   api:
     build: api/
-    command: ./base/gunicorn_start.sh
+    command: /startup/prod-entrypoint.sh
     restart: on-failure
     volumes:
       - static-files:/code/static-files
