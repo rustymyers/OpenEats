@@ -4,10 +4,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from measurement.measures import Volume
 
 from v1.recipe.models import Recipe
-from .utils import mass_to_volume_lookup
 
 
 class IngredientGroup(models.Model):
@@ -47,9 +45,3 @@ class Ingredient(models.Model):
 
     def __unicode__(self):
         return '%s' % self.title
-
-    def mass_to_volume(self, mass):
-        # TODO: Be able to convert from Metric to Imperial (America's Crazy system)
-        amount = float(mass_to_volume_lookup(mass, 'us_cup'))
-        #self.quantity = Volume(us_cup=amount)
-        #self.save()

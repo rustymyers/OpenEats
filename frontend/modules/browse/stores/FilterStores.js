@@ -57,11 +57,6 @@ class FilterStore extends EventEmitter {
   }
 };
 
-FilterStore.propTypes = {
-  AppDispatcher: React.PropTypes.objectOf(AppDispatcher).isRequired,
-  name: React.PropTypes.string.isRequired
-};
-
 module.exports.CuisineStore = new FilterStore(AppDispatcher, 'cuisine');
 module.exports.CourseStore = new FilterStore(AppDispatcher, 'course');
 module.exports.RatingStore = new FilterStore(AppDispatcher, 'rating');

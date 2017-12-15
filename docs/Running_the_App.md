@@ -42,17 +42,22 @@ docker-compose up -d
 
 Regardless of if your running the app in production or development, you need to seed the database.
 
-Run `docker-compose run --rm api sh` to open a bash shell to the API.
+To create a super user:
+``` bash
+docker-compose run --rm --entrypoint 'python manage.py createsuperuser' api
+```
+Follow the prompts given to create your user. You can do this as many times as you like.
+
+If you are an english user, it is highly recommended to add course and cuisine data. Run `docker-compose run --rm api bash` to open a bash shell to the API. Then:
 ```bash
-./manage.py migrate
-./manage.py collectstatic
-./manage.py createsuperuser
 ./manage.py loaddata course_data.json
 ./manage.py loaddata cuisine_data.json
 ```
 
-If you want to add some test data we can load a few recipes and some news data. This data isn't really needed unless you just wanna see how the app looks and if its working.
-* `./manage.py loaddata news_data.json`
-* `./manage.py loaddata recipe_data.json`
-* `./manage.py loaddata ing_data.json`
-* `./manage.py loaddata direction_data.json`
+If you want to add some test data you can load a few recipes and some news data. This data isn't really needed unless you just wanna see how the app looks and if its working.
+```bash
+./manage.py loaddata news_data.json
+./manage.py loaddata recipe_data.json
+./manage.py loaddata ing_data.json
+./manage.py loaddata direction_data.json
+```

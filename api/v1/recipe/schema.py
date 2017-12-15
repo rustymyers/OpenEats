@@ -9,7 +9,7 @@ import graphene
 from v1.common.deletion import DeleteModel, DeleteMutation
 from v1.common.total_count import total_count
 from v1.common.list_scalar import List
-from .models import Recipe, Direction, SubRecipe
+from .models import Recipe, SubRecipe
 
 
 class RecipeNode(DjangoObjectType):
@@ -21,13 +21,6 @@ class RecipeNode(DjangoObjectType):
 RecipeNode.Connection = total_count(RecipeNode)
 
 
-class DirectionNode(DjangoObjectType):
-    class Meta:
-        model = Direction
-        interfaces = (graphene.relay.Node, )
-        filter_fields = ['id', 'title']
-
-
 class SubRecipeNode(DjangoObjectType):
     class Meta:
         model = SubRecipe
@@ -37,8 +30,6 @@ class SubRecipeNode(DjangoObjectType):
 class RecipeQuery(graphene.AbstractType):
     sub_recipe = graphene.relay.Node.Field(SubRecipeNode)
     all_sub_recipes = DjangoFilterConnectionField(SubRecipeNode)
-    direction = graphene.relay.Node.Field(DirectionNode)
-    all_directions = DjangoFilterConnectionField(DirectionNode)
     recipe = graphene.relay.Node.Field(RecipeNode)
     all_recipes = DjangoFilterConnectionField(RecipeNode)
 
@@ -49,58 +40,6 @@ class SubRecipeInput(graphene.InputObjectType):
     parent_recipe = graphene.ID()
     quantity = graphene.Float()
     measurement = graphene.String()
-
-
-class DirectionInput(graphene.InputObjectType):
-    id = graphene.ID()
-    recipe = graphene.ID()
-    step = graphene.Int()
-    title = graphene.String()
-
-
-class CreateDirection(graphene.Mutation):
-    class Input:
-        data = graphene.Argument(DirectionInput)
-
-    direction = graphene.Field(lambda: DirectionNode)
-
-    @staticmethod
-    def mutate(root, args, context, info):
-        title = args.get('data').get('title')
-        recipe = args.get('data').get('recipe')
-        step = args.get('data').get('step')
-        direction, created = Direction.objects.create(
-            recipe=recipe,
-            title=title,
-            step=step
-        )
-        direction.save()
-        return CreateDirection(direction=direction)
-
-
-class UpdateDirection(graphene.Mutation):
-    class Input:
-        data = graphene.Argument(DirectionInput)
-
-    direction = graphene.Field(lambda: DirectionNode)
-
-    @staticmethod
-    def mutate(root, args, context, info):
-        key = args.get('data').get('id')
-        title = args.get('data').get('title')
-        step = args.get('data').get('step')
-        direction = Direction.objects.get(id=key)
-        if title:
-            direction.title = title
-        if step:
-            direction.step = step
-        direction.save()
-        return CreateDirection(direction=direction)
-
-
-class DeleteDirection(DeleteModel, DeleteMutation):
-    class Config:
-        model = Direction
 
 
 class RecipeInput(graphene.InputObjectType):
@@ -114,7 +53,7 @@ class RecipeInput(graphene.InputObjectType):
     cook_time = graphene.Int()
     servings = graphene.Int()
     rating = graphene.Int()
-    direction = graphene.Argument(DirectionInput)
+    direction = graphene.String()
     sub_recipes = graphene.Argument(SubRecipeInput)
     tags = List()
 
@@ -158,5 +97,3 @@ class CreateRecipe(graphene.Mutation):
 
 class RecipeMutations(graphene.AbstractType):
     create_recipe = CreateRecipe.Field()
-    create_direction = CreateDirection.Field()
-    delete_direction = DeleteDirection.Field()

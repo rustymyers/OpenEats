@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames';
 import SmoothCollapse from 'react-smooth-collapse';
+import queryString from 'query-string';
+import Spinner from 'react-spinkit';
 import {
     injectIntl,
     IntlProvider,
@@ -14,7 +16,7 @@ import ListRecipes from './ListRecipes'
 import { Pagination } from './Pagination'
 import BrowseActions from '../actions/BrowseActions';
 import BrowseStore from '../stores/BrowseStore';
-import Spinner from 'react-spinkit';
+import documentTitle from '../../common/documentTitle'
 import { CourseStore, CuisineStore, RatingStore } from '../stores/FilterStores';
 
 require("./../css/browse.scss");
@@ -64,10 +66,11 @@ class Browse extends React.Component {
     CuisineStore.addChangeListener(this._onChangeCuisines);
     RatingStore.addChangeListener(this._onChangeRatings);
 
-    BrowseActions.browseInit(this.props.location.query);
+    BrowseActions.browseInit(queryString.parse(this.props.location.search));
   }
 
   componentWillUnmount() {
+    documentTitle();
     BrowseStore.removeChangeListener(this._onChangeRecipes);
     CourseStore.removeChangeListener(this._onChangeCourses);
     CuisineStore.removeChangeListener(this._onChangeCuisines);
@@ -75,18 +78,20 @@ class Browse extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.location.query.offset !== nextProps.location.query.offset) {
-      BrowseActions.loadRecipes(nextProps.location.query);
-    } else if (this.props.location.query.offset !== nextProps.location.query.offset) {
-      this.reloadData(nextProps.location.query);
-    } else if (this.props.location.query.course !== nextProps.location.query.course) {
-      this.reloadData(nextProps.location.query);
-    } else if (this.props.location.query.cuisine !== nextProps.location.query.cuisine) {
-      this.reloadData(nextProps.location.query);
-    } else if (this.props.location.query.rating !== nextProps.location.query.rating) {
-      this.reloadData(nextProps.location.query);
-    } else if (this.props.location.query.search !== nextProps.location.query.search) {
-      this.reloadData(nextProps.location.query);
+    let query = queryString.parse(this.props.location.search);
+    let nextQuery = queryString.parse(nextProps.location.search);
+    if (query.offset !== nextQuery.offset) {
+      BrowseActions.loadRecipes(nextQuery);
+    } else if (query.offset !== nextQuery.offset) {
+      this.reloadData(nextQuery);
+    } else if (query.course !== nextQuery.course) {
+      this.reloadData(nextQuery);
+    } else if (query.cuisine !== nextQuery.cuisine) {
+      this.reloadData(nextQuery);
+    } else if (query.rating !== nextQuery.rating) {
+      this.reloadData(nextQuery);
+    } else if (query.search !== nextQuery.search) {
+      this.reloadData(nextQuery);
     }
   }
 
@@ -126,6 +131,7 @@ class Browse extends React.Component {
         defaultMessage: 'Sorry, there are no results for your search.',
       }
     });
+    documentTitle(this.props.intl.messages['nav.recipes']);
 
     let header = (
       <span>

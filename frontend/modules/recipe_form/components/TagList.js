@@ -1,81 +1,44 @@
 import React from 'react'
 
-export default React.createClass({
-  getInitialState: function() {
-    return {
-      tags: this.props.tags || [],
-      input: this.unarrayify(this.props.tags || []),
-      errors: this.props.errors || false,
-    };
-  },
+import { Input } from '../../common/components/FormComponents'
 
-  unarrayify(value) {
+class TagList extends React.Component {
+  unarrayify = value => {
     return value.map((tag, key) => {
       return tag.title
     }).join(', ');
-  },
+  };
 
-  arrayify(value) {
-    var dict = [];
+  arrayify = value => {
+    let dict = [];
     if (value) {
-      var tags = value.split(',');
+      let tags = value.split(',');
       for (let title in tags) {
         dict.push({'title': tags[title].trim()})
       }
     }
     return dict
-  },
+  };
 
-  handleChange(event) {
-    this.setState({
-      tags: this.arrayify(event.target.value),
-      input: event.target.value
-    });
-
+  handleChange = (name, value) => {
     if(this.props.change) {
-      this.props.change(event.target.name, this.arrayify(event.target.value));
+      this.props.change(name, this.arrayify(value));
     }
-  },
+  };
 
-  componentWillReceiveProps: function(nextProps) {
-    if (this.props.tags === undefined && this.props.tags != nextProps.tags) {
-      this.setState({
-        tags: nextProps.tags,
-        input: this.unarrayify(nextProps.tags)
-      });
-    }
-
-    if ('errors' in nextProps) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  },
-
-  render: function () {
-    let className = "form-group";
-    let errorMessage = false;
-    if (this.state.errors !== false) {
-      className += " has-error";
-      errorMessage = (
-        <span className="help-inline">{ this.state.errors[0] }</span>
-      )
-    }
-
+  render() {
     return (
-      <div className={this.props.size} key={this.props.id}>
-        <div className={ className }>
-          {this.props.label ? <label>{this.props.label}</label> : null}
-          <input type={this.props.type}
-                 name={this.props.name}
-                 className="form-control"
-                 placeholder={this.props.placeholder}
-                 value={this.state.input}
-                 onChange={this.handleChange}
-                 />
-          { errorMessage }
-        </div>
-      </div>
+      <Input
+        name={ this.props.name }
+        label={ this.props.label }
+        placeholder={ this.props.placeholder }
+        size={ this.props.size }
+        change={ this.handleChange }
+        value={ this.props.tags ? this.unarrayify(this.props.tags) : '' }
+        errors={ this.props.errors }
+      />
     )
   }
-});
+}
+
+export default TagList

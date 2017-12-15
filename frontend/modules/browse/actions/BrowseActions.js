@@ -1,6 +1,6 @@
 import AppDispatcher from '../../common/AppDispatcher';
 import Api from '../../common/Api';
-import { browserHistory } from 'react-router'
+import history from '../../common/history'
 import DefaultFilters from '../constants/DefaultFilters'
 
 const BrowseActions = {
@@ -29,6 +29,7 @@ const BrowseActions = {
   },
 
   updateURL: function(filter) {
+    // TODO: use https://github.com/sindresorhus/query-string
     let encode_data = [];
     for (let key in filter) {
       if (filter[key]) {
@@ -43,7 +44,7 @@ const BrowseActions = {
        path += '?' + encode_data.join('&');
     }
 
-    browserHistory.push(path);
+    history.push(path);
   },
 
   processLoadedRecipes: function(err, res) {

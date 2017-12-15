@@ -8,8 +8,6 @@ import {
 import { NavDropdown, MenuItem, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-import AuthActions from '../../account/actions/AuthActions';
-
 class AccountLoginMenuItem extends React.Component {
   render () {
     const {formatMessage} = this.props.intl;
@@ -30,10 +28,6 @@ class AccountLoginMenuItem extends React.Component {
 }
 
 class AccountMenuMenuItem extends React.Component {
-  logout() {
-    AuthActions.logUserOut();
-  }
-
   render () {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
@@ -60,7 +54,9 @@ class AccountMenuMenuItem extends React.Component {
                    id="basic-nav-dropdown">
         <MenuItem href="/admin/">{formatMessage(messages.admin)}</MenuItem>
         <MenuItem divider />
-        <NavItem onClick={this.logout}>{ formatMessage(messages.logout) }</NavItem>
+        <NavItem onClick={ this.props.authActions.logUserOut }>
+          { formatMessage(messages.logout) }
+        </NavItem>
       </NavDropdown>
     )
   }

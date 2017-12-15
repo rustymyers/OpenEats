@@ -48,7 +48,8 @@ class Recipe(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('course'))
     tags = models.ManyToManyField(Tag, verbose_name=_('tag'), blank=True)
     subrecipes = models.ManyToManyField('self', verbose_name=_('subrecipes'), through='SubRecipe', symmetrical=False)
-    info = models.TextField(_('info'), help_text="enter information about the recipe")
+    info = models.TextField(_('info'), help_text="enter information about the recipe", blank=True)
+    directions = models.TextField(_('direction_text'), help_text="directions", blank=True)
     source = models.CharField(_('course'), max_length=200, blank=True)
     prep_time = models.IntegerField(_('prep time'), help_text="enter time in minutes")
     cook_time = models.IntegerField(_('cook time'), help_text="enter time in minutes")
@@ -72,22 +73,3 @@ class SubRecipe(models.Model):
 
     def __unicode__(self):
         return '%s' % self.parent_recipe.title
-
-
-class Direction(models.Model):
-    """
-    Django Model to hold a Direction.
-    Directions share a many to one relationship.
-    Meaning each Recipe will have many Directions.
-    :title: = Title of the Direction (EX: Mix flour with the meat.)
-    :step: = Order of the Directions (EX: 1)
-    """
-    step = models.IntegerField(_('step'))
-    title = models.TextField(_('title'))
-    recipe = models.ForeignKey(Recipe, verbose_name=_('recipe'), related_name='directions', null=True)
-
-    class Meta:
-        ordering = ['step']
-
-    def __unicode__(self):
-        return '%s' % self.title

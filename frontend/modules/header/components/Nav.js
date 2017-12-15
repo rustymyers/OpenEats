@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import {
     injectIntl,
     IntlProvider,
@@ -9,10 +9,6 @@ import {
 import { Image, Navbar, Nav, NavDropdown, MenuItem, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-import AuthStore from '../../account/stores/AuthStore';
-import { ListStore, CHANGE_EVENT } from '../../list/stores/ListStore';
-import ListActions from '../../list/actions/ListActions';
-
 import { CreateRecipeMenuItem } from './CreateRecipeMenuItem'
 import { GroceryListMenuItem } from './GroceryListMenuItem'
 import { AccountMenuMenuItem, AccountLoginMenuItem } from './MyAccountMenuItem'
@@ -21,44 +17,27 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this._getState();
-
-    this._getState = this._getState.bind(this);
-    this._onChange = this._onChange.bind(this);
+    this.state = {
+      authenticated: false,
+    }
   }
 
   componentDidMount() {
-    AuthStore.addChangeListener(this._onChange);
-    ListStore.addChangeListener(CHANGE_EVENT, this._onChange);
-    if (AuthStore.isAuthenticated()) {
-      ListActions.init();
+    if (this.props.user.id) {
+      this.props.listActions.load();
     }
   }
 
-  componentWillUnmount() {
-    AuthStore.removeChangeListener(this._onChange);
-    ListStore.removeChangeListener(CHANGE_EVENT, this._onChange);
-  }
-
-  _getState() {
-    let authenticated = AuthStore.isAuthenticated();
+  componentWillReceiveProps(nextProps) {
     // We need to check if the state is being changed from `false` to `true`.
     // If it is we need to init the list store so the menu has teh users lists.
     if (this.hasOwnProperty('state')) {
-      if (!this.state.authenticated && authenticated) {
-        ListActions.init()
+      if (!this.state.authenticated && !!nextProps.user.id) {
+        this.props.listActions.load();
+        this.setState({ authenticated: true})
       }
     }
-
-    return {
-      authenticated: authenticated,
-      lists: ListStore.get_lists() || []
-    };
-  }
-
-  _onChange() {
-    this.setState(this._getState());
-  }
+  };
 
   render() {
     const {formatMessage} = this.props.intl;
@@ -77,6 +56,11 @@ class NavBar extends React.Component {
         id: 'nav.recipes',
         description: 'Navbar Recipes',
         defaultMessage: 'Browse Recipes',
+      },
+      randomRecipe: {
+        id: 'nav.randomRecipe',
+        description: 'Random Recipe',
+        defaultMessage: 'Random Recipe',
       },
     });
 
@@ -98,16 +82,20 @@ class NavBar extends React.Component {
             <LinkContainer to="/browse">
               <NavItem>{formatMessage(messages.recipes)}</NavItem>
             </LinkContainer>
-            {( this.state.authenticated ?
+            <NavItem onClick={ this.props.randomRecipeActions.randomRecipe }>
+              {formatMessage(messages.randomRecipe)}
+            </NavItem>
+            {( this.props.user.id  ?
                 <CreateRecipeMenuItem/> : null
             )}
-            {( this.state.authenticated ?
-                <GroceryListMenuItem data={ this.state.lists }/> : null
+            {( this.props.user.id ?
+                <GroceryListMenuItem data={ this.props.lists }/> : null
             )}
           </Nav>
           <Nav pullRight>
-            {( this.state.authenticated ?
-                <AccountMenuMenuItem/> : <AccountLoginMenuItem/>
+            {( this.props.user.id  ?
+                <AccountMenuMenuItem authActions={ this.props.authActions }/> :
+                <AccountLoginMenuItem/>
             )}
           </Nav>
         </Navbar.Collapse>
