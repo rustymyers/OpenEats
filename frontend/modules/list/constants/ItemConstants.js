@@ -1,10 +1,11 @@
-export default {
-  ITEM_INIT: 'LIST_ITEM_INIT',
-  ITEM_ADD: 'LIST_ITEM_ADD',
-  ITEM_SAVE: 'LIST_ITEM_SAVE',
-  ITEM_TOGGLE: 'LIST_ITEM_TOGGLE',
-  ITEM_TOGGLE_ALL: 'LIST_ITEM_TOGGLE_ALL',
-  ITEM_DELETE: 'LIST_ITEM_DELETE',
-  ITEM_DELETE_COMPLETED: 'LIST_ITEM_DELETE_COMPLETED',
-  ITEM_INDEX: 'ITEM',
-};
+import keyMirror from 'keymirror';
+
+export default keyMirror({
+  ITEM_INIT: null,
+  ITEM_ADD: null,
+  ITEM_SAVE: null,
+  ITEM_TOGGLE: null,
+  ITEM_TOGGLE_ALL: null,
+  ITEM_DELETE: null,
+  ITEM_DELETE_COMPLETED: null,
+});

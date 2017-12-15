@@ -38,4 +38,8 @@ class Footer extends React.Component{
   }
 }
 
+Footer.propTypes = {
+    intl: intlShape.isRequired,
+};
+
 export default injectIntl(Footer);

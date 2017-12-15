@@ -1,38 +1,33 @@
-"use strict";
-
 import React from 'react'
-import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 
 import { ENTER_KEY } from '../constants/ListStatus'
 
-class NewList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: this.props.title || '',
+export default injectIntl(React.createClass({
+  getInitialState: function() {
+    return {
+      value: this.props.value || '',
     };
-  }
+  },
 
-  handleChange = (event) => {
-    this.setState({title: event.target.value});
-  };
+  handleChange: function (event) {
+    this.setState({value: event.target.value});
+  },
 
-  handleKeyDown = (event) => {
+  handleKeyDown: function (event) {
     if (event.which === ENTER_KEY) {
       this.handleSubmit(event);
     }
-  };
+  },
 
-  handleSubmit = () => {
-    let val = this.state.title.trim();
+  handleSubmit: function (event) {
+    var val = this.state.value.trim();
     if (val) {
       this.props.addList(val);
     }
-  };
+  },
 
-  render() {
+  render: function() {
     const { formatMessage } = this.props.intl;
     const messages = defineMessages({
       header: {
@@ -62,7 +57,7 @@ class NewList extends React.Component {
           autoFocus="true"
           className="form-control"
           placeholder={ formatMessage(messages.placeholder) }
-          value={ this.state.title }
+          value={ this.state.value }
           onChange={ this.handleChange }
           onKeyDown={ this.handleKeyDown }
         />
@@ -73,13 +68,5 @@ class NewList extends React.Component {
         >{ formatMessage(messages.button) }</button>
       </div>
     )
-  };
-}
-
-NewList.propTypes = {
-  title: PropTypes.string,
-  intl: PropTypes.object.isRequired,
-  addList: PropTypes.func.isRequired,
-};
-
-export default injectIntl(NewList)
+  }
+}));

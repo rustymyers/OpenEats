@@ -1,161 +1,193 @@
 import { request } from '../../common/CustomSuperagent';
-import { serverURLs } from '../../common/config'
+import AppDispatcher from '../../common/AppDispatcher';
+import { ItemStore } from '../stores/ItemStore';
 import ItemConstants from '../constants/ItemConstants';
+import ListConstants from '../constants/ListConstants';
+import { serverURLs } from '../../common/config'
 
-export const load = (list) => {
-  return (dispatch) => {
+class ItemActions {
+  load_list(id) {
     request()
-      .get(serverURLs.list_item + '?list=' + list)
-      .then(res => {
-        dispatch({
-          type: ItemConstants.ITEM_INIT,
-          list: list,
-          items: res.body.results
-        })
-      })
-      .catch(err => {
-        console.error(err.toString());
-      })
+      .get(serverURLs.list_item + '?list=' + id)
+      .end((err, res) => {
+        if (!err && res) {
+          this.init(id, res.body);
+        } else {
+          console.error(err.toString());
+          console.error(res.body);
+          this.error(res.body);
+        }
+      });
   }
-};
 
-export const add = (title, list) => {
-  return (dispatch) => {
+  save_list(data) {
+    let r = 'id' in data ?
+      request().put(serverURLs.list + data.id + '/') :
+      request().post(serverURLs.list) ;
+
+    r.send(data)
+      .end((err, res) => {
+        if (!err && res) {
+          var id = res.body.id;
+          this.handleSubmit(res.body.id);
+        } else {
+          console.error(err.toString());
+          console.error(res.body);
+          this.error(res.body);
+        }
+      });
+  }
+
+  save_item(data) {
+    let r = 'id' in data ?
+      request().put(serverURLs.list_item + data.id + '/') :
+      request().post(serverURLs.list_item) ;
+
+    r.send(data)
+      .end((err, res) => {
+        if (!err && res) {
+          var id = res.body.id;
+          this.handleSubmit(res.body.id);
+        } else {
+          console.error(err.toString());
+          console.error(res.body);
+          this.error(res.body);
+        }
+      });
+  }
+
+  addItem(title) {
     request()
       .post(serverURLs.list_item)
       .send({
         title: title,
-        list: list
+        list: ItemStore.getKey()
       })
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ItemConstants.ITEM_ADD,
-            list: list,
-            id: res.body.id,
-            title: res.body.title
+          AppDispatcher.dispatch({
+            actionType: ItemConstants.ITEM_ADD,
+            data: res.body
+          });
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_UPDATE_COUNT,
+            increment: 1
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const save = (id, title, list) => {
-  return (dispatch) => {
+  save(item, text) {
     request()
-      .patch(serverURLs.list_item + id + "/")
-      .send({title: title})
+      .patch(serverURLs.list_item + item.id + "/")
+      .send({ title: text })
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ItemConstants.ITEM_SAVE,
-            list: list,
-            id: id,
-            title: res.body.title
+          AppDispatcher.dispatch({
+            actionType: ItemConstants.ITEM_SAVE,
+            item: item,
+            text: res.body.title
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const toggle = (id, completed, list) => {
-  return (dispatch) => {
+  toggle(item) {
     request()
-      .patch(serverURLs.list_item + id + "/")
-      .send({completed: completed})
+      .patch(serverURLs.list_item + item.id + "/")
+      .send({ completed: !item.completed })
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ItemConstants.ITEM_TOGGLE,
-            list: list,
-            id: id,
+          AppDispatcher.dispatch({
+            actionType: ItemConstants.ITEM_TOGGLE,
+            item: item,
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const toggleAll = (items, event, list) => {
-  let ids = items.reduce(function (list, item) {
-    if (item.completed !== event.target.checked) {
-      list.push({
-        id: item.id,
-        completed: event.target.checked
-      });
-    }
-    return list;
-  }, []);
-
-  return (dispatch) => {
+  toggleAll(checked) {
     request()
       .patch(serverURLs.bulk_list_item)
-      .send(ids)
+      .send(ItemStore.getToogleItems(checked))
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ItemConstants.ITEM_TOGGLE_ALL,
-            list: list,
-            ids: ids
+          AppDispatcher.dispatch({
+            actionType: ItemConstants.ITEM_TOGGLE_ALL,
+            checked: checked
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const destroy = (id, list) => {
-  return (dispatch) => {
+  destroy(item) {
     request()
-      .delete(serverURLs.list_item + id + "/")
+      .delete(serverURLs.list_item + item.id + "/")
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ItemConstants.ITEM_DELETE,
-            id: id,
-            list: list,
+          AppDispatcher.dispatch({
+            actionType: ItemConstants.ITEM_DELETE,
+            item: item,
+          });
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_UPDATE_COUNT,
+            increment: -1
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const clearCompleted = (items, event, list) => {
-  let ids = items.reduce(function (list, item) {
-    if (item.completed === true) {
-      list.push(item.id);
-    }
-    return list;
-  }, []);
-
-  return (dispatch) => {
+  clearCompleted() {
+    var ids = ItemStore.getCheckedItems();
     request()
       .delete(serverURLs.bulk_list_item)
       .send(ids)
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ItemConstants.ITEM_DELETE_COMPLETED,
-            list: list,
-            ids: ids,
+          AppDispatcher.dispatch({
+            actionType: ItemConstants.ITEM_DELETE_COMPLETED,
+          });
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_UPDATE_COUNT,
+            increment: -ids.length
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
+
+  init(id, list) {
+    AppDispatcher.dispatch({
+      actionType: ItemConstants.ITEM_INIT,
+      id: id,
+      list: list
+    });
+  }
+}
+
+const ItemAction = new ItemActions();
+
+export default ItemAction;

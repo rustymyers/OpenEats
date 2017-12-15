@@ -3,7 +3,7 @@ import AppDispatcher from '../../common/AppDispatcher';
 import RecipeConstants from '../constants/RecipeConstants';
 import ImportConstants from '../constants/ImportConstants';
 import { serverURLs } from '../../common/config'
-import history from '../../common/history'
+import { browserHistory } from 'react-router'
 
 class RecipeActions {
   importRecipe(url) {
@@ -29,7 +29,7 @@ class RecipeActions {
               actionType: RecipeConstants.IMPORT,
               recipe: result,
             });
-            history.push('/recipe/create');
+            browserHistory.push('/recipe/create');
           }
         } else {
           console.error(err.toString());

@@ -1,28 +1,38 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import Ingredients from './Ingredients'
 
-const IngredientGroups = ({ data, check }) => {
-  let ingredientGroups = data.map(group => (
-    <div className="ingredient-group" key={ group.title }>
-      { (group.title) ? <b>{ group.title }</b> : null }
-      <Ingredients data={ group.ingredients } check={ check }/>
-    </div>
-  ));
+class IngredientGroups extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="ingredient-groups">
-      { ingredientGroups }
-    </div>
-  );
-};
+    this.state = {
+      data: this.props.data || []
+    };
+  }
 
-IngredientGroups.PropTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    ingredients: PropTypes.object.isRequired,
-  }).isRequired).isRequired
-};
+  componentWillReceiveProps(nextProps) {
+    this.setState({data: nextProps.data});
+  }
 
-export default IngredientGroups;
+  render() {
+    let ingredientGroups = this.state.data.map(function(ingredientGroup) {
+      return (
+      <div className="ingredient-group" key={ ingredientGroup.title }>
+        { (ingredientGroup.title)
+          ? <b>{ ingredientGroup.title }</b>
+          : null
+        }
+        <Ingredients data={ ingredientGroup.ingredients }/>
+      </div>
+      );
+    }, this);
+
+    return (
+      <div className="ingredient-groups">
+        { ingredientGroups }
+      </div>
+    );
+  }
+}
+
+module.exports = IngredientGroups;

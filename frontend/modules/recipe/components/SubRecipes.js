@@ -1,49 +1,45 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
-import { Checkbox } from '../../common/form/FormComponents'
+class SubRecipes extends React.Component {
+  constructor(props) {
+    super(props);
 
-const SubRecipes = ({ data, check }) => {
-  let recipeLinks = data.map(function(recipeLink) {
-    let quantity = recipeLink.customQuantity ? recipeLink.customQuantity : recipeLink.quantity;
+    this.state = {
+      data: this.props.data || []
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({data: nextProps.data});
+  }
+
+  render() {
+    let recipeLinks = this.state.data.map(function(recipeLink) {
+      return (
+        <li className="ingredient" key={ recipeLink.child_recipe_id }>
+          { (recipeLink.quantity !== 0)
+              ? <span className="quantity">{ recipeLink.quantity } </span>
+              : null
+          }
+          { (recipeLink.measurement)
+              ? <span className="measurement">{ recipeLink.measurement } </span>
+              : null
+          }
+          { (recipeLink.title)
+              ? <Link to={ "/recipe/" + recipeLink.child_recipe_id } className="title">{ recipeLink.title }</Link>
+              : null
+          }
+        </li>
+      );
+    }, this);
+
     return (
-      <li className="ingredient" key={ recipeLink.child_recipe_id }>
-        <Checkbox
-          name={ recipeLink.child_recipe_id }
-          checked={ recipeLink.checked ? recipeLink.checked : false }
-          change={ check }
-        />
-        { (recipeLink.quantity !== 0)
-            ? <span className="quantity">{ quantity } </span>
-            : null
-        }
-        { (recipeLink.measurement)
-            ? <span className="measurement">{ recipeLink.measurement } </span>
-            : null
-        }
-        { (recipeLink.title)
-            ? <Link to={ "/recipe/" + recipeLink.child_recipe_id } className="title">{ recipeLink.title }</Link>
-            : null
-        }
-      </li>
+      <ul className="ingredients" >
+        { recipeLinks }
+      </ul>
     );
-  });
+  }
+}
 
-  return (
-    <ul className="ingredients" >
-      { recipeLinks }
-    </ul>
-  );
-};
-
-SubRecipes.PropTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    child_recipe_id: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    measurement: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired).isRequired
-};
-
-export default SubRecipes;
+module.exports = SubRecipes;

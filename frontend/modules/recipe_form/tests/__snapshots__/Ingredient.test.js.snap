@@ -57,7 +57,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -66,6 +65,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -145,7 +145,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -154,6 +153,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -233,7 +233,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -242,6 +241,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -321,7 +321,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -330,6 +329,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -409,7 +409,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -418,6 +417,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -497,7 +497,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -506,6 +505,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -585,7 +585,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -594,6 +593,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -673,7 +673,6 @@ exports[`IngredientList component test 1`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -682,6 +681,7 @@ exports[`IngredientList component test 1`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -787,7 +787,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -796,6 +795,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -875,7 +875,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -884,6 +883,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -963,7 +963,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -972,6 +971,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1051,7 +1051,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1060,6 +1059,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1139,7 +1139,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1148,6 +1147,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1227,7 +1227,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1236,6 +1235,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1315,7 +1315,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1324,6 +1323,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1403,7 +1403,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1412,6 +1411,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1491,7 +1491,6 @@ exports[`IngredientList component test 2`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1500,6 +1499,7 @@ exports[`IngredientList component test 2`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1605,7 +1605,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1614,6 +1613,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1693,7 +1693,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1702,6 +1701,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1781,7 +1781,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1790,6 +1789,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1869,7 +1869,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1878,6 +1877,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -1957,7 +1957,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -1966,6 +1965,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -2045,7 +2045,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -2054,6 +2053,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -2133,7 +2133,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -2142,6 +2141,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""
@@ -2221,7 +2221,6 @@ exports[`IngredientList component test 3`] = `
             >
               <input
                 aria-autocomplete="list"
-                aria-expanded={false}
                 autoComplete="off"
                 className="form-control"
                 name="measurement"
@@ -2230,6 +2229,7 @@ exports[`IngredientList component test 3`] = `
                 onClick={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
+                onKeyUp={[Function]}
                 placeholder="Measurement"
                 role="combobox"
                 value=""

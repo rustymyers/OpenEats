@@ -5,8 +5,6 @@ import {
     defineMessages,
     formatMessage
 } from 'react-intl';
-
-import authCheckRedirect from '../../common/authCheckRedirect'
 import ImportActions from '../actions/ImportActions';
 import { ImportStore, CHANGE_EVENT } from '../stores/ImportStore';
 
@@ -43,7 +41,6 @@ class ImportForm extends React.Component {
   }
 
   componentDidMount() {
-    authCheckRedirect();
     ImportActions.init();
     ImportStore.addChangeListener(CHANGE_EVENT, this._onChange);
   }

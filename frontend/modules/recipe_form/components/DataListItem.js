@@ -8,7 +8,7 @@ import {
 
 import RecipeActions from '../actions/RecipeActions'
 import { TextArea, Input } from '../../common/form/FormComponents'
-import Auto from './Auto'
+import { Auto } from './Auto'
 import { measurements } from '../../common/config'
 
 class Direction extends React.Component {

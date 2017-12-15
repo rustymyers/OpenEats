@@ -7,38 +7,36 @@ import {
     formatMessage
 } from 'react-intl';
 
-class Auto extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+export var Auto = injectIntl(React.createClass({
+  getInitialState: function() {
+    return {
       val: this.props.value || '',
       data: this.props.data || [],
       allowFilter: this.props.allowFilter !== false,
     };
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.state.data) {
       this.setState({data: nextProps.data});
     }
-  }
+  },
 
-  handleChange = event => {
+  handleChange(event) {
     this.setState({val: event.target.value});
     if(this.props.change) {
       this.props.change(event.target.name, event.target.value);
     }
-  };
+  },
 
-  handleSelect = value => {
+  handleSelect(value) {
     this.setState({val: value});
     if(this.props.change) {
       this.props.change(this.props.name, value);
     }
-  };
+  },
 
-  matchStateToTerm = (state, value) => {
+  matchStateToTerm (state, value) {
     if (this.state.allowFilter) {
       return (
           state.toLowerCase().indexOf(value.toLowerCase()) !== -1
@@ -46,22 +44,22 @@ class Auto extends React.Component {
     } else {
       return true;
     }
-  };
+  },
 
-  sortStates = (a, b, value) => {
+  sortStates (a, b, value) {
     return (
       a.toLowerCase().indexOf(value.toLowerCase()) >
       b.toLowerCase().indexOf(value.toLowerCase()) ? 1 : -1
     )
-  };
+  },
 
-  renderItems = items => {
+  renderItems (items) {
     return items.map((item) => {
       return item
     })
-  };
+  },
 
-  render() {
+  render: function () {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
       loading: {
@@ -109,6 +107,4 @@ class Auto extends React.Component {
       </div>
     )
   }
-}
-
-export default injectIntl(Auto)
+}));
