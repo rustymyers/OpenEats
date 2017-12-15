@@ -1,7 +1,9 @@
-export default {
-  LIST_INIT: 'LIST_INIT',
-  LIST_ADD: 'LIST_ADD',
-  LIST_SAVE: 'LIST_SAVE',
-  // LIST_UPDATE_COUNT: 'LIST_UPDATE_COUNT',
-  LIST_DELETE: 'LIST_DELETE',
-};
+import keyMirror from 'keymirror';
+
+export default keyMirror({
+  LIST_INIT: null,
+  LIST_ADD: null,
+  LIST_SAVE: null,
+  LIST_UPDATE_COUNT: null,
+  LIST_DELETE: null,
+});

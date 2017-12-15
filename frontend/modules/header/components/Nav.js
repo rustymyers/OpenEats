@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import {
     injectIntl,
     IntlProvider,
@@ -10,6 +10,8 @@ import { Image, Navbar, Nav, NavDropdown, MenuItem, NavItem } from 'react-bootst
 import { LinkContainer } from 'react-router-bootstrap'
 
 import AuthStore from '../../account/stores/AuthStore';
+import { ListStore, CHANGE_EVENT } from '../../list/stores/ListStore';
+import ListActions from '../../list/actions/ListActions';
 
 import { CreateRecipeMenuItem } from './CreateRecipeMenuItem'
 import { GroceryListMenuItem } from './GroceryListMenuItem'
@@ -27,13 +29,15 @@ class NavBar extends React.Component {
 
   componentDidMount() {
     AuthStore.addChangeListener(this._onChange);
+    ListStore.addChangeListener(CHANGE_EVENT, this._onChange);
     if (AuthStore.isAuthenticated()) {
-      this.props.listActions.load();
+      ListActions.init();
     }
   }
 
   componentWillUnmount() {
     AuthStore.removeChangeListener(this._onChange);
+    ListStore.removeChangeListener(CHANGE_EVENT, this._onChange);
   }
 
   _getState() {
@@ -42,12 +46,13 @@ class NavBar extends React.Component {
     // If it is we need to init the list store so the menu has teh users lists.
     if (this.hasOwnProperty('state')) {
       if (!this.state.authenticated && authenticated) {
-        this.props.listActions.load()
+        ListActions.init()
       }
     }
 
     return {
       authenticated: authenticated,
+      lists: ListStore.get_lists() || []
     };
   }
 
@@ -97,7 +102,7 @@ class NavBar extends React.Component {
                 <CreateRecipeMenuItem/> : null
             )}
             {( this.state.authenticated ?
-                <GroceryListMenuItem data={ this.props.lists }/> : null
+                <GroceryListMenuItem data={ this.state.lists }/> : null
             )}
           </Nav>
           <Nav pullRight>

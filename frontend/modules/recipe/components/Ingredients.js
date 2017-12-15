@@ -1,47 +1,55 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-import { Checkbox } from '../../common/form/FormComponents'
+class Ingredients extends React.Component {
+  constructor(props) {
+    super(props);
 
-const Ingredients = ({ data, check }) => {
-  let ingredients = data.map(function(ingredient) {
-    let quantity = ingredient.customQuantity ? ingredient.customQuantity : ingredient.quantity;
+    this.state = {
+      data: this.props.data || []
+    };
+
+    this.round = this.round.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({data: nextProps.data});
+  }
+
+  round(number, precision) {
+    let factor = Math.pow(10, precision);
+    let tempNumber = number * factor;
+    let roundedTempNumber = Math.round(tempNumber);
+    return roundedTempNumber / factor;
+  };
+
+  render() {
+    let ingredients = this.state.data.map(function(ingredient) {
+      let quantity = this.round(ingredient.quantity, 3);
+
+      return (
+        <li className="ingredient" key={ ingredient.id }>
+          { (ingredient.quantity !== 0)
+              ? <span className="quantity">{ quantity } </span>
+              : null
+          }
+          { (ingredient.measurement)
+              ? <span className="measurement">{ ingredient.measurement } </span>
+              : null
+          }
+          { (ingredient.title)
+              ? <span className="title">{ ingredient.title }</span>
+              : null
+          }
+        </li>
+      );
+    }, this);
+
     return (
-      <li className="ingredient" key={ ingredient.id }>
-        <Checkbox
-          name={ ingredient.id }
-          checked={ ingredient.checked ? ingredient.checked : false }
-          change={ check }
-        />
-        { (ingredient.quantity !== 0)
-            ? <span className="quantity">{ quantity } </span>
-            : null
-        }
-        { (ingredient.measurement)
-            ? <span className="measurement">{ ingredient.measurement } </span>
-            : null
-        }
-        { (ingredient.title)
-            ? <span className="title">{ ingredient.title }</span>
-            : null
-        }
-      </li>
+      <ul className="ingredients" >
+        { ingredients }
+      </ul>
     );
-  });
+  }
+}
 
-  return (
-    <ul className="ingredients" >
-      { ingredients }
-    </ul>
-  );
-};
-
-Ingredients.PropTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    quantity: PropTypes.number.isRequired,
-    measurement: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired).isRequired
-};
-
-export default Ingredients;
+module.exports = Ingredients;

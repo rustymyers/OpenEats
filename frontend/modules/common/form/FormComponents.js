@@ -150,18 +150,17 @@ class Checkbox extends BaseComponent {
     super(props);
 
     this.state = {
-      checked: !!this.props.checked
+      checked: this.props.checked || true
     };
   }
 
   handleChange(event) {
-    let checked = !this.state.checked;
     this.setState({
-      checked: checked
+      checked: this.state.checked === true ? 1 : 0
     });
 
     if(this.props.change) {
-      this.props.change(event.target.name, checked);
+      this.props.change(event.target.name, new_value);
     }
   }
 
@@ -177,12 +176,13 @@ class Checkbox extends BaseComponent {
     return (
       <div className={ this.props.size } key={ this.props.id }>
         <div className="checkbox">
-          <input type="checkbox"
-                 className="checkbox-style"
-                 name={ this.props.name }
-                 checked={ this.state.checked }
-                 onChange={ this.handleChange }/>
-          { this.props.placeholder }
+          <label>
+            <input type="checkbox"
+                   name={ this.props.name }
+                   checked={ this.state.checked }
+                   onChange={ this.handleChange }/>
+            { this.props.placeholder }
+          </label>
         </div>
       </div>
     )

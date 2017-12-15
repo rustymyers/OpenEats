@@ -1,4 +1,0 @@
-export default {
-  LIST_ERROR_ADD: 'LIST_ERROR_ADD',
-  LIST_ERROR_REMOVE: 'LIST_ERROR_REMOVE',
-};

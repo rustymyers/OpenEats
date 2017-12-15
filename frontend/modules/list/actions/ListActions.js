@@ -1,83 +1,101 @@
 import { request } from '../../common/CustomSuperagent';
 import { serverURLs } from '../../common/config'
+import AppDispatcher from '../../common/AppDispatcher';
 import ListConstants from '../constants/ListConstants';
-import history from '../../common/history'
 
-export const add = (title) => {
-  return (dispatch) => {
+class ListActions {
+  add(title) {
     request()
       .post(serverURLs.list)
-      .send({title: title})
+      .send({ title: title })
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ListConstants.LIST_ADD,
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_ADD,
             id: res.body.id,
-            title: res.body.title,
-            item_count: 0
-          });
-          history.push('/list/' + res.body.id);
-        } else {
-          console.error(err.toString());
-          console.error(res.body);
-        }
-      });
-  }
-};
-
-export const save = (id, title) => {
-  return (dispatch) => {
-    request()
-      .patch(serverURLs.list + id + "/")
-      .send({title: title})
-      .end((err, res) => {
-        if (!err && res) {
-          dispatch({
-            type: ListConstants.LIST_SAVE,
-            id: id,
             title: res.body.title
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const destroy = (id) => {
-  return (dispatch) => {
+  save(id, title) {
+    request()
+      .patch(serverURLs.list + id + "/")
+      .send({ title: title })
+      .end((err, res) => {
+        if (!err && res) {
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_SAVE,
+            title: res.body.title
+          });
+        } else {
+          console.error(err.toString());
+          console.error(res.body);
+          this.error(res.body);
+        }
+      });
+  }
+
+  destroy(id) {
     request()
       .delete(serverURLs.list + id + "/")
       .end((err, res) => {
         if (!err && res) {
-          history.push('/list/');
-          dispatch({
-            type: ListConstants.LIST_DELETE,
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_DELETE,
             id: id,
           });
         } else {
           console.error(err.toString());
           console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
 
-export const load = () => {
-  return (dispatch) => {
+  load(id) {
+    request()
+      .get(serverURLs.list + id + '/')
+      .end((err, res) => {
+        if (!err && res) {
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_INIT,
+            id: res.body.id,
+            title: res.body.title,
+            item_count: res.body.item_count
+          });
+        } else {
+          console.error(err.toString());
+          console.error(res.body);
+          this.error(res.body);
+        }
+      });
+  }
+
+  init(active_list_id) {
     request()
       .get(serverURLs.list)
       .end((err, res) => {
         if (!err && res) {
-          dispatch({
-            type: ListConstants.LIST_INIT,
+          AppDispatcher.dispatch({
+            actionType: ListConstants.LIST_INIT,
             lists: res.body.results,
+            active_list_id: active_list_id,
           });
         } else {
           console.error(err.toString());
-          // console.error(res.body);
+          console.error(res.body);
+          this.error(res.body);
         }
       });
   }
-};
+}
+
+const ListAction = new ListActions();
+
+export default ListAction;

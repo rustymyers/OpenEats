@@ -31,7 +31,6 @@ class GroceryListNode(DjangoObjectType):
 class GroceryItemNode(DjangoObjectType):
     class Meta:
         model = GroceryItem
-        filter_fields = ['slug', 'list__id']
         interfaces = (graphene.relay.Node, )
 
     @classmethod

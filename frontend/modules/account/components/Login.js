@@ -5,10 +5,9 @@ import {
     defineMessages,
     formatMessage
 } from 'react-intl';
-
+import { browserHistory } from 'react-router'
 import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
-import Alert from './Alert'
 
 // Load in the base CSS
 require("./../css/login.scss");
@@ -20,36 +19,34 @@ function getAuthErrors() {
   };
 }
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
+export default injectIntl(React.createClass({
+  getInitialState: function() {
+    return getAuthErrors();
+  },
 
-    this.state = getAuthErrors();
-  }
-
-  componentDidMount() {
+  componentDidMount: function() {
     if (AuthStore.isAuthenticated()) {
-      this.props.history.push('/');
+      browserHistory.push('/');
     }
     AuthStore.addChangeListener(this._onChange);
-  }
+  },
 
-  componentWillUnmount() {
+  componentWillUnmount: function() {
     AuthStore.removeChangeListener(this._onChange);
-  }
+  },
 
-  _onChange = () => {
+  _onChange: function() {
     this.setState(getAuthErrors());
-  };
+  },
 
-  handleSubmit = e => {
+  handleSubmit: function(e) {
     e.preventDefault();
-    let username = this.refs.username.value;
-    let pass = this.refs.pass.value;
+    var username = this.refs.username.value;
+    var pass = this.refs.pass.value;
     AuthActions.getToken(username, pass);
-  };
+  },
+  render: function() {
 
-  render() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
       please_sign_in: {
@@ -84,6 +81,29 @@ class Login extends React.Component {
       </form>
     )
   }
-}
+}));
 
-export default injectIntl(Login)
+var Alert = injectIntl(React.createClass({
+  render: function() {
+
+    const {formatMessage} = this.props.intl;
+    const messages = defineMessages({
+      title: {
+        id: 'login.alert.unable_to_login',
+        description: 'Fail to login header',
+        defaultMessage: 'Unable to login!',
+      },
+      message: {
+        id: 'login.alert.confirm',
+        description: 'Fail to login message',
+        defaultMessage: 'Please confirm that the username and password are correct.',
+      }
+    });
+
+    return (
+      <div className="alert alert-danger">
+        <strong>{ formatMessage(messages.title) }</strong> { formatMessage(messages.message) }
+      </div>
+    )
+  }
+}));
