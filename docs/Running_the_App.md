@@ -1,6 +1,6 @@
 # Running the App
 
-The recommended way to run this app is with docker. You can install docker [here](https://www.docker.com/products/overview). If you are not familiar with docker you can read more about it on [there website](https://www.docker.com/what-docker).
+The recommended way to run this app is with docker. You can install docker [here](https://www.docker.com/products/overview). If you are not familiar with docker you can read more about it on [their website](https://www.docker.com/what-docker).
 
 If you are looking to run the app without docker, see the instructions [here](Running_without_Docker.md)
 
