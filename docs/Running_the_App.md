@@ -32,7 +32,7 @@ docker-compose -f docker-prod.yml up -d
 ### Running the app with docker for development
 ```bash
 git clone https://github.com/RyanNoelk/OpenEats.git
-cd openeats
+cd OpenEats
 git checkout dev
 docker-compose build
 docker-compose up -d
