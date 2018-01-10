@@ -22,12 +22,18 @@ class RecipeViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    queryset = Recipe.objects.all()
     serializer_class = serializers.RecipeSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('course__slug', 'cuisine__slug', 'course', 'cuisine', 'title', 'rating')
     search_fields = ('title', 'tags__title', 'ingredient_groups__ingredients__title')
+
+    def get_queryset(self):
+        # If user is anonymous, restrict recipes to public.
+        if self.request.user.is_authenticated:
+            return Recipe.objects.all()
+        else:
+            return Recipe.objects.filter(public=True)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -69,18 +75,24 @@ class MiniBrowseViewSet(viewsets.mixins.ListModelMixin,
     serializer_class = serializers.MiniBrowseSerializer
 
     def list(self, request, *args, **kwargs):
+        # If user is anonymous, restrict recipes to public.
+        if self.request.user.is_authenticated:
+            qs = Recipe.objects.all()
+        else:
+            qs = Recipe.objects.filter(public=True)
+
         # Get the limit from the request and the count from the DB.
         # Compare to make sure you aren't accessing more than possible.
         limit = int(request.query_params.get('limit'))
-        count = Recipe.objects.count()
+        count = qs.count()
         if limit > count:
             limit = count
 
         # Get all ids from the DB.
-        my_ids = Recipe.objects.values_list('id', flat=True)
+        my_ids = qs.values_list('id', flat=True)
         # Select a random sample from the DB.
         rand_ids = random.sample(my_ids, limit)
-        # set teh queryset to that random sample.
+        # set the queryset to that random sample.
         self.queryset = Recipe.objects.filter(id__in=rand_ids)
 
         return super(MiniBrowseViewSet, self).list(request, *args, **kwargs)
@@ -91,8 +103,12 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         query = Recipe.objects
-
         filter_set = {}
+
+        # If user is anonymous, restrict recipes to public.
+        if not self.request.user.is_authenticated:
+            filter_set['public']=True
+
         if 'cuisine' in self.request.query_params:
             try:
                 filter_set['cuisine'] = Cuisine.objects.get(

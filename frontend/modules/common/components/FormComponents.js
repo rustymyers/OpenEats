@@ -177,7 +177,7 @@ class Checkbox extends BaseComponent {
   render() {
     return (
       <div className={ this.props.size } key={ this.props.id }>
-        <label className="check-container">
+        <label className={ this.props.label ? "checkbox-control" : "check-container" }>
           <input
               type="checkbox"
               name={ this.props.name }
@@ -185,6 +185,7 @@ class Checkbox extends BaseComponent {
               onChange={ this.handleChange }
           />
           <span className="checkmark"/>
+          { this.props.label ? <div className="checklabel">{ this.props.label }</div> : null }
         </label>
       </div>
     )

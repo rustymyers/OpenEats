@@ -9,7 +9,7 @@ from . import views
 # Create a router and register our viewsets with it.
 router = DefaultRouter(schema_title='Recipes')
 router.register(r'mini-browse', views.MiniBrowseViewSet)
-router.register(r'recipes', views.RecipeViewSet)
+router.register(r'recipes', views.RecipeViewSet, base_name='recipes')
 router.register(r'rating', views.RatingViewSet, base_name='rating')
 
 urlpatterns = [

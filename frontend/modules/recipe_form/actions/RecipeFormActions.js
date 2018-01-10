@@ -18,7 +18,7 @@ export const create = () => {
   return (dispatch) => {
     dispatch({
       type: RecipeFormConstants.RECIPE_FORM_INIT,
-      data: { id: 0 },
+      data: { id: 0, public: true },
     });
   }
 };

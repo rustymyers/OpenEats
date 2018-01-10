@@ -57,6 +57,7 @@ class Recipe(models.Model):
     rating = models.IntegerField(_('rating'), help_text="rating of the meal", default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+    public = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-pub_date', 'title']

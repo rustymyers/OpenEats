@@ -1,10 +1,8 @@
-.check-container {
+.check-container, .checkbox-control {
   display: block;
   position: relative;
-  margin-left: -30px;
   margin-bottom: 7px;
   cursor: pointer;
-  font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -51,5 +49,12 @@
   &:hover input ~ .checkmark {
     background-color: #ccc;
   }
+  .checklabel {
+    padding-left: 30px;
+  }
 }
 
+.check-container {
+  margin-left: -30px;
+  font-size: 18px;
+}
