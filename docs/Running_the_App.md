@@ -44,7 +44,7 @@ Regardless of if your running the app in production or development, you need to 
 
 To create a super user:
 ``` bash
-docker-compose run --rm --entrypoint 'python manage.py createsuperuser' api
+docker-compose -f docker-prod.yml run --rm --entrypoint 'python manage.py createsuperuser' api
 ```
 Follow the prompts given to create your user. You can do this as many times as you like.
 
