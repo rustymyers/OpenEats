@@ -1,6 +1,6 @@
 # Running the App
 
-The recommended way to run this app is with docker. You can install docker [here](https://www.docker.com/products/overview). If you are not familiar with docker you can read more about it on [there website](https://www.docker.com/what-docker).
+The recommended way to run this app is with docker. You can install docker [here](https://www.docker.com/products/overview). If you are not familiar with docker you can read more about it on [their website](https://www.docker.com/what-docker).
 
 If you are looking to run the app without docker, see the instructions [here](Running_without_Docker.md)
 
@@ -32,7 +32,7 @@ docker-compose -f docker-prod.yml up -d
 ### Running the app with docker for development
 ```bash
 git clone https://github.com/RyanNoelk/OpenEats.git
-cd openeats
+cd OpenEats
 git checkout dev
 docker-compose build
 docker-compose up -d
@@ -44,7 +44,7 @@ Regardless of if your running the app in production or development, you need to 
 
 To create a super user:
 ``` bash
-docker-compose run --rm --entrypoint 'python manage.py createsuperuser' api
+docker-compose -f docker-prod.yml run --rm --entrypoint 'python manage.py createsuperuser' api
 ```
 Follow the prompts given to create your user. You can do this as many times as you like.
 
