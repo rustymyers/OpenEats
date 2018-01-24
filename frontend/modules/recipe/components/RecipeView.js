@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Recipe from '../containers/Recipe'
-import MiniBrowse from '../../browse/components/MiniBrowse'
+import MiniBrowse from '../../browse/containers/MiniBrowse'
 
 const RecipeView = ({ match }) => (
   <div className="container">
