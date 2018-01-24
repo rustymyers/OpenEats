@@ -9,7 +9,7 @@ import {
 } from 'react-intl'
 
 import { request } from '../../common/CustomSuperagent';
-import MiniBrowse from '../../browse/components/MiniBrowse'
+import MiniBrowse from '../../browse/containers/MiniBrowse'
 import { serverURLs } from '../../common/config'
 import documentTitle from '../../common/documentTitle'
 

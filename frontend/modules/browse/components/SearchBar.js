@@ -1,5 +1,6 @@
 import React from 'react'
 import DebounceInput from 'react-debounce-input';
+import PropTypes from 'prop-types'
 import {
     injectIntl,
     IntlProvider,
@@ -14,25 +15,21 @@ class SearchBar extends React.Component {
     this.state = {
       value: this.props.value || ''
     };
-
-    this._clearInput = this._clearInput.bind(this);
-    this._onChange = this._onChange.bind(this);
-    this._filter = this._filter.bind(this);
   }
 
-  _clearInput() {
+  _clearInput = () => {
     this.setState({ value: '' }, this._filter);
-  }
+  };
 
-  _onChange(event) {
+  _onChange = (event) =>  {
     this.setState({ value: event.target.value }, this._filter);
-  }
+  };
 
-  _filter() {
-    if (this.props.filter) {
-      this.props.filter('search', this.state.value);
+  _filter = () => {
+    if (this.props.doSearch) {
+      this.props.doSearch(this.state.value);
     }
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.value) {
@@ -43,7 +40,7 @@ class SearchBar extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.value !== nextProps.value;
+    return this.props.value !== nextProps.value || this.props.count !== nextProps.count;
   }
 
   render() {
@@ -59,6 +56,11 @@ class SearchBar extends React.Component {
         description: 'SearchBar mobile label',
         defaultMessage: 'Search',
       },
+      recipes: {
+        id: 'filter.recipes',
+        description: 'recipes',
+        defaultMessage: 'recipes',
+      },
       input_placeholder: {
         id: 'searchbar.placeholder',
         description: 'SearchBar input placeholder',
@@ -69,10 +71,8 @@ class SearchBar extends React.Component {
     let clearInput = '';
     if (this.state.value) {
       clearInput = (
-        <span className="input-group-btn">
-          <button className="btn btn-default" type="button" onClick={ this._clearInput }>
+        <span className="input-group-addon search-clear" onClick={ this._clearInput }>
             <span className="glyphicon glyphicon-remove" aria-hidden="true"/>
-          </button>
         </span>
       )
     }
@@ -81,8 +81,12 @@ class SearchBar extends React.Component {
       <div className={ this.props.format }>
         <div className="input-group search-bar">
           <span className="input-group-addon" id="search_bar_label">
-            <span className="hidden-xs">{ formatMessage(messages.search) }:</span>
-            <span className="visible-xs">{ formatMessage(messages.search_mobile) }:</span>
+            <span className="hidden-xs">
+              { formatMessage(messages.search) }:
+            </span>
+            <span className="visible-xs">
+              { formatMessage(messages.search_mobile) }:
+            </span>
           </span>
           <DebounceInput
             name="SearchBar"
@@ -94,10 +98,20 @@ class SearchBar extends React.Component {
             value={ this.state.value }
             onChange={ this._onChange }/>
           { clearInput }
+          <span className="input-group-addon hidden-xs">
+            { this.props.count } { formatMessage(messages.recipes) }
+          </span>
         </div>
       </div>
     )
   }
 }
 
-module.exports.SearchBar = injectIntl(SearchBar);
+SearchBar.propTypes = {
+  value: PropTypes.string,
+  format: PropTypes.string,
+  doSearch: PropTypes.func,
+  intl: PropTypes.object,
+};
+
+export default injectIntl(SearchBar);

@@ -1,71 +1,54 @@
 import React from 'react'
-import {
-    injectIntl,
-    IntlProvider,
-    defineMessages,
-    formatMessage
-} from 'react-intl';
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
-class Pagination extends React.Component {
-    constructor(props) {
-    super(props);
+const Pagination = ({ offset, limit, count, buildUrl }) => {
+  offset = offset ? parseInt(offset) : 0;
+  limit = limit ? parseInt(limit) : 0;
+  count = count ? parseInt(count) : 0;
+  let next = offset + limit;
+  let previous = offset - limit;
 
-    this._onClick = this._onClick.bind(this);
-  }
+  const link = (title, offset, key, active) => (
+    <li className={classNames({"page-item": true, "active": active})} key={ key }>
+      <Link className="page-link" to={ buildUrl('offset', offset) }>
+        { title }
+      </Link>
+    </li>
+  );
 
-  _onClick(event) {
-    event.preventDefault();
-    if (this.props.filter) {
-      this.props.filter('offset', parseInt(event.target.name));
+  const numbers = (offset, limit, count) => {
+    let numbers = [];
+
+    const min = 2, max = 5;
+    // Make sure we start at the min value
+    let start = offset - min < 1 ? 1 : offset - min;
+    // Make sure we start at the max value
+    start = start > count/limit-max ? count/limit-max : start;
+    // Only show data if we have results
+    start = start < 1 ? 1 : start;
+
+    for (let i = start; i < count/limit && i < max + start; i++) {
+      numbers.push(link(i+1, limit*i, i+1, offset==limit*i))
     }
-  }
+    return numbers
+  };
 
-  render() {
-    let offset = this.props.offset ? parseInt(this.props.offset) : 0;
-    let limit = this.props.limit ? parseInt(this.props.limit) : 0;
-    let count = this.props.count ? parseInt(this.props.count) : 0;
-    let next = offset + limit;
-    let previous = offset - limit;
-
-    const {formatMessage} = this.props.intl;
-    const messages = defineMessages({
-      newer: {
-        id: 'pagination.newer',
-        description: 'Newer content link text',
-        defaultMessage: 'Newer',
-      },
-      older: {
-        id: 'pagination.older',
-        description: 'Older content link text',
-        defaultMessage: 'Older',
-      }
-    });
-
-    return (
-      <ul className="pager">
-        <li className="previous">
-          { (previous >= 0) ?
-            <a href="#"
-               name={ previous }
-               onClick={ this._onClick }>
-              &larr; { formatMessage(messages.newer) }
-            </a>
-            : ''
-          }
-        </li>
-        <li className="next">
-          { (next < count) ?
-            <a href="#"
-               name={ next }
-               onClick={ this._onClick }>
-               { formatMessage(messages.older) } &rarr;
-            </a>
-            : ''
-          }
-        </li>
+  return (
+    <div className="text-center">
+      <ul className="pagination">
+        { (previous >= 0) ? link('←', previous, 'previous') : '' }
+        { link('1', 0, 'first', offset==0) }
+        { numbers(offset, limit, count) }
+        { (next < count) ? link('→', next, 'next') : '' }
       </ul>
-    );
-  }
-}
+    </div>
+  )
+};
 
-module.exports.Pagination = injectIntl(Pagination);
+Pagination.propTypes = {
+  buildUrl: PropTypes.func.isRequired
+};
+
+export default Pagination;

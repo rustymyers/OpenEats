@@ -1,100 +1,48 @@
 import React from 'react'
-import {
-    injectIntl,
-    IntlProvider,
-    defineMessages,
-    formatMessage
-} from 'react-intl';
+import PropTypes from 'prop-types'
 import classNames from 'classnames';
+import { Link } from 'react-router-dom'
 
-require("./../css/filter.scss");
+const Filter = ({title, qsTitle, data, qs, multiSelect, cssClass, buildUrl}) => {
+  const items = data.map((item) => {
+    if (item.total == 0) {
+      return null;
+    }
 
-class Filter extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: this.props.data || [],
-      loading: false,
-      filter: {}
-    };
-
-    this._onClick = this._onClick.bind(this);
-  }
-
-  _onClick(event) {
-    event.preventDefault();
-    this.props.doFilter(this.props.title, event.target.name);
-  }
-
-  render() {
-    const {formatMessage} = this.props.intl;
-    const messages = defineMessages({
-      filter_x: {
-        id: 'filter.filter_x',
-        description: 'Filter field',
-        defaultMessage: 'Filter {title}',
-      },
-      clear_filter: {
-        id: 'filter.clear_filter',
-        description: 'Clear filter button',
-        defaultMessage: 'Clear filter',
-      },
-      x_stars: {
-        id: 'filter.x_stars',
-        description: 'X Stars',
-        defaultMessage: '{rating, number} stars',
+    let active = false;
+    if (qs[qsTitle]) {
+      if (qs[qsTitle].split(',').includes(item.slug.toString())) {
+        active = true;
       }
-    });
-
-    const items = this.props.data.map((item) => {
-      if (this.props.title == "rating") {
-        item.slug = item.rating;
-        item.title = formatMessage(messages.x_stars, {rating: item.rating});
-      }
-
-      if (item.total == 0) {
-        return null;
-      }
-
-      return (
-        <a
-          className={ classNames(
-            "list-group-item",
-            {active: this.props.filter[this.props.title] === item.slug.toString()}
-          ) }
-          href="#"
-          key={ item.slug }
-          name={ item.slug }
-          onClick={ this._onClick }
-        >
-          { item.title }
-          <div className="clear"/>
-          <span className="badge">{ item.total }</span>
-        </a>
-      );
-    });
+    }
 
     return (
-      <div className="list-group filter">
-         <p className="list-group-item disabled">
-           <b className="hidden-xs">{ formatMessage(messages.filter_x, {title: this.props.title }) }</b>
-           <b className="visible-xs">{ this.props.title }</b>
-         </p>
-        { items }
-        { this.props.filter[this.props.title] ?
-          <a className="list-group-item clear-filter"
-             href="#"
-             name={ '' }
-             key={ 9999999999999999 }
-             onClick={ this._onClick }>
-            { formatMessage(messages.clear_filter) }
-          </a>
-          : ''
-        }
+      <div key={ item.slug } >
+        <Link to={ buildUrl(qsTitle, item.slug, multiSelect) } className={ classNames({"list-group-item": true, "active": active }) }>
+          { active ? <span className="glyphicon glyphicon-remove"/> : null }
+          { item.title }
+          { item.total ? <span className="badge">{ item.total }</span> : '' }
+        </Link>
       </div>
     );
-  }
-}
+  });
 
-module.exports.Filter = injectIntl(Filter);
+  return (
+    <div className={ "list-group filter " + cssClass }>
+      { title }
+      { items }
+    </div>
+  );
+};
+
+Filter.propTypes = {
+  title: PropTypes.string.isRequired,
+  qsTitle: PropTypes.string.isRequired,
+  data: PropTypes.array.isRequired,
+  multiSelect: PropTypes.bool,
+  qs: PropTypes.object.isRequired,
+  cssClass: PropTypes.string,
+  buildUrl: PropTypes.func.isRequired,
+};
+
+export default Filter;

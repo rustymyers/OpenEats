@@ -9,6 +9,7 @@ import {
   File,
   Select,
   TextArea,
+  Checkbox,
 } from '../../common/components/FormComponents'
 
 import IngredientBox from './IngredientBox'
@@ -160,6 +161,11 @@ class RecipeForm extends React.Component {
         id: 'recipe.create.optional',
         description: 'optional',
         defaultMessage: 'Optional',
+      },
+      public_label: {
+        id: 'recipe.create.public_label',
+        description: 'Recipe set public label',
+        defaultMessage: 'Public Recipe',
       },
       submit: {
         id: 'recipe.create.submit',
@@ -324,6 +330,13 @@ class RecipeForm extends React.Component {
                 errors={ this.props.form.errors.subrecipes }
                 change={ this.props.recipeFormActions.update }
                 fetchRecipeList={ this.props.recipeListActions.fetchRecipeList }
+              />
+              <Checkbox
+                name="public"
+                label={ formatMessage(messages.public_label) }
+                change={ this.props.recipeFormActions.update }
+                errors={ this.props.form.errors.public }
+                checked={ this.props.form.public }
               />
               {
                 this.props.form.id ?

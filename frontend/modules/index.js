@@ -20,7 +20,7 @@ import NotFound from './base/components/NotFound'
 import Login from './account/containers/Login'
 import News from './news/components/News'
 import List from './list/containers/List'
-import Browse from './browse/components/Browse'
+import Browse from './browse/containers/Browse'
 import Form from './recipe_form/containers/Form'
 import RecipeView from './recipe/components/RecipeView'
 

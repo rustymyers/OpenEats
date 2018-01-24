@@ -41,18 +41,22 @@ class CuisineCountViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         query = Recipe.objects
-
         filter_set = {}
+
+        # If user is anonymous, restrict recipes to public.
+        if not self.request.user.is_authenticated:
+            filter_set['public'] = True
+
         if 'course' in self.request.query_params:
             try:
-                filter_set['course'] = Course.objects.get(
-                    slug=self.request.query_params.get('course')
+                filter_set['course__in'] = Course.objects.filter(
+                    slug__in=self.request.query_params.get('course').split(',')
                 )
             except:
                 return []
 
         if 'rating' in self.request.query_params:
-            filter_set['rating'] = self.request.query_params.get('rating')
+            filter_set['rating__in'] = self.request.query_params.get('rating').split(',')
 
         if 'search' in self.request.query_params:
             query = get_search_results(
@@ -94,18 +98,22 @@ class CourseCountViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         query = Recipe.objects
-
         filter_set = {}
+
+        # If user is anonymous, restrict recipes to public.
+        if not self.request.user.is_authenticated:
+            filter_set['public'] = True
+
         if 'cuisine' in self.request.query_params:
             try:
-                filter_set['cuisine'] = Cuisine.objects.get(
-                    slug=self.request.query_params.get('cuisine')
+                filter_set['cuisine__in'] = Cuisine.objects.filter(
+                    slug__in=self.request.query_params.get('cuisine').split(',')
                 )
             except:
                 return []
 
         if 'rating' in self.request.query_params:
-            filter_set['rating'] = self.request.query_params.get('rating')
+            filter_set['rating__in'] = self.request.query_params.get('rating').split(',')
 
         if 'search' in self.request.query_params:
             query = get_search_results(
