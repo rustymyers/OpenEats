@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   api:
     build: api/
@@ -8,7 +8,8 @@ services:
       - static-files:/code/static-files
       - site-media:/code/site-media
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       env_stg.list
   node:
@@ -22,6 +23,10 @@ services:
       env_stg.list
   db:
     image: mariadb
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 20
     env_file:
       env_stg.list
   nginx:

@@ -19,6 +19,8 @@ static-files/
 database/
 frontend/build/
 frontend/jest/
+site-media/
+openeats.sql
 
 servies/static-files/
 servies/side-media/
