@@ -57,5 +57,4 @@ If you want to add some test data you can load a few recipes and some news data.
 ./manage.py loaddata news_data.json
 ./manage.py loaddata recipe_data.json
 ./manage.py loaddata ing_data.json
-./manage.py loaddata direction_data.json
 ```
