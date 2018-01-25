@@ -12,6 +12,17 @@ export const load = (id) => {
   }
 };
 
+export const deleteRecipe = (id) => {
+  return (dispatch) => {
+    request()
+      .delete(serverURLs.recipe + id + "/")
+      .then(res => {
+        dispatch({type: RecipeConstants.RECIPE_DELETE});
+        history.push('/browse');
+      })
+  }
+};
+
 export const updateServings = (key, value, recipe) => {
   return (dispatch) => {
     dispatch({

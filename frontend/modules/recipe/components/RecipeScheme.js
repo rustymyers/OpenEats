@@ -89,6 +89,7 @@ class RecipeScheme extends React.Component {
             source={ this.props.source }
             username={ this.props.username }
             updateDate={ this.props.update_date }
+            deleteRecipe={ this.props.recipeActions.deleteRecipe }
             showEditLink={ this.props.showEditLink }
           />
         </div>
