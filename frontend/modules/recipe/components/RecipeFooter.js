@@ -6,7 +6,7 @@ import {
     defineMessages,
 } from 'react-intl'
 
-const RecipeFooter = ({ id, source, username, updateDate, showEditLink, intl }) => {
+const RecipeFooter = ({ id, source, username, updateDate, showEditLink, deleteRecipe, intl }) => {
   const messages = defineMessages({
     source: {
       id: 'recipe.source',
@@ -23,10 +23,10 @@ const RecipeFooter = ({ id, source, username, updateDate, showEditLink, intl }) 
       description: 'Last Updated',
       defaultMessage: 'Last Updated'
     },
-    edit_recipe: {
-      id: 'recipe.edit_recipe',
-      description: 'Edit recipe button text',
-      defaultMessage: 'Edit recipe'
+    confirm_delete: {
+      id: 'recipe.confirm_delete',
+      description: 'Are you sure you want to delete this recipe?',
+      defaultMessage: 'Are you sure you want to delete this recipe?'
     },
   });
 
@@ -38,6 +38,12 @@ const RecipeFooter = ({ id, source, username, updateDate, showEditLink, intl }) 
     hostname = a.hostname;
   }
 
+  const handleDelete = () => {
+    if (confirm(intl.formatMessage(messages.confirm_delete))) {
+      deleteRecipe(id)
+    }
+  };
+
   const sourceLink = (
     <div>
       { intl.formatMessage(messages.source) }:
@@ -48,21 +54,28 @@ const RecipeFooter = ({ id, source, username, updateDate, showEditLink, intl }) 
   const editLink = (
     <Link to={ "/recipe/edit/" + id }>
       <button className="btn btn-primary btn-sm">
-        { intl.formatMessage(messages.edit_recipe) }
+        <span className="glyphicon glyphicon-pencil"/>
       </button>
     </Link>
+  );
+
+  const deleteLink = (
+    <button className="btn btn-danger btn-sm" onClick={ handleDelete }>
+      <span className="glyphicon glyphicon-trash"/>
+    </button>
   );
   
   return (
     <div className="panel-footer">
       <div className="row">
-        <div className="col-lg-10 col-md-6 col-xs-8">
+        <div className="col-xs-6">
           { (source) ? sourceLink : null }
           <div>{ intl.formatMessage(messages.created_by) }: { username }</div>
           <div>{ intl.formatMessage(messages.last_updated) }: { updateDate }</div>
         </div>
-        <div className="col-lg-2 col-md-6 col-xs-4 pull-right text-right">
+        <div className="col-xs-6 pull-right text-right">
           { showEditLink ? editLink : null }
+          { showEditLink ? deleteLink : null }
         </div>
       </div>
     </div>
