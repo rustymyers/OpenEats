@@ -22,14 +22,17 @@ const Pagination = ({ offset, limit, count, buildUrl }) => {
     let numbers = [];
 
     const min = 2, max = 5;
+    let floor = Math.floor(count/limit);
+    floor = count % limit === 0 ? floor : floor + 1;
+
     // Make sure we start at the min value
-    let start = offset - min < 1 ? 1 : offset - min;
+    let start = offset/limit - min < 1 ? 1 : offset/limit - min;
     // Make sure we start at the max value
-    start = start > count/limit-max ? count/limit-max : start;
+    start = start > floor-max ? floor-max : start;
     // Only show data if we have results
     start = start < 1 ? 1 : start;
 
-    for (let i = start; i < count/limit && i < max + start; i++) {
+    for (let i = start; i < floor && i < max + start; i++) {
       numbers.push(link(i+1, limit*i, i+1, offset==limit*i))
     }
     return numbers

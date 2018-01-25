@@ -46,6 +46,7 @@ class Browse extends React.Component {
   }
 
   reloadData(qs) {
+    window.scrollTo(0, 0);
     if (!this.props.search.results[queryString.stringify(this.mergeDefaultFilters(qs))]) {
       this.props.searchActions.loadRecipes(this.mergeDefaultFilters(qs));
     }
@@ -61,7 +62,6 @@ class Browse extends React.Component {
   }
 
   doSearch = (value) => {
-    console.log('hi');
     let qs = queryString.parse(this.props.location.search);
     value !== "" ? qs['search'] = value : delete qs['search'];
     let str = queryString.stringify(qs);
@@ -73,6 +73,7 @@ class Browse extends React.Component {
     if (!name) return '/browse/';
 
     let qs = queryString.parse(this.props.location.search);
+    delete qs['offset'];
 
     if (value !== "") {
       if (qs[name] && multiSelect) {
