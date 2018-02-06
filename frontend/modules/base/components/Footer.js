@@ -10,7 +10,7 @@ require("../css/footer.css");
 class Footer extends React.Component{
   render() {
     return (
-      <footer className="footer">
+      <footer className="footer print-hidden">
         <div className="container">
           <p className="text-muted">
             <FormattedMessage
@@ -25,10 +25,10 @@ class Footer extends React.Component{
             <FormattedMessage
               id='footer.icon_credit'
               description='Footer icons credit'
-              defaultMessage='Icons made by {link} ({ccLink})'
+              defaultMessage='Icons by {link} ({ccLink})'
               values={{
                 link: <a href="http://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a>,
-                ccLink: <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+                ccLink: <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons" target="_blank">CC BY 3.0</a>
               }}
             />
           </p>
@@ -37,9 +37,5 @@ class Footer extends React.Component{
     );
   }
 }
-
-Footer.propTypes = {
-    intl: intlShape.isRequired,
-};
 
 export default injectIntl(Footer);

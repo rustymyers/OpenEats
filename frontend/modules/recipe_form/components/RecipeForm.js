@@ -1,101 +1,46 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
 import {
-    injectIntl,
-    IntlProvider,
-    defineMessages,
-    formatMessage
+  injectIntl,
+  defineMessages,
 } from 'react-intl';
-import AuthStore from '../../account/stores/AuthStore'
-import { RecipeStore, INIT_EVENT, ERROR_EVENT, CHANGE_EVENT } from '../stores/RecipeStore';
-import RecipeActions from '../actions/RecipeActions';
 
-import { DirectionList, IngredientList } from './DataList'
+import {
+  Input,
+  File,
+  Select,
+  TextArea,
+  Checkbox,
+} from '../../common/components/FormComponents'
+
+import IngredientBox from './IngredientBox'
+import DirectionBox from './DirectionBox'
+import SubRecipeBox from './SubRecipeBox'
 import TagList from './TagList'
-import { Input, File, Alert, Select, TextArea } from '../../common/form/FormComponents'
+import Status from './Status'
 
-require("./../css/create.scss");
+require("./../css/recipe_form.scss");
 
 class RecipeForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.getStateFromStore();
-
-    this._onInit = this._onInit.bind(this);
-    this._onChange = this._onChange.bind(this);
-    this.setErrors = this.setErrors.bind(this);
-    this.CreateRecipe = this.CreateRecipe.bind(this);
-  }
-
-  getStateFromStore() {
-    return {
-      data: RecipeStore.getForm(),
-      course: RecipeStore.getCourse(),
-      cuisine: RecipeStore.getCuisine(),
-      tags: RecipeStore.getTags(),
-      errors: false
-    };
-  }
-
-  getErrorsFromStore() {
-    return RecipeStore.getError();
-  }
-
-  getAuthUser() {
-    return AuthStore.getUser();
-  }
-
-  componentDidMount() {
-    RecipeActions.init(this.props.params.id);
-    RecipeStore.addChangeListener(INIT_EVENT, this._onInit);
-    RecipeStore.addChangeListener(CHANGE_EVENT, this._onChange);
-    RecipeStore.addChangeListener(ERROR_EVENT, this.setErrors);
-  }
-
-  componentWillUnmount() {
-    RecipeStore.removeChangeListener(INIT_EVENT, this._onInit);
-    RecipeStore.removeChangeListener(CHANGE_EVENT, this._onChange);
-    RecipeStore.removeChangeListener(ERROR_EVENT, this.setErrors);
-  }
-
-  _onInit() {
-    const state = this.getStateFromStore();
-    this.setState(state);
-
-    if (Object.keys(state.data).length > 0) {
-      const user = this.getAuthUser();
-      if (state.data.author !== user.id && state.data.id) {
-        browserHistory.replace('/recipe/' + state.data.id);
-      }
+  getRecipeImage = (photo_thumbnail) => {
+    if (photo_thumbnail) {
+      return photo_thumbnail;
+    } else {
+      return '/images/fried-eggs.png';
     }
-  }
+  };
 
-  _onChange() {
-    this.setState({ data: RecipeStore.getForm() });
-  }
-
-  setErrors() {
-    this.setState({
-      errors: this.getErrorsFromStore()
-    });
-  }
-
-  CreateRecipe(e) {
+  save = e => {
     e.preventDefault();
-    RecipeActions.submit(this.state.data);
-  }
+    this.props.recipeFormActions.save(this.props.form);
+  };
 
-  update(name, value) {
-    RecipeActions.update(name, value);
-  }
-
-  getErrors(name) {
-    return (this.state.errors !== false && name in this.state.errors) ? this.state.errors[name] : false ;
-  }
+  submit = e => {
+    e.preventDefault();
+    this.props.recipeFormActions.submit(this.props.form);
+  };
 
   render() {
-
-    const {formatMessage} = this.props.intl;
+    const { formatMessage } = this.props.intl;
     const messages = defineMessages({
       name_label: {
         id: 'recipe.create.name_label',
@@ -121,6 +66,11 @@ class RecipeForm extends React.Component {
         id: 'recipe.create.tags_label',
         description: 'Tags label',
         defaultMessage: 'Tags',
+      },
+      tags_placeholder: {
+        id: 'recipe.create.tags_placeholder',
+        description: 'Tags Placeholder',
+        defaultMessage: 'Separate each tag by comma',
       },
       prep_time_label: {
         id: 'recipe.create.prep_time_label',
@@ -162,6 +112,11 @@ class RecipeForm extends React.Component {
         description: 'Rating placeholder',
         defaultMessage: 'Rate this recipe from 0 to 5',
       },
+      subrecipes_label: {
+        id: 'recipe.create.subrecipes_label',
+        description: 'Recipe links label',
+        defaultMessage: 'Recipe links',
+      },
       ingredients_label: {
         id: 'recipe.create.ingredients_label',
         description: 'Recipe ingredients label',
@@ -202,51 +157,77 @@ class RecipeForm extends React.Component {
         description: 'Photo placeholder',
         defaultMessage: 'Photo',
       },
+      optional: {
+        id: 'recipe.create.optional',
+        description: 'optional',
+        defaultMessage: 'Optional',
+      },
+      public_label: {
+        id: 'recipe.create.public_label',
+        description: 'Recipe set public label',
+        defaultMessage: 'Public Recipe',
+      },
       submit: {
         id: 'recipe.create.submit',
         description: 'Submit recipe button',
         defaultMessage: 'Submit recipe',
+      },
+      save: {
+        id: 'recipe.create.save',
+        description: 'Save recipe button',
+        defaultMessage: 'Save recipe',
       }
     });
 
     return (
       <div className="container">
         <div className="row">
-          <div id="recipe" className="col-lg-push-1 col-lg-10">
-            <form className="recipe-form">
-              <Input
-                name="title"
-                type="text"
-                label={ formatMessage(messages.name_label) }
-                placeholder={ formatMessage(messages.name_placeholder) }
-                change={ this.update }
-                value={ this.state.data.title }
-                errors={ this.getErrors('title') } />
+          <form className="recipe-form">
+            <div className="col-md-12">
+              <Status
+                  status={ this.props.status }
+                  actions={ this.props.statusActions }
+              />
+            </div>
+            <div id="recipe" className="col-lg-4 col-md-5">
+              <img src={ this.getRecipeImage(this.props.form.photo_thumbnail) } />
+
+              <File
+                name="photo"
+                placeholder={ formatMessage(messages.photo_placeholder) }
+                accept="image/*"
+                change={ this.props.recipeFormActions.update }
+              />
+
               <div className="row">
                 <Select
                   name="course"
-                  data={ this.state.course }
+                  data={ this.props.courses }
                   label={ formatMessage(messages.course_label) }
-                  size="col-sm-4 col-xs-12"
-                  change={ this.update }
-                  value={ this.state.data.course }
-                  errors={ this.getErrors('course') } />
+                  size="col-sm-6 col-xs-12"
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.course || '' }
+                  errors={ this.props.form.errors.course }
+                />
                 <Select
                   name="cuisine"
-                  data={ this.state.cuisine }
+                  data={ this.props.cuisines }
                   label={ formatMessage(messages.cuisine_label) }
-                  size="col-sm-4 col-xs-12"
-                  change={ this.update }
-                  value={ this.state.data.cuisine }
-                  errors={ this.getErrors('cuisine') } />
+                  size="col-sm-6 col-xs-12"
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.cuisine || ''  }
+                  errors={ this.props.form.errors.cuisine }
+                />
                 <TagList
                   name="tags"
-                  data={ this.state.tags }
-                  label={ formatMessage(messages.tags_label) }
-                  size="col-sm-4 col-xs-12"
-                  change={ this.update }
-                  tags={ this.state.data.tags }
-                  errors={ this.getErrors('tags') } />
+                  data={ this.props.tags }
+                  label={ formatMessage(messages.tags_label) + " (" + formatMessage(messages.optional) + ")" }
+                  size="col-sm-12 col-xs-12"
+                  placeholder={ formatMessage(messages.tags_placeholder) }
+                  change={ this.props.recipeFormActions.update }
+                  tags={ this.props.form.tags || '' }
+                  errors={ this.props.form.errors.tags }
+                />
               </div>
 
               <div className="row">
@@ -255,93 +236,127 @@ class RecipeForm extends React.Component {
                   type="number"
                   label={ formatMessage(messages.prep_time_label) }
                   placeholder={ formatMessage(messages.prep_time_placeholder) }
-                  size="col-sm-3 col-xs-12"
-                  change={ this.update }
-                  value={ this.state.data.prep_time }
-                  errors={ this.getErrors('prep_time') } />
+                  size="col-sm-6 col-xs-12"
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.prep_time || '' }
+                  errors={ this.props.form.errors.prep_time }
+                />
                 <Input
                   name="cook_time"
                   type="number"
                   label={ formatMessage(messages.cooking_time_label) }
                   placeholder={ formatMessage(messages.cooking_time_placeholder) }
-                  size="col-sm-3 col-xs-12"
-                  change={ this.update }
-                  value={ this.state.data.cook_time }
-                  errors={ this.getErrors('cook_time') } />
+                  size="col-sm-6 col-xs-12"
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.cook_time || '' }
+                  errors={ this.props.form.errors.cook_time }
+                />
+              </div>
+              <div className="row">
                 <Input
                   name="servings"
                   type="number"
                   label={ formatMessage(messages.servings_label) }
                   placeholder={ formatMessage(messages.servings_placeholder) }
-                  size="col-sm-3 col-xs-12"
-                  change={ this.update }
-                  value={ this.state.data.servings }
-                  errors={ this.getErrors('servings') } />
+                  size="col-sm-6 col-xs-12"
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.servings || '' }
+                  errors={ this.props.form.errors.servings }
+                />
                 <Input
                   name="rating"
                   type="number"
-                  label={ formatMessage(messages.rating_label) }
+                  label={ formatMessage(messages.rating_label) + " (" + formatMessage(messages.optional) + ")" }
                   placeholder={ formatMessage(messages.rating_placeholder) }
-                  size="col-sm-3 col-xs-12"
-                  change={ this.update }
-                  value={ this.state.data.rating }
-                  errors={ this.getErrors('rating') } />
+                  size="col-sm-6 col-xs-12"
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.rating || '' }
+                  errors={ this.props.form.errors.rating }
+                />
+              </div>
+              <div className="row">
+                <Input
+                  name="source"
+                  type="text"
+                  size="col-xs-12"
+                  label={ formatMessage(messages.source_label) + " (" + formatMessage(messages.optional) + ")" }
+                  placeholder={ formatMessage(messages.source_placeholder) }
+                  change={ this.props.recipeFormActions.update }
+                  value={ this.props.form.source || '' }
+                  errors={ this.props.form.errors.source }
+                />
               </div>
 
-              <IngredientList
-                name="ingredients"
-                label={ formatMessage(messages.ingredients_label) }
-                change={ this.update }
-                data={ this.state.data.ingredients }
-                errors={ this.getErrors('ingredients') } />
-              <DirectionList
-                name="directions"
-                label={ formatMessage(messages.directions_label) }
-                change={ this.update }
-                data={ this.state.data.directions }
-                errors={ this.getErrors('directions') } />
+            </div>
+            <div id="recipe" className="col-lg-8 col-md-7">
+              <Input
+                name="title"
+                type="text"
+                label={ formatMessage(messages.name_label) }
+                placeholder={ formatMessage(messages.name_placeholder) }
+                change={ this.props.recipeFormActions.update }
+                value={ this.props.form.title || '' }
+                errors={ this.props.form.errors.title }
+              />
               <TextArea
                 name="info"
                 rows="4"
-                label={ formatMessage(messages.information_label) }
+                label={ formatMessage(messages.information_label) + " (" + formatMessage(messages.optional) + ")" }
                 placeholder={ formatMessage(messages.information_placeholder) }
-                change={ this.update }
-                value={ this.state.data.info }
-                errors={ this.getErrors('info') } />
-              <Input
-                name="source"
-                type="text"
-                label={ formatMessage(messages.source_label) }
-                placeholder={ formatMessage(messages.source_placeholder) }
-                change={ this.update }
-                value={ this.state.data.source }
-                errors={ this.getErrors('source') } />
-
-              { this.state.data.photo_thumbnail ?
-                <img src={ this.state.data.photo_thumbnail } /> :
-                null
+                change={ this.props.recipeFormActions.update }
+                value={ this.props.form.info || '' }
+                errors={ this.props.form.errors.info }
+              />
+              <IngredientBox
+                name="ingredient_groups"
+                id={ this.props.form.id }
+                label={ formatMessage(messages.ingredients_label) }
+                data={ this.props.form.ingredient_groups || '' }
+                errors={ this.props.form.errors.ingredient_groups }
+                change={ this.props.recipeFormActions.update }
+              />
+              <DirectionBox
+                name="directions"
+                label={ formatMessage(messages.directions_label) }
+                data={ this.props.form.directions || '' }
+                errors={ this.props.form.errors.directions }
+                change={ this.props.recipeFormActions.update }
+              />
+              <SubRecipeBox
+                name="subrecipes"
+                id={ this.props.form.id }
+                label={ formatMessage(messages.subrecipes_label) + " (" + formatMessage(messages.optional) + ")"  }
+                data={ this.props.form.subrecipes || [] }
+                errors={ this.props.form.errors.subrecipes }
+                change={ this.props.recipeFormActions.update }
+                fetchRecipeList={ this.props.recipeListActions.fetchRecipeList }
+              />
+              <Checkbox
+                name="public"
+                label={ formatMessage(messages.public_label) }
+                change={ this.props.recipeFormActions.update }
+                errors={ this.props.form.errors.public }
+                checked={ this.props.form.public }
+              />
+              {
+                this.props.form.id ?
+                  <button
+                    className="btn btn-success"
+                    onClick={ this.save }>
+                      { formatMessage(messages.save) }
+                  </button> : ''
               }
-
-              <File
-                name="photo"
-                label={ formatMessage(messages.photo_label) }
-                placeholder={ formatMessage(messages.photo_placeholder) }
-                accept="image/*"
-                change={ this.update } />
-
-              { this.state.errors !== false ? ( <Alert/> ) : ''}
               <button
                 className="btn btn-primary"
-                onClick={ this.CreateRecipe }>
+                onClick={ this.submit }>
                   { formatMessage(messages.submit) }
               </button>
-
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     )
   }
-};
+}
 
-module.exports.RecipeForm = injectIntl(RecipeForm);
+export default injectIntl(RecipeForm);

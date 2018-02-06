@@ -1,7 +1,7 @@
 version: '2'
 services:
   api:
-    command: bash tests.sh
+    command: sh tests.sh
     build: api/
     volumes:
       - static-files:/code/static-files

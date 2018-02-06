@@ -1,28 +1,27 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default React.createClass({
-  getInitialState: function() {
-    return {
-      data: this.props.data || []
-    };
-  },
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({data: nextProps.data});
-  },
-
-  render: function() {
-    var directions = this.state.data.map(function(direction) {
-      return (
-        <li className="direction" key={ direction.step }>
-          { direction.title }
+const Directions = ({ data }) => {
+  let directions = [];
+  data.split("\n").map((direction, i) => {
+    if (direction.length > 0) {
+      directions.push(
+        <li className="direction" key={ i }>
+          { direction }
         </li>
       );
-    });
-    return (
-      <ol className="directions" >
-        { directions }
-      </ol>
-    );
-  }
-});
+    }
+  });
+
+  return (
+    <ol className="directions" >
+      { directions }
+    </ol>
+  );
+};
+
+Directions.PropTypes = {
+  data: PropTypes.string.isRequired
+};
+
+export default Directions;

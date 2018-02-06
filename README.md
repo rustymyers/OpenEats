@@ -9,6 +9,8 @@ The usage for the app is intended for a single user or a small group. For my per
 - Creating, viewing, and editing recipes.
 - Browsing and searching for recipes.
 - Creating grocery lists
+- Quickly print recipe.
+- Linking recipes and ingredient grouping
 
 ### [Read the docs on getting started here!](https://github.com/RyanNoelk/OpenEats/blob/master/docs/Running_the_App.md)
 

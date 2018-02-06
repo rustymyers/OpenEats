@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 NAME="OpenEats"                                   # Name of the application
 DJANGODIR=/code                                   # Django project directory

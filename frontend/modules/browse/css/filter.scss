@@ -1,17 +1,50 @@
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
 
+.filter-title {
+  margin-top: 20px;
+  background-color: #eee;
+  padding: 6px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #555555;
+}
 
 .sidebar {
-  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding-top: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  .reset-search {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
   .filter {
     .list-group-item {
-      padding: 7px;
+      border: 0;
+      padding: 3px 7px;
+      color: #337ab7;
       .clear {
         clear: both;
       }
+      .glyphicon {
+        margin-right: 5px;
+      }
       .badge {
         display: block;
-        margin-top: -20px;
+        color: #fff;
+        background-color: #777777;
+      }
+      &.active {
+        background-color: #ffffff;
+        color: #337ab7;
+        font-weight: bold;
+        &:hover {
+          background-color: #eeeeee;
+          color: #135a97;
+        }
       }
     }
     .clear-filter {
@@ -38,6 +71,20 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 10px;
+    .filter-header {
+      .reset-margin {
+        margin-right: 60px;
+      }
+    }
+    .filter-header-clear {
+      float: right;
+      margin-top: -30px;
+      .clear-filter-mobile {
+        position: relative;
+        left: 10px;
+        padding: 9px;
+      }
+    }
   }
   .sidebar {
     border: 1px solid #ddd;

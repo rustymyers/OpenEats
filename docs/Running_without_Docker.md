@@ -1,7 +1,9 @@
-## Running Openeats
+## Running OpenEats
 
-* `git clone https://github.com/RyanNoelk/OpenEats.git`
-* `cd openeats`
+#### Warning! This docs are outdated. The recommended way to install OpenEats is via docker.
+
+* `git clone https://github.com/RyanNoelk/openeats.git`
+* `cd openeats/api`
 * `git checkout dev`
 * Create a python virtual environment (I use [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)).
 * `pip install -r base/requirements.txt`
@@ -27,9 +29,9 @@ If you want to add some test data we can load a few recipes and some news data. 
 
 Now we need to gather all the static fields for the django rest framework and django admin panel.
 
-* `./manage collectstatic`
+* `./manage.py collectstatic`
 
-That should be it! you can run the dev server now to load up the api `./manage runserver`.
+That should be it! you can run the dev server now to load up the api `./manage.py runserver`.
 
 Load up `http://localhost:8000/admin/` in a browser and see the results.
 
