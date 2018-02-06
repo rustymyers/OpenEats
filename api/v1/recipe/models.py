@@ -19,7 +19,9 @@ class Recipe(models.Model):
     Courses have a one to Many relation with Recipes.
     Cuisines have a one to Many relation with Recipes.
     Tags have a Many to Many relation with Recipes.
-    Ingredients have a Many to one relation with Recipes.
+    Ingredient Groups have a Many to one relation with Recipes.
+    Subrecipes have a Many to Many relation with Recipes. 
+        They allow another recipe to be show in the Ingredient section.
 
     :title: = Title of the Recipe
     :author: = Creator of the Recipe
@@ -45,7 +47,9 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine, verbose_name=_('cuisine'))
     course = models.ForeignKey(Course, verbose_name=_('course'))
     tags = models.ManyToManyField(Tag, verbose_name=_('tag'), blank=True)
-    info = models.TextField(_('info'), help_text="enter information about the recipe")
+    subrecipes = models.ManyToManyField('self', verbose_name=_('subrecipes'), through='SubRecipe', symmetrical=False)
+    info = models.TextField(_('info'), help_text="enter information about the recipe", blank=True)
+    directions = models.TextField(_('direction_text'), help_text="directions", blank=True)
     source = models.CharField(_('course'), max_length=200, blank=True)
     prep_time = models.IntegerField(_('prep time'), help_text="enter time in minutes")
     cook_time = models.IntegerField(_('cook time'), help_text="enter time in minutes")
@@ -53,28 +57,20 @@ class Recipe(models.Model):
     rating = models.IntegerField(_('rating'), help_text="rating of the meal", default=0)
     pub_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+    public = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-pub_date', 'title']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
 
-class Direction(models.Model):
-    """
-    Django Model to hold a Direction.
-    Directions share a many to one relationship.
-    Meaning each Recipe will have many Directions.
-    :title: = Title of the Direction (EX: Mix flour with the meat.)
-    :step: = Order of the Directions (EX: 1)
-    """
-    step = models.IntegerField(_('step'))
-    title = models.TextField(_('title'))
-    recipe = models.ForeignKey(Recipe, verbose_name=_('recipe'), related_name='directions', null=True)
-
-    class Meta:
-        ordering = ['step']
+class SubRecipe(models.Model):
+    quantity = models.IntegerField(_('quantity'), blank=True, null=True)
+    measurement = models.TextField(_('measurement'), blank=True, null=True)
+    child_recipe = models.ForeignKey("Recipe", verbose_name=_('subrecipe'), related_name='child_recipe', null=True)
+    parent_recipe = models.ForeignKey("Recipe", verbose_name=_('parent_recipe'), related_name='parent_recipe', null=True)
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.parent_recipe.title

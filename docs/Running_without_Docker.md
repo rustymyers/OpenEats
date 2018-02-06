@@ -1,5 +1,7 @@
 ## Running OpenEats
 
+#### Warning! This docs are outdated. The recommended way to install OpenEats is via docker.
+
 * `git clone https://github.com/RyanNoelk/openeats.git`
 * `cd openeats/api`
 * `git checkout dev`

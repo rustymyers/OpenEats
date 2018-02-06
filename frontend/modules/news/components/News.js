@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { Carousel } from 'react-bootstrap'
 import {
     injectIntl,
@@ -9,8 +9,9 @@ import {
 } from 'react-intl'
 
 import { request } from '../../common/CustomSuperagent';
-import MiniBrowse from '../../browse/components/MiniBrowse'
+import MiniBrowse from '../../browse/containers/MiniBrowse'
 import { serverURLs } from '../../common/config'
+import documentTitle from '../../common/documentTitle'
 
 require("./../css/news.scss");
 
@@ -27,9 +28,8 @@ class News extends React.Component {
 
   loadNewsFromServer() {
     let url = serverURLs.news;
-    request
+    request()
       .get(url)
-      .type('json')
       .end((err, res) => {
         if (!err && res) {
           this.setState({ news: res.body.results });
@@ -43,6 +43,10 @@ class News extends React.Component {
     this.loadNewsFromServer();
   }
 
+  componentWillUnmount() {
+    documentTitle();
+  }
+
   render() {
     const {formatMessage} = this.props.intl;
     const messages = defineMessages({
@@ -52,6 +56,7 @@ class News extends React.Component {
         defaultMessage: 'Browse All Recipes',
       },
     });
+    documentTitle(this.props.intl.messages['nav.news']);
 
     let carouselItems = this.state.news.map((entry) => {
       return (
@@ -87,4 +92,4 @@ class News extends React.Component {
   }
 }
 
-module.exports = injectIntl(News);
+export default injectIntl(News);

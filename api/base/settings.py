@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.staticfiles',
 
+    'graphene_django',
     'rest_framework',
     'rest_framework.authtoken',
     'coreapi',
@@ -112,6 +113,14 @@ INSTALLED_APPS = (
     'django_extensions',
     'corsheaders'
 )
+
+# Where your Graphene schema lives
+GRAPHENE = {
+    'SCHEMA': 'base.graphql.schema',
+    'MIDDLEWARE': (
+        'graphene_django.debug.DjangoDebugMiddleware',
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -149,7 +158,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication'
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',
+    }
 }
 
 # We don't want the API to serve static in production.

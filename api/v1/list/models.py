@@ -27,7 +27,7 @@ class GroceryList(models.Model):
         ordering = ['pub_date']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
     def item_count(self):
         """get the number of items in the list"""
@@ -42,7 +42,7 @@ class GroceryItem(models.Model):
     completed = Whether or not the GroceryItem has been purchased or
                 added to the users shopping cart in the supermarket.
     """
-    list = models.ForeignKey(GroceryList, verbose_name=_('grocery list'), related_name='items')
+    list = models.ForeignKey(GroceryList, verbose_name=_('grocery_list'), related_name='items')
     title = models.CharField(_("title"), max_length=550)
     completed = models.BooleanField(_("completed"), default=False)
 
@@ -50,7 +50,7 @@ class GroceryItem(models.Model):
         ordering = ['pk']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
 
 class GroceryShared(models.Model):
@@ -66,7 +66,7 @@ class GroceryShared(models.Model):
     shared_to = models.ForeignKey(User, verbose_name=_('shared to'), related_name="shared_to")
 
     def __unicode__(self):
-        return self.list.title
+        return '%s' % self.list.title
 
 
 class GroceryRecipe(models.Model):
@@ -79,4 +79,4 @@ class GroceryRecipe(models.Model):
     recipe = models.ForeignKey(Recipe, verbose_name=_('recipe'))
 
     def __unicode__(self):
-        return self.recipe.title
+        return '%s' % self.recipe.title

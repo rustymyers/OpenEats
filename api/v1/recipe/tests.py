@@ -9,13 +9,14 @@ from django.test import TestCase
 from v1.recipe.serializers import RecipeSerializer
 from v1.recipe.models import Recipe
 
+
 class RecipeSerializerTests(unittest.TestCase):
     def setUp(self):
         self.serializer = RecipeSerializer()
         self.data = {
             "id": 1,
             "ingredients": [],
-            "directions": [],
+            "directions": '',
             "tags": [],
             "title": "Recipe name",
             "info": "Recipe info",

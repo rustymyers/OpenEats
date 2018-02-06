@@ -43,7 +43,7 @@ class Course(models.Model):
         ordering = ['title']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
 
 class Tag(models.Model):
@@ -61,7 +61,7 @@ class Tag(models.Model):
         ordering = ['title']
 
     def __unicode__(self):
-        return self.title
+        return '%s' % self.title
 
     def recipe_count(self):
         return self.recipe_set.filter(shared=0).count()

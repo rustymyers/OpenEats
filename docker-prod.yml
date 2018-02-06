@@ -1,27 +1,30 @@
-version: '2'
+version: '2.1'
 services:
   api:
     image: openeats/api
-    command: ./base/gunicorn_start.sh
+    command: /startup/prod-entrypoint.sh
     restart: on-failure
     volumes:
       - static-files:/code/static-files
       - site-media:/code/site-media
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       env_prod.list
   node:
     image: openeats/node
     command: npm start
-    volumes:
-      - node_modules:/code/node_modules
     depends_on:
       - api
     env_file:
       env_prod.list
   db:
     image: mariadb
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 20
     env_file:
       env_prod.list
   nginx:
@@ -39,6 +42,5 @@ services:
       env_prod.list
 volumes:
   database:
-  node_modules:
   static-files:
   site-media:

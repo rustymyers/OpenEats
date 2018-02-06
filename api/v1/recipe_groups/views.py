@@ -5,13 +5,29 @@ from __future__ import unicode_literals
 from django.db.models import Q
 from django.db.models import Count
 from v1.recipe_groups.models import Cuisine, Course, Tag
+from v1.recipe.models import Recipe
 from v1.recipe_groups import serializers
 from rest_framework import permissions
 from rest_framework import viewsets
 from v1.common.permissions import IsOwnerOrReadOnly
+from v1.common.recipe_search import get_search_results
 
 
 class CuisineViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+
+    Uses `title` as the PK for any lookups.
+    """
+    queryset = Cuisine.objects.all()
+    serializer_class = serializers.CuisineSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
+    lookup_field = 'slug'
+
+
+class CuisineCountViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
@@ -24,36 +40,51 @@ class CuisineViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
 
     def get_queryset(self):
-        query = Cuisine.objects
+        query = Recipe.objects
+        filter_set = {}
 
-        filter = {}
+        # If user is anonymous, restrict recipes to public.
+        if not self.request.user.is_authenticated:
+            filter_set['public'] = True
+
         if 'course' in self.request.query_params:
             try:
-                filter['recipe__course'] = Course.objects.get(
-                    slug=self.request.query_params.get('course')
+                filter_set['course__in'] = Course.objects.filter(
+                    slug__in=self.request.query_params.get('course').split(',')
                 )
             except:
                 return []
 
         if 'rating' in self.request.query_params:
-            filter['recipe__rating'] = self.request.query_params.get('rating')
+            filter_set['rating__in'] = self.request.query_params.get('rating').split(',')
 
         if 'search' in self.request.query_params:
-            search = self.request.query_params.get('search')
-            query = query.filter((
-                    Q(recipe__title__icontains=search) |
-                    Q(recipe__ingredients__title__icontains=search) |
-                    Q(recipe__tags__title__icontains=search)
-                ),
-                **filter
-            )
-        else:
-            query = query.filter(**filter)
+            query = get_search_results(
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
+                query,
+                self.request.query_params.get('search')
+            ).distinct()
 
-        return query.annotate(total=Count('recipe', distinct=True))
+        query = query.filter(**filter_set)
+
+        return Cuisine.objects.filter(recipe__in=query).annotate(total=Count('recipe', distinct=True))
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+
+    Uses `title` as the PK for any lookups.
+    """
+    queryset = Course.objects.all()
+    serializer_class = serializers.CourseSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
+    lookup_field = 'slug'
+
+
+class CourseCountViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
@@ -66,33 +97,34 @@ class CourseViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
 
     def get_queryset(self):
-        query = Course.objects
+        query = Recipe.objects
+        filter_set = {}
 
-        filter = {}
+        # If user is anonymous, restrict recipes to public.
+        if not self.request.user.is_authenticated:
+            filter_set['public'] = True
+
         if 'cuisine' in self.request.query_params:
             try:
-                filter['recipe__cuisine'] = Cuisine.objects.get(
-                    slug=self.request.query_params.get('cuisine')
+                filter_set['cuisine__in'] = Cuisine.objects.filter(
+                    slug__in=self.request.query_params.get('cuisine').split(',')
                 )
             except:
                 return []
 
         if 'rating' in self.request.query_params:
-            filter['recipe__rating'] = self.request.query_params.get('rating')
+            filter_set['rating__in'] = self.request.query_params.get('rating').split(',')
 
         if 'search' in self.request.query_params:
-            search = self.request.query_params.get('search')
-            query = query.filter((
-                    Q(recipe__title__icontains=search) |
-                    Q(recipe__ingredients__title__icontains=search) |
-                    Q(recipe__tags__title__icontains=search)
-                ),
-                **filter
-            )
-        else:
-            query = query.filter(**filter)
+            query = get_search_results(
+                ['title', 'ingredient_groups__ingredients__title', 'tags__title'],
+                query,
+                self.request.query_params.get('search')
+            ).distinct()
 
-        return query.annotate(total=Count('recipe', distinct=True))
+        query = query.filter(**filter_set)
+
+        return Course.objects.filter(recipe__in=query).annotate(total=Count('recipe', distinct=True))
 
 
 class TagViewSet(viewsets.ModelViewSet):
